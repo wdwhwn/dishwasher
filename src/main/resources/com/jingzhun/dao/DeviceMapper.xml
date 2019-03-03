@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.DeviceDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.Device" >
+    <id column="device_id" property="deviceId" jdbcType="INTEGER" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="device_status" property="deviceStatus" jdbcType="VARCHAR" />
+    <result column="device_user_id" property="deviceUserId" jdbcType="INTEGER" />
+    <result column="device_date" property="deviceDate" jdbcType="TIMESTAMP" />
+    <collection property="deviceControlList" javaType="java.util.List" ofType="com.jingzhun.entity.DeviceControl">
+
+      <result column="device_control_id" property="deviceControlId"/>
+      <result column="device_control_device_id" property="deviceControlDeviceId" />
+      <result column="device_control_date" property="deviceControlDate" />
+      <result column="device_control_state" property="deviceControlState"  />
+    </collection>
+
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.Device" >
+    insert into t_dishwasher_device (device_id, device_name, device_number, 
+      device_status, device_user_id, device_date
+      )
+    values (#{deviceId,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, #{deviceNumber,jdbcType=VARCHAR}, 
+      #{deviceStatus,jdbcType=VARCHAR}, #{deviceUserId,jdbcType=INTEGER}, #{deviceDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.Device" >
+    update t_dishwasher_device
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_number = #{deviceNumber,jdbcType=VARCHAR},
+      device_status = #{deviceStatus,jdbcType=VARCHAR},
+      device_user_id = #{deviceUserId,jdbcType=INTEGER},
+      device_date = #{deviceDate,jdbcType=TIMESTAMP}
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select device_id, device_name, device_number, device_status, device_user_id, device_date
+    from t_dishwasher_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select device_id, device_name, device_number, device_status, device_user_id, device_date
+    from t_dishwasher_device
+  </select>
+
+  <!--我的设备-->
+  <select id="selectToDevice" resultMap="BaseResultMap" >
+    select device_id, device_name, device_number, device_status
+    from t_dishwasher_device where device_user_id=#{userId,jdbcType=INTEGER}
+  </select>
+
+  <!--设备记录-->
+  <select id="selectToDeviceRecord" resultMap="BaseResultMap" >
+    select device_id, device_name, device_number, device_status,device_date,device_control_date,device_control_state,device_control_device_id
+    from t_dishwasher_device left join t_dishwasher_device_control on t_dishwasher_device.device_id=
+    t_dishwasher_device_control.device_control_device_id where device_id=#{deviceId,jdbcType=INTEGER} order by device_control_date desc
+  </select>
+</mapper>

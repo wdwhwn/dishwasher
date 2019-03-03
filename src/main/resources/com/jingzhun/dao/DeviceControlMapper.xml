@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.DeviceControlDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.DeviceControl" >
+    <id column="device_control_id" property="deviceControlId" jdbcType="INTEGER" />
+    <result column="device_control_device_id" property="deviceControlDeviceId" jdbcType="INTEGER" />
+    <result column="device_control_date" property="deviceControlDate" jdbcType="TIMESTAMP" />
+    <result column="device_control_state" property="deviceControlState" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_device_control
+    where device_control_id = #{deviceControlId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.DeviceControl" >
+    insert into t_dishwasher_device_control (device_control_id, device_control_device_id, 
+      device_control_date, device_control_state
+      )
+    values (#{deviceControlId,jdbcType=INTEGER}, #{deviceControlDeviceId,jdbcType=INTEGER}, 
+      #{deviceControlDate,jdbcType=TIMESTAMP}, #{deviceControlState,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.DeviceControl" >
+    update t_dishwasher_device_control
+    set device_control_device_id = #{deviceControlDeviceId,jdbcType=INTEGER},
+      device_control_date = #{deviceControlDate,jdbcType=TIMESTAMP},
+      device_control_state = #{deviceControlState,jdbcType=VARCHAR}
+    where device_control_id = #{deviceControlId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select device_control_id, device_control_device_id, device_control_date, device_control_state
+    from t_dishwasher_device_control
+    where device_control_id = #{deviceControlId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select device_control_id, device_control_device_id, device_control_date, device_control_state
+    from t_dishwasher_device_control
+  </select>
+
+
+</mapper>

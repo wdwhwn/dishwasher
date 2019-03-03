@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.GoodsDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.Goods" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_title" property="goodsTitle" jdbcType="VARCHAR" />
+    <result column="goods_currnet_score" property="goodsCurrnetScore" jdbcType="DECIMAL" />
+    <result column="goods_origin_score" property="goodsOriginScore" jdbcType="DECIMAL" />
+    <result column="goods_service_type" property="goodsServiceType" jdbcType="VARCHAR" />
+    <result column="goods_business" property="goodsBusiness" jdbcType="VARCHAR" />
+    <result column="goods_describe" property="goodsDescribe" jdbcType="VARCHAR" />
+    <result column="goods_delete_state" property="goodsDeleteState" jdbcType="VARCHAR" />
+    <collection property="goodsImgList" javaType="java.util.List" ofType="com.jingzhun.entity.GoodsImg">
+      <result column="goods_img_id" property="goodsImgId"/>
+      <result column="goods_img_img" property="goodsImgImg" />
+      <result column="goods_img_goods_id" property="goodsImgGoodsId" />
+      <result column="goods_img_state" property="goodsImgState"  />
+      <result column="goods_img_type" property="goodsImgType"  />
+    </collection>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.Goods" >
+    insert into t_dishwasher_goods (goods_id, goods_title, goods_currnet_score, 
+      goods_origin_score, goods_service_type, goods_business, 
+      goods_describe, goods_delete_state)
+    values (#{goodsId,jdbcType=INTEGER}, #{goodsTitle,jdbcType=VARCHAR}, #{goodsCurrnetScore,jdbcType=DECIMAL}, 
+      #{goodsOriginScore,jdbcType=DECIMAL}, #{goodsServiceType,jdbcType=VARCHAR}, #{goodsBusiness,jdbcType=VARCHAR}, 
+      #{goodsDescribe,jdbcType=VARCHAR}, #{goodsDeleteState,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.Goods" >
+    update t_dishwasher_goods
+    set goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      goods_currnet_score = #{goodsCurrnetScore,jdbcType=DECIMAL},
+      goods_origin_score = #{goodsOriginScore,jdbcType=DECIMAL},
+      goods_service_type = #{goodsServiceType,jdbcType=VARCHAR},
+      goods_business = #{goodsBusiness,jdbcType=VARCHAR},
+      goods_describe = #{goodsDescribe,jdbcType=VARCHAR},
+      goods_delete_state = #{goodsDeleteState,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select goods_id, goods_title, goods_currnet_score, goods_origin_score, goods_service_type, 
+    goods_business, goods_describe, goods_delete_state
+    from t_dishwasher_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+
+  <!--首页展示商品标题 积分和展示图片-->
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select goods_id, goods_title, goods_currnet_score,goods_img_img
+    from t_dishwasher_goods left join t_dishwasher_goods_img on t_dishwasher_goods.goods_id=t_dishwasher_goods_img.goods_img_goods_id where goods_delete_state=0 and goods_img_state=0 and goods_img_type=0
+  </select>
+</mapper>

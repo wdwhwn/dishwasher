@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.VipDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.Vip" >
+    <id column="vip_id" property="vipId" jdbcType="INTEGER" />
+    <result column="vip_type" property="vipType" jdbcType="VARCHAR" />
+    <result column="vip_score" property="vipScore" jdbcType="DECIMAL" />
+    <result column="vip_term" property="vipTerm" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_vip
+    where vip_id = #{vipId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.Vip" >
+    insert into t_dishwasher_vip (vip_id, vip_type, vip_score, 
+      vip_term)
+    values (#{vipId,jdbcType=INTEGER}, #{vipType,jdbcType=VARCHAR}, #{vipScore,jdbcType=DECIMAL}, 
+      #{vipTerm,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.Vip" >
+    update t_dishwasher_vip
+    set vip_type = #{vipType,jdbcType=VARCHAR},
+      vip_score = #{vipScore,jdbcType=DECIMAL},
+      vip_term = #{vipTerm,jdbcType=INTEGER}
+    where vip_id = #{vipId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select vip_id, vip_type, vip_score, vip_term
+    from t_dishwasher_vip
+    where vip_id = #{vipId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select vip_id, vip_type, vip_score, vip_term
+    from t_dishwasher_vip
+  </select>
+</mapper>

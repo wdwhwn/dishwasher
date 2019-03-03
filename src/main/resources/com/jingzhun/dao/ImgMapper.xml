@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.ImgDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.Img" >
+    <id column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_img_url" property="imgImgUrl" jdbcType="VARCHAR" />
+    <result column="img_delete_state" property="imgDeleteState" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_img
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.Img" >
+    insert into t_dishwasher_img (img_id, img_img_url, img_delete_state
+      )
+    values (#{imgId,jdbcType=INTEGER}, #{imgImgUrl,jdbcType=VARCHAR}, #{imgDeleteState,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.Img" >
+    update t_dishwasher_img
+    set img_img_url = #{imgImgUrl,jdbcType=VARCHAR},
+      img_delete_state = #{imgDeleteState,jdbcType=VARCHAR}
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select img_id, img_img_url, img_delete_state
+    from t_dishwasher_img
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select img_id, img_img_url, img_delete_state
+    from t_dishwasher_img where img_delete_state=0
+  </select>
+</mapper>

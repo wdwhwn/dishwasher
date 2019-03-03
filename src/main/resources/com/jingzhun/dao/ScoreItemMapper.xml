@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.ScoreItemDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.ScoreItem" >
+    <id column="score_item_id" property="scoreItemId" jdbcType="INTEGER" />
+    <result column="score__item_type" property="scoreItemType" jdbcType="VARCHAR" />
+    <result column="score__item_date" property="scoreItemDate" jdbcType="TIMESTAMP" />
+    <result column="score__item_score" property="scoreItemScore" jdbcType="VARCHAR" />
+    <result column="score_item_state" property="scoreItemState" jdbcType="VARCHAR" />
+    <result column="score_item_user_id" property="scoreItemUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_score_item
+    where score_item_id = #{scoreItemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.ScoreItem" >
+    insert into t_dishwasher_score_item (score_item_id, score__item_type, score__item_date, 
+      score__item_score, score_item_state, score_item_user_id
+      )
+    values (#{scoreItemId,jdbcType=INTEGER}, #{scoreItemType,jdbcType=VARCHAR}, #{scoreItemDate,jdbcType=TIMESTAMP}, 
+      #{scoreItemScore,jdbcType=VARCHAR}, #{scoreItemState,jdbcType=VARCHAR}, #{scoreItemUserId,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.ScoreItem" >
+    update t_dishwasher_score_item
+    set score__item_type = #{scoreItemType,jdbcType=VARCHAR},
+      score__item_date = #{scoreItemDate,jdbcType=TIMESTAMP},
+      score__item_score = #{scoreItemScore,jdbcType=VARCHAR},
+      score_item_state = #{scoreItemState,jdbcType=VARCHAR},
+      score_item_user_id = #{scoreItemUserId,jdbcType=INTEGER}
+    where score_item_id = #{scoreItemId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select score_item_id, score__item_type, score__item_date, score__item_score, score_item_state, 
+    score_item_user_id
+    from t_dishwasher_score_item
+    where score_item_id = #{scoreItemId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select score_item_id, score__item_type, score__item_date, score__item_score, score_item_state, 
+    score_item_user_id
+    from t_dishwasher_score_item
+  </select>
+  <!--查询当前用户的积分明细-->
+  <select id="selectByScoreItem" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+
+    select score_item_id, score__item_type, score__item_date, score__item_score, score_item_state,
+    score_item_user_id
+    from t_dishwasher_score_item
+    where score_item_user_id = #{userId,jdbcType=INTEGER} order by score__item_date desc
+  </select>
+</mapper>

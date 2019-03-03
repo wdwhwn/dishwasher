@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_wx_img" property="userWxImg" jdbcType="VARCHAR" />
+    <result column="user_wx_name" property="userWxName" jdbcType="VARCHAR" />
+    <result column="user_total_score" property="userTotalScore" jdbcType="DECIMAL" />
+    <result column="user_current_score" property="userCurrentScore" jdbcType="DECIMAL" />
+    <result column="user_consume_score" property="userConsumeScore" jdbcType="DECIMAL" />
+    <result column="user_pid" property="userPid" jdbcType="INTEGER" />
+    <result column="user_vip_id" property="userVipId" jdbcType="INTEGER" />
+    <result column="user_date" property="userDate" jdbcType="TIMESTAMP" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_delete_state" property="userDeleteState" jdbcType="VARCHAR" />
+    <collection property="accountList" javaType="java.util.List" ofType="com.jingzhun.entity.Account">
+    <result column="account_id" property="accountId"/>
+    <result column="account_type" property="accountType" />
+    <result column="account_number" property="accountNumber" />
+    <result column="account_user_id" property="accountUserId"  />
+    <result column="account_delete_state" property="accountDeleteState"  />
+    </collection>
+  </resultMap>
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.User" >
+    insert into t_dishwasher_user (user_id, user_name, user_wx_img, 
+      user_wx_name, user_total_score, user_current_score, 
+      user_consume_score, user_pid, user_vip_id, 
+      user_date, user_type, user_password, 
+      user_delete_state)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userWxImg,jdbcType=VARCHAR}, 
+      #{userWxName,jdbcType=VARCHAR}, #{userTotalScore,jdbcType=DECIMAL}, #{userCurrentScore,jdbcType=DECIMAL}, 
+      #{userConsumeScore,jdbcType=DECIMAL}, #{userPid,jdbcType=INTEGER}, #{userVipId,jdbcType=INTEGER}, 
+      #{userDate,jdbcType=TIMESTAMP}, #{userType,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userDeleteState,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.User" >
+    update t_dishwasher_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_wx_img = #{userWxImg,jdbcType=VARCHAR},
+      user_wx_name = #{userWxName,jdbcType=VARCHAR},
+      user_total_score = #{userTotalScore,jdbcType=DECIMAL},
+      user_current_score = #{userCurrentScore,jdbcType=DECIMAL},
+      user_consume_score = #{userConsumeScore,jdbcType=DECIMAL},
+      user_pid = #{userPid,jdbcType=INTEGER},
+      user_vip_id = #{userVipId,jdbcType=INTEGER},
+      user_date = #{userDate,jdbcType=TIMESTAMP},
+      user_type = #{userType,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_delete_state = #{userDeleteState,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select user_id, user_name, user_wx_img, user_wx_name, user_total_score, user_current_score, 
+    user_consume_score, user_pid, user_vip_id, user_date, user_type, user_password, user_delete_state
+    from t_dishwasher_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select user_id, user_name, user_wx_img, user_wx_name, user_total_score, user_current_score, 
+    user_consume_score, user_pid, user_vip_id, user_date, user_type, user_password, user_delete_state
+    from t_dishwasher_user
+  </select>-->
+
+  <!--首页显示积分  个人中心页面-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select user_id,    user_current_score,user_wx_name from t_dishwasher_user
+    where user_id = #{userId,jdbcType=INTEGER} and user_delete_state=0  and user_type=0
+  </select>
+
+  <!--提现页面sql-->
+  <select id="selectByCashPage" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select user_id,  user_current_score,
+    account_type,account_number,account_id
+    from t_dishwasher_user left JOIN t_dishwasher_account on t_dishwasher_user.user_id=t_dishwasher_account.account_user_id
+    where account_user_id = #{userId,jdbcType=INTEGER} and user_delete_state=0 and user_type=0 and account_type=0
+  </select>
+
+  <!--当前积分页面sql-->
+  <select id="selectByCashSummary" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select user_id,user_current_score,user_total_score,user_consume_score from t_dishwasher_user
+    where user_id = #{userId,jdbcType=INTEGER} and user_delete_state=0 and user_type=0
+  </select>
+
+  <!--我的团友sql   user_type=0  为公众号用户-->
+  <select id="selectByPid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select user_id,user_wx_name,user_date,user_wx_img from t_dishwasher_user
+    where user_pid = #{userId,jdbcType=INTEGER} and    user_delete_state=0  and user_type=0 order by user_date desc
+  </select>
+
+
+  <!--手机验证之后 添加 微信信息-->
+  <insert id="insert" parameterType="com.jingzhun.entity.User" >
+    insert into t_dishwasher_user (user_id,  user_wx_img,
+    user_wx_name, user_date, user_type, user_delete_state)
+    values (0,  #{userWxImg,jdbcType=VARCHAR},
+    #{userWxName,jdbcType=VARCHAR},#{userDate,jdbcType=TIMESTAMP}, #{userType,jdbcType=VARCHAR},
+    #{userDeleteState,jdbcType=VARCHAR})
+  </insert>
+</mapper>
