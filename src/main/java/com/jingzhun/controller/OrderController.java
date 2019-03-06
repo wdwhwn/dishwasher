@@ -33,15 +33,22 @@ public class OrderController {
     @RequestMapping("/orderAddressCheck1")
     @ResponseBody
     public String orderAddressCheck1(Integer userId){
+        HashMap<String, Object> objectObjectHashMap = new HashMap<>();
         Address address = orderService.addressCheck1(userId);
-        return JsonUtil.toJson(address);
+        objectObjectHashMap.put("address",address);
+        objectObjectHashMap.put("code",1);
+        objectObjectHashMap.get("address");
+        return JsonUtil.toJson(objectObjectHashMap);
     }
     //   确认收货地址2
     @RequestMapping("/orderAddressCheck2")
     @ResponseBody
     public String orderAddressCheck2(Integer userId,Integer addressId){
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
         Address address = orderService.addressCheck2(userId,addressId);
-        return JsonUtil.toJson(address);
+        objectObjectHashMap.put("address",address);
+        objectObjectHashMap.put("code",2);
+        return JsonUtil.toJson(objectObjectHashMap);
     }
 //   提交订单
     @RequestMapping("/orderInsert")

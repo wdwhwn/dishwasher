@@ -48,7 +48,6 @@ public class FirstPageServiceImpl implements FirstPageService  {
             for(GoodsImg goodsImg:goods.getGoodsImgList()){
 
                 String urlName = PropertiesUtil.readValue("main.properties", "urlName");
-
                 String url = PropertiesUtil.readValue("url.properties", urlName);
                 String imgUrl=url+goodsImg.getGoodsImgImg();
                 goodsImg.setGoodsImgImg(imgUrl);

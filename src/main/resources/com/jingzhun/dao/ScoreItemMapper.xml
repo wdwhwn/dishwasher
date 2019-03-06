@@ -55,7 +55,7 @@
     insert into t_dishwasher_score_item (score_item_id, score__item_type, score__item_date,
     score__item_score, score_item_state, score_item_user_id
     )values (0, #{scoreItemType,jdbcType=VARCHAR}, #{scoreItemDate,jdbcType=TIMESTAMP},
-    #{scoreItemScore}, #{scoreItemState}, #{scoreItemUserId,jdbcType=INTEGER}
+    #{scoreItemScore}, 1, #{scoreItemUserId,jdbcType=INTEGER}
     )
   </insert>
 </mapper>

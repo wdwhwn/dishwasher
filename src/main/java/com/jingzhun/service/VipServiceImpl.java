@@ -118,7 +118,7 @@ public class VipServiceImpl implements VipService {
 //        记录用户积分的改变
         ScoreItem scoreItem = new ScoreItem();
         scoreItem.setScoreItemUserId(userId);
-        scoreItem.setScoreItemType("设备续费");
+        scoreItem.setScoreItemType("客户续费洗碗机直接返积分");
         scoreItem.setScoreItemDate(date);
         scoreItem.setScoreItemScore(vipScore);
 

@@ -71,8 +71,7 @@
     set
     device_renew_date= #{deviceRenewDate,jdbcType=TIMESTAMP},
     device_expire_date=#{deviceExpireDate,jdbcType=TIMESTAMP},
-    device_end_date=#{deviceEndDate,jdbcType=TIMESTAMP},
-    device_date = #{deviceDate,jdbcType=TIMESTAMP}
+    device_end_date=#{deviceEndDate,jdbcType=TIMESTAMP}
     where device_id = #{deviceId,jdbcType=INTEGER}
   </update>
 
@@ -92,4 +91,10 @@
      #{deviceStyleId,jdbcType=INTEGER}
     )
   </insert>
+<!--设备续费  根据设备  更新其-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select device_id, device_name, device_number, device_state, device_user_id, device_purchase_date,device_renew_date,device_expire_date,device_end_date,device_style_id
+    from t_dishwasher_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -6,6 +6,13 @@
     <result column="stock_detail_device_style_id" property="stockDetailDeviceStyleId" jdbcType="INTEGER" />
     <result column="stock_detail_device_number" property="stockDetailDeviceNumber" jdbcType="VARCHAR" />
     <result column="stock_detail_state" property="stockDetailState" jdbcType="VARCHAR" />
+    <result column="  stock_detail_two_dimensional" property="stockDetailTwoDimensional" jdbcType="VARCHAR" />
+    <association property="deviceStyle" javaType="com.jingzhun.entity.DeviceStyle" >
+      <result column="device_style_id" property="deviceStyleId" jdbcType="INTEGER" />
+      <result column="devie_style_name" property="devieStyleName" jdbcType="VARCHAR" />
+      <result column="devie_style_month_supply" property="devieStyleMonthSupply" jdbcType="DECIMAL" />
+      <result column="device_style_number" property="deviceStyleNumber" jdbcType="INTEGER" />
+    </association>
   </resultMap>
   <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_stock_detail
@@ -41,12 +48,25 @@
   </insert>
   <select id="selectAll" resultMap="BaseResultMap" >
     select stock_detail_id, stock_detail_device_style_id, stock_detail_device_number,
-    stock_detail_state from t_dishwasher_stock_detail
+    stock_detail_state,stock_detail_two_dimensional from t_dishwasher_stock_detail
   </select>
-  <!--获取某个类别下  最小的id-->
-  <select id="selectByPrimaryKey" resultType="int" parameterType="java.lang.Integer" >
+  <!--出货 获取某个类别下  最小的id-->
+  <select id="selectOne" resultType="int" parameterType="java.lang.Integer" >
     select min(stock_detail_id)
     from t_dishwasher_stock_detail
     where stock_detail_device_style_id = #{stockDetailId,jdbcType=INTEGER} and stock_detail_state=0
+  </select>
+  <!--添加二维码-->
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.StockDetail" >
+    update t_dishwasher_stock_detail
+    set
+    stock_detail_two_dimensional = #{stockDetailTwoDimensional,jdbcType=VARCHAR}
+    where stock_detail_id = #{stockDetailId,jdbcType=INTEGER}
+  </update>
+  <!--根据id 查询设备-->
+  <select id="selectByStockDetailId" resultType="int" parameterType="java.lang.Integer" >
+    select stock_detail_id, stock_detail_device_style_id, stock_detail_device_number,device_style_id,devie_style_name,devie_style_month_supply,device_style_number
+     from t_dishwasher_stock_detail left join t_dishwasher_device_style on stock_detail_device_style_id =device_style_id
+    WHERE stock_detail_id = #{stockDetailId,jdbcType=INTEGER} and stock_detail_device_number = #{stockDetailDeviceNumber,jdbcType=INTEGER}
   </select>
 </mapper>

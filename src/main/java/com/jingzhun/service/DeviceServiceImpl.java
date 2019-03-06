@@ -85,4 +85,6 @@ public class DeviceServiceImpl implements DeviceService {
         scoreItem.setScoreItemState("0");
         scoreItemDao.insert(scoreItem);
     }
+
+
 }

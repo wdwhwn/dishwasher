@@ -32,6 +32,8 @@ public class Device implements Serializable {
 
     private Integer deviceStyleId;
 
+
+
     public Integer getDeviceStyleId() {
         return deviceStyleId;
     }

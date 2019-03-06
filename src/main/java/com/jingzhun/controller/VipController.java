@@ -28,7 +28,7 @@ public class VipController {
         return vipList;
     }
 //    积分兑换
-    @RequestMapping("scoreExchange")
+    @RequestMapping("/scoreExchange")
     @ResponseBody
     public String scoreExchange(Integer userId,Integer vipId,Integer deviceId){
         HashMap<String, Object> objectObjectHashMap = new HashMap<>();

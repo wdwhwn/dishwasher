@@ -1,6 +1,8 @@
 package com.jingzhun.dao;
 
 import com.jingzhun.entity.StockDetail;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface StockDetailDao {
@@ -17,4 +19,8 @@ public interface StockDetailDao {
     List<StockDetail> selectAll();
 //  出货
     int selectOne(Integer stockDetailId);
+// 根据id 查询  设备号 设备类型信息
+    StockDetail selectByStockDetailId(@Param("stockDetailId") Integer stockDetailId,@Param("stockDetailDeviceNumber") Integer stockDetailDeviceNumber);
+//  更新 二维码
+    void updateByPrimaryKey(StockDetail stockDetail);
 }

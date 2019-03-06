@@ -11,7 +11,9 @@ public class StockDetail implements Serializable {
 
     private String stockDetailState;
 
-    private static final long serialVersionUID = 1L;
+    private DeviceStyle deviceStyle;
+
+    private String stockDetailTwoDimensional;
 
     @Override
     public String toString() {
@@ -20,6 +22,8 @@ public class StockDetail implements Serializable {
                 ", stockDetailDeviceStyleId=" + stockDetailDeviceStyleId +
                 ", stockDetailDeviceNumber='" + stockDetailDeviceNumber + '\'' +
                 ", stockDetailState='" + stockDetailState + '\'' +
+                ", deviceStyle=" + deviceStyle +
+                ", stockDetailTwoDimensional='" + stockDetailTwoDimensional + '\'' +
                 '}';
     }
 
@@ -55,17 +59,19 @@ public class StockDetail implements Serializable {
         this.stockDetailState = stockDetailState;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public DeviceStyle getDeviceStyle() {
+        return deviceStyle;
     }
 
-    public StockDetail() {
+    public void setDeviceStyle(DeviceStyle deviceStyle) {
+        this.deviceStyle = deviceStyle;
     }
 
-    public StockDetail(Integer stockDetailId, Integer stockDetailDeviceStyleId, String stockDetailDeviceNumber, String stockDetailState) {
-        this.stockDetailId = stockDetailId;
-        this.stockDetailDeviceStyleId = stockDetailDeviceStyleId;
-        this.stockDetailDeviceNumber = stockDetailDeviceNumber;
-        this.stockDetailState = stockDetailState;
+    public String getStockDetailTwoDimensional() {
+        return stockDetailTwoDimensional;
+    }
+
+    public void setStockDetailTwoDimensional(String stockDetailTwoDimensional) {
+        this.stockDetailTwoDimensional = stockDetailTwoDimensional;
     }
 }

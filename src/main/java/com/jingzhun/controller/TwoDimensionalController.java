@@ -1,8 +1,9 @@
 package com.jingzhun.controller;
-
 import com.jingzhun.dao.DeviceStyleDao;
 import com.jingzhun.entity.DeviceStyle;
+import com.jingzhun.entity.StockDetail;
 import com.jingzhun.service.DeviceService;
+import com.jingzhun.service.StockDetailService;
 import com.jingzhun.service.TwoDimensionalService;
 import com.jingzhun.utils.jsonutil.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,15 @@ public class TwoDimensionalController {
     private TwoDimensionalService twoDimensionalService;
     @Autowired
     private DeviceStyleDao deviceStyleDao;
+    @Autowired
+    private StockDetailService stockDetailService;
 //    展示当前用户拥有所有类型设备
     @RequestMapping("/selectToUserDeviceStyle")
     @ResponseBody
     public String selectToUserDeviceStyle(Integer userId){
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
         List<Object> objects = twoDimensionalService.selectToUserDeviceStyle(userId);
+        objectObjectHashMap.put("DTO",objects);
         return JsonUtil.toJson(objects);
     }
     //    拼团码  确认页面
@@ -52,4 +57,24 @@ public class TwoDimensionalController {
         return JsonUtil.toJson(objectObjectHashMap);
     }
 //    设备码
+//   第一步 展示  设备信息  insertDervieByTwoDimensional
+    @RequestMapping("/insertDervieByTwoDimensional")
+    @ResponseBody
+    private String insertDervieByTwoDimensional(Integer stockDetailDeviceNumber,Integer stockDetailId) {
+        StockDetail stockDetail = stockDetailService.selectByStockDetailId(stockDetailId,stockDetailDeviceNumber);
+        return JsonUtil.toJson(stockDetail);
+
+    }
+    //    设备码
+//   第二步 添加  设备信息
+    @RequestMapping("/insertDervieByTwoDimensional1")
+    @ResponseBody
+    private String insertDervieByTwoDimensional1(Integer userId,Integer deviceStyleId,Integer stockDetailDeviceNumber) {
+        HashMap<String,Object> hashMap = new HashMap<>();
+        twoDimensionalService.insertDervieByTwoDimensional1(userId,deviceStyleId,stockDetailDeviceNumber);
+            hashMap.put("message","添加成功");
+        return null;
+
+    }
+
 }

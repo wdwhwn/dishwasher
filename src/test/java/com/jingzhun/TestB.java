@@ -1,12 +1,15 @@
 package com.jingzhun;
 
 import com.jingzhun.common.msg.Msg;
+import com.jingzhun.dao.StockDetailDao;
+import com.jingzhun.entity.StockDetail;
 import com.jingzhun.service.DeviceServiceImpl;
 import com.jingzhun.utils.idrandom.RandomNumber;
 import com.jingzhun.utils.jedisUtil.JedisUtil;
 import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.properties.PropertiesUtil;
 import com.jingzhun.utils.token.JwtUtil;
+import com.jingzhun.utils.twodimensional.QrCodeUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,16 +17,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.annotation.Annotation;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2019/3/1 0001.
  */
 @Slf4j
-public class TestB extends TestA{
+public class TestB extends Test1 {
+    @Autowired
+    private StockDetailDao stockDetailDao;
     @Test
     public void test(){
 
@@ -57,7 +66,27 @@ public class TestB extends TestA{
     }
     @Test
     public void test4()  {
-        int i=(23)/(12);
-        System.out.println(i+"A12");
+        System.out.println(stockDetailDao);
+        List<StockDetail> stockDetails = stockDetailDao.selectAll();
+        for(StockDetail stockDetail:stockDetails){
+            String stockDetailDeviceNumber = stockDetail.getStockDetailDeviceNumber();
+            Integer stockDetailId = stockDetail.getStockDetailId();
+           /* String pre="https://cli.im/api/qrcode/code?text=";
+            String behind="&mhid=sELPDFnok80gPHovKdI";*/
+            String url="http://140.143.200.89:8080/dishwasher/insertDervieByTwoDimensional?";
+            url=url+"stockDetailDeviceNumber="+stockDetailDeviceNumber+"&stockDetailId="+ stockDetailId;
+            /*url=pre+url+behind;*/
+            String binary = QrCodeUtils.creatRrCode("123", 200,200);
+//            System.out.println(binary);`
+//           stockDetail.setStockDetailTwoDimensional(url);
+            stockDetailDao.updateByPrimaryKey(stockDetail);
+        }
     }
+@Test
+    public void testC(){
+    File file = new File("images/a.jpg");
+    String absolutePath = file.getAbsolutePath();
+    System.out.println(absolutePath+"SSSSSSSSSSSSSSS");
+}
+
 }

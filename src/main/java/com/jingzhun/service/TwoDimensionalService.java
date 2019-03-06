@@ -1,7 +1,5 @@
 package com.jingzhun.service;
 
-import com.jingzhun.entity.Device;
-
 import java.util.List;
 
 /**
@@ -9,6 +7,7 @@ import java.util.List;
  */
 
 public interface TwoDimensionalService {
-    public String  assemble(Integer userId);
+    //    扫描二维码 添加设备号  insertDervieByTwoDimensional1
+    void insertDervieByTwoDimensional1(Integer userId, Integer deviceStyleId,Integer stockDetailDeviceNumber);
     public List<Object> selectToUserDeviceStyle(Integer userId);
 }
