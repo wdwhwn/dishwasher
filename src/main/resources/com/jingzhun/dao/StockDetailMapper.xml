@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.StockDetailDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.StockDetail" >
+    <id column="stock_detail_id" property="stockDetailId" jdbcType="INTEGER" />
+    <result column="stock_detail_device_style_id" property="stockDetailDeviceStyleId" jdbcType="INTEGER" />
+    <result column="stock_detail_device_number" property="stockDetailDeviceNumber" jdbcType="VARCHAR" />
+    <result column="stock_detail_state" property="stockDetailState" jdbcType="VARCHAR" />
+  </resultMap>
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_stock_detail
+    where stock_detail_id = #{stockDetailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.StockDetail" >
+    insert into t_dishwasher_stock_detail (stock_detail_id, stock_detail_device_style_id, 
+      stock_detail_device_number, stock_detail_state
+      )
+    values (#{stockDetailId,jdbcType=INTEGER}, #{stockDetailDeviceStyleId,jdbcType=INTEGER}, 
+      #{stockDetailDeviceNumber,jdbcType=INTEGER}, #{stockDetailState,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.StockDetail" >
+    update t_dishwasher_stock_detail
+    set stock_detail_device_style_id = #{stockDetailDeviceStyleId,jdbcType=INTEGER},
+      stock_detail_device_number = #{stockDetailDeviceNumber,jdbcType=INTEGER},
+      stock_detail_state = #{stockDetailState,jdbcType=VARCHAR}
+    where stock_detail_id = #{stockDetailId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select stock_detail_id, stock_detail_device_style_id, stock_detail_device_number, 
+    stock_detail_state
+    from t_dishwasher_stock_detail
+    where stock_detail_id = #{stockDetailId,jdbcType=INTEGER}
+  </select>
+  -->
+  <!--添加测试数据-->
+  <insert id="insert" parameterType="com.jingzhun.entity.StockDetail" >
+    insert into t_dishwasher_stock_detail (stock_detail_id, stock_detail_device_style_id,
+    stock_detail_device_number, stock_detail_state)values (0, #{stockDetailDeviceStyleId,jdbcType=INTEGER},
+    #{stockDetailDeviceNumber,jdbcType=VARCHAR},0)
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select stock_detail_id, stock_detail_device_style_id, stock_detail_device_number,
+    stock_detail_state from t_dishwasher_stock_detail
+  </select>
+  <!--获取某个类别下  最小的id-->
+  <select id="selectByPrimaryKey" resultType="int" parameterType="java.lang.Integer" >
+    select min(stock_detail_id)
+    from t_dishwasher_stock_detail
+    where stock_detail_device_style_id = #{stockDetailId,jdbcType=INTEGER} and stock_detail_state=0
+  </select>
+</mapper>

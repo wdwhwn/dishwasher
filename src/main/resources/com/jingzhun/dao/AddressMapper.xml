@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingzhun.dao.AddressDao" >
+  <resultMap id="BaseResultMap" type="com.jingzhun.entity.Address" >
+    <id column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="address_name" property="addressName" jdbcType="VARCHAR" />
+    <result column="address_phone" property="addressPhone" jdbcType="VARCHAR" />
+    <result column="address_default_state" property="addressDefaultState" jdbcType="VARCHAR" />
+    <result column="address_address" property="addressAddress" jdbcType="VARCHAR" />
+    <result column="address_delete_state" property="addressDeleteState" jdbcType="VARCHAR" />
+    <result column="address_user_id" property="addressUserId" jdbcType="INTEGER" />
+  </resultMap>
+ <!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dishwasher_address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingzhun.entity.Address" >
+    insert into t_dishwasher_address (address_id, address_name, address_phone, 
+      address_default_state, address_address, address_delete_state, 
+      address_user_id)
+    values (#{addressId,jdbcType=INTEGER}, #{addressName,jdbcType=VARCHAR}, #{addressPhone,jdbcType=VARCHAR}, 
+      #{addressDefaultState,jdbcType=VARCHAR}, #{addressAddress,jdbcType=VARCHAR}, #{addressDeleteState,jdbcType=VARCHAR}, 
+      #{addressUserId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.Address" >
+    update t_dishwasher_address
+    set address_name = #{addressName,jdbcType=VARCHAR},
+      address_phone = #{addressPhone,jdbcType=VARCHAR},
+      address_default_state = #{addressDefaultState,jdbcType=VARCHAR},
+      address_address = #{addressAddress,jdbcType=VARCHAR},
+      address_delete_state = #{addressDeleteState,jdbcType=VARCHAR},
+      address_user_id = #{addressUserId,jdbcType=INTEGER}
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select address_id, address_name, address_phone, address_default_state, address_address, 
+    address_delete_state, address_user_id
+    from t_dishwasher_address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </select>-->
+  <!--查询所有地址-->
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select address_id, address_name, address_phone, address_default_state, address_address, 
+    address_delete_state, address_user_id
+    from t_dishwasher_address where address_user_id=#{userId} and address_delete_state=0
+  </select>
+  <!--添加收货地址-->
+  <insert id="insert" parameterType="com.jingzhun.entity.Address" >
+    insert into t_dishwasher_address (address_id, address_name, address_phone,
+    address_default_state, address_address, address_delete_state,
+    address_user_id)
+    values (0, #{addressName,jdbcType=VARCHAR}, #{addressPhone,jdbcType=VARCHAR},
+    #{addressDefaultState,jdbcType=VARCHAR}, #{addressAddress,jdbcType=VARCHAR}, 0,
+    #{addressUserId,jdbcType=INTEGER})
+  </insert>
+  <!--其它的设为非默认-->
+  <update id="update" parameterType="com.jingzhun.entity.Address" >
+    update t_dishwasher_address
+    set   address_default_state = 1 where address_default_state=0 and address_delete_state=0
+  </update>
+  <!--查询当前用户默认地址-->
+  <select id="selectByDefault" resultMap="BaseResultMap" >
+    select address_id, address_name, address_phone, address_default_state, address_address,
+    address_delete_state, address_user_id
+    from t_dishwasher_address where address_user_id=#{userId} and address_default_state=0
+  </select>
+  <!--根据地址id查询-->
+  <select id="selectByAddressId" resultMap="BaseResultMap" >
+    select address_id, address_name, address_phone, address_default_state, address_address,
+    address_delete_state, address_user_id
+    from t_dishwasher_address where address_user_id=#{userId} and address_id=#{addressId}
+  </select>
+</mapper>
