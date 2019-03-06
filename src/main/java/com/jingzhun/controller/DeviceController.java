@@ -23,10 +23,20 @@ public class DeviceController {
     private DeviceService deviceService;
     @RequestMapping("/selectToDevice")
     @ResponseBody
-    public String selectToDevice(Integer userId,Integer pageNum,Integer pageSize){
+    public String selectToDevice(Integer userId,Integer pageNum,Integer pageSize,String token){
+        System.out.println("设备");
         PageHelper.startPage(pageNum,pageSize);
         List<Device> deviceList = deviceService.selectToDevice(userId);
         PageInfo<Device> devicePageInfo = new PageInfo<Device>(deviceList);
         return JsonUtil.toJson(devicePageInfo);
+    }
+
+//    通过拼团码 添加设备（后续完善购买） 返还积分
+    @RequestMapping("/pintuan")
+    @ResponseBody
+    public String pintuan(Integer userId,Integer deviceStyleId){
+
+
+        return null;
     }
 }

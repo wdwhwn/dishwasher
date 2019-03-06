@@ -5,11 +5,11 @@
     <id column="score_item_id" property="scoreItemId" jdbcType="INTEGER" />
     <result column="score__item_type" property="scoreItemType" jdbcType="VARCHAR" />
     <result column="score__item_date" property="scoreItemDate" jdbcType="TIMESTAMP" />
-    <result column="score__item_score" property="scoreItemScore" jdbcType="VARCHAR" />
+    <result column="score__item_score" property="scoreItemScore"  />
     <result column="score_item_state" property="scoreItemState" jdbcType="VARCHAR" />
     <result column="score_item_user_id" property="scoreItemUserId" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+ <!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_score_item
     where score_item_id = #{scoreItemId,jdbcType=INTEGER}
   </delete>
@@ -40,7 +40,7 @@
     select score_item_id, score__item_type, score__item_date, score__item_score, score_item_state, 
     score_item_user_id
     from t_dishwasher_score_item
-  </select>
+  </select>-->
   <!--查询当前用户的积分明细-->
   <select id="selectByScoreItem" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
 
@@ -49,4 +49,13 @@
     from t_dishwasher_score_item
     where score_item_user_id = #{userId,jdbcType=INTEGER} order by score__item_date desc
   </select>
+<!-- 添加积分明细  0 收益 1 支出-->
+  <!--拼团码添加积分明细-->
+  <insert id="insert" parameterType="com.jingzhun.entity.ScoreItem" >
+    insert into t_dishwasher_score_item (score_item_id, score__item_type, score__item_date,
+    score__item_score, score_item_state, score_item_user_id
+    )values (0, #{scoreItemType,jdbcType=VARCHAR}, #{scoreItemDate,jdbcType=TIMESTAMP},
+    #{scoreItemScore}, #{scoreItemState}, #{scoreItemUserId,jdbcType=INTEGER}
+    )
+  </insert>
 </mapper>

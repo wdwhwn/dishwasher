@@ -14,28 +14,30 @@ public class Device implements Serializable {
 
     private String deviceNumber;
 
-    private String deviceStatus;
+    private String deviceState;
 
     private Integer deviceUserId;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date deviceDate;
+    private Date devicePurchaseDate;
+@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date deviceRenewDate;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date deviceExpireDate;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date deviceEndDate;
 
-    private List<DeviceControl> deviceControlList;
+    private Integer deviceStyleId;
 
-
-    public Device() {
-
+    public Integer getDeviceStyleId() {
+        return deviceStyleId;
     }
 
-    public Device(Integer deviceId, String deviceName, String deviceNumber, String deviceStatus, Integer deviceUserId, Date deviceDate, List<DeviceControl> deviceControlList) {
-        this.deviceId = deviceId;
-        this.deviceName = deviceName;
-        this.deviceNumber = deviceNumber;
-        this.deviceStatus = deviceStatus;
-        this.deviceUserId = deviceUserId;
-        this.deviceDate = deviceDate;
-        this.deviceControlList = deviceControlList;
+    public void setDeviceStyleId(Integer deviceStyleId) {
+        this.deviceStyleId = deviceStyleId;
     }
 
     @Override
@@ -44,22 +46,18 @@ public class Device implements Serializable {
                 "deviceId=" + deviceId +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceNumber='" + deviceNumber + '\'' +
-                ", deviceStatus='" + deviceStatus + '\'' +
+                ", deviceState='" + deviceState + '\'' +
                 ", deviceUserId=" + deviceUserId +
-                ", deviceDate=" + deviceDate +
+                ", devicePurchaseDate=" + devicePurchaseDate +
+                ", deviceRenewDate=" + deviceRenewDate +
+                ", deviceExpireDate=" + deviceExpireDate +
+                ", deviceEndDate=" + deviceEndDate +
+                ", deviceStyle='" + deviceStyleId + '\'' +
                 ", deviceControlList=" + deviceControlList +
                 '}';
     }
 
-    public List<DeviceControl> getDeviceControlList() {
-        return deviceControlList;
-    }
-
-    public void setDeviceControlList(List<DeviceControl> deviceControlList) {
-        this.deviceControlList = deviceControlList;
-    }
-
-    private static final long serialVersionUID = 1L;
+    private List<DeviceControl> deviceControlList;
 
     public Integer getDeviceId() {
         return deviceId;
@@ -85,12 +83,12 @@ public class Device implements Serializable {
         this.deviceNumber = deviceNumber;
     }
 
-    public String getDeviceStatus() {
-        return deviceStatus;
+    public String getDeviceState() {
+        return deviceState;
     }
 
-    public void setDeviceStatus(String deviceStatus) {
-        this.deviceStatus = deviceStatus;
+    public void setDeviceState(String deviceState) {
+        this.deviceState = deviceState;
     }
 
     public Integer getDeviceUserId() {
@@ -101,12 +99,45 @@ public class Device implements Serializable {
         this.deviceUserId = deviceUserId;
     }
 
-    public Date getDeviceDate() {
-        return deviceDate;
+    public Date getDevicePurchaseDate() {
+        return devicePurchaseDate;
     }
 
-    public void setDeviceDate(Date deviceDate) {
-        this.deviceDate = deviceDate;
+    public void setDevicePurchaseDate(Date devicePurchaseDate) {
+        this.devicePurchaseDate = devicePurchaseDate;
     }
 
+    public Date getDeviceRenewDate() {
+        return deviceRenewDate;
+    }
+
+    public void setDeviceRenewDate(Date deviceRenewDate) {
+        this.deviceRenewDate = deviceRenewDate;
+    }
+
+    public Date getDeviceExpireDate() {
+        return deviceExpireDate;
+    }
+
+    public void setDeviceExpireDate(Date deviceExpireDate) {
+        this.deviceExpireDate = deviceExpireDate;
+    }
+
+    public Date getDeviceEndDate() {
+        return deviceEndDate;
+    }
+
+    public void setDeviceEndDate(Date deviceEndDate) {
+        this.deviceEndDate = deviceEndDate;
+    }
+
+
+
+    public List<DeviceControl> getDeviceControlList() {
+        return deviceControlList;
+    }
+
+    public void setDeviceControlList(List<DeviceControl> deviceControlList) {
+        this.deviceControlList = deviceControlList;
+    }
 }

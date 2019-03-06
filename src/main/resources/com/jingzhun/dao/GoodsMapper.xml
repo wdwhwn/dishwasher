@@ -18,7 +18,7 @@
       <result column="goods_img_type" property="goodsImgType"  />
     </collection>
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_goods
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </delete>
@@ -46,11 +46,23 @@
     goods_business, goods_describe, goods_delete_state
     from t_dishwasher_goods
     where goods_id = #{goodsId,jdbcType=INTEGER}
-  </select>
+  </select>-->
 
   <!--首页展示商品标题 积分和展示图片-->
   <select id="selectAll" resultMap="BaseResultMap" >
     select goods_id, goods_title, goods_currnet_score,goods_img_img
     from t_dishwasher_goods left join t_dishwasher_goods_img on t_dishwasher_goods.goods_id=t_dishwasher_goods_img.goods_img_goods_id where goods_delete_state=0 and goods_img_state=0 and goods_img_type=0
+  </select>
+
+  <!--商品详情-->
+  <select id="selectById" resultMap="BaseResultMap" >
+     select goods_id, goods_title, goods_currnet_score,goods_origin_score,goods_business,goods_img_img,goods_describe,goods_img_id
+    from t_dishwasher_goods left join t_dishwasher_goods_img on t_dishwasher_goods.goods_id=t_dishwasher_goods_img.goods_img_goods_id where goods_img_goods_id=#{goodsImgGoodsId} and goods_delete_state=0 and goods_img_state=1 and goods_img_type=0
+  </select>
+
+  <!--确认订单-->
+  <select id="selectByGoodsId" resultMap="BaseResultMap" >
+    select goods_id, goods_title, goods_currnet_score,goods_img_img
+    from t_dishwasher_goods left join t_dishwasher_goods_img on t_dishwasher_goods.goods_id=t_dishwasher_goods_img.goods_img_goods_id where goods_id=#{goodsId} and goods_delete_state=0 and goods_img_state=0
   </select>
 </mapper>

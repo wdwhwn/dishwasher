@@ -10,7 +10,14 @@ public interface GoodsDao {
 
     Goods selectByPrimaryKey(Integer goodsId);
 
-    List<Goods> selectAll();
-
     int updateByPrimaryKey(Goods record);
+//   首页商品展示
+    List<Goods> selectAll();
+//    商品展示
+    Goods selectById(Integer goodsImgGoodsId);
+
+//    确认订单
+    Goods selectByGoodsId(Integer goodsImgGoodsId);
+
+
 }

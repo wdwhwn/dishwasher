@@ -4,6 +4,7 @@ import com.jingzhun.dao.UserDao;
 import com.jingzhun.entity.User;
 import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.properties.PropertiesUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,7 @@ import java.util.HashMap;
  */
 @Controller
 @CrossOrigin(origins = "*",maxAge = 3600)
+@Slf4j
 public class PersonCenterController {
     @Autowired
     private UserDao userDao;
@@ -27,8 +29,10 @@ public class PersonCenterController {
     public String selectByScore(Integer userId) throws FileNotFoundException {
         HashMap<String,Object> map=new HashMap<String, Object>();
         User user = userDao.selectByPrimaryKey(userId);
+        log.error("对象",user);
 //        拼接路径
         String userImg = user.getUserWxImg();
+        log.error(userImg);
         String urlName = PropertiesUtil.readValue("main.properties", "urlName");
         String userImgUrl = PropertiesUtil.readValue("url.properties", urlName)+userImg;
 

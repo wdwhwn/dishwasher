@@ -37,4 +37,9 @@ public class CashRecordServiceImpl implements CashRecordService {
         }
         return cashList;
     }
+
+    @Override
+    public void insert(Cash cash) {
+         cashDao.insert(cash);
+    }
 }

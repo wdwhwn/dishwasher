@@ -1,12 +1,11 @@
 package com.jingzhun;
 
-import com.jingzhun.dao.GoodsDao;
-import com.jingzhun.dao.ImgDao;
-import com.jingzhun.dao.RatioDao;
-import com.jingzhun.dao.VipDao;
+import com.jingzhun.dao.*;
 import com.jingzhun.entity.*;
 import com.jingzhun.service.*;
+import com.jingzhun.utils.idrandom.RandomNumber;
 import com.jingzhun.utils.properties.PropertiesUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +22,7 @@ import java.util.Map;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= App.class)
+@Slf4j
 public class test {
     /*@Autowired
     private UserDao ud;
@@ -33,8 +34,6 @@ public class test {
 
     @Autowired
     private FirstPageService fps;
-
-
 
     @Autowired
     private GoodsService gs;
@@ -58,9 +57,14 @@ public class test {
 
     @Autowired
     private CashPageService cashPageService;
+    @Autowired
+    private StockDetailDao stockDetailDao;
 
     @Autowired
     private CashRecordService cashRecordService;
+
+    @Autowired
+    private StockDetailService stockDetailService;
 //  首页展示
     @Test
     public void test() throws Exception {
@@ -80,6 +84,25 @@ public class test {
         System.out.println(ratios);*/
     }
 
-
+    @Test
+    public void testA(){
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+        for(int i=0;i<25;i++) {
+            StockDetail stockDetail = new StockDetail();
+            String card = RandomNumber.getCard();
+            List<StockDetail> stockDetails = stockDetailDao.selectAll();
+            for(StockDetail stockDetail1:stockDetails){
+                String stockDetailDeviceNumber = stockDetail.getStockDetailDeviceNumber();
+                objectObjectHashMap.put(stockDetailDeviceNumber,4);
+            }
+            boolean b = objectObjectHashMap.containsKey(card);
+            if(b) {
+                continue;
+            }
+            stockDetail.setStockDetailDeviceNumber(card);
+            stockDetail.setStockDetailDeviceStyleId(1);
+            stockDetailService.insert(stockDetail);
+        }
+    }
 
 }

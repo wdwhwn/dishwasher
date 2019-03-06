@@ -36,7 +36,8 @@ public class User implements Serializable {
 
     private String userDeleteState="0";
 
-    private List<Account> accountList;
+    private String userWxOpenid;
+
 
     @Override
     public String toString() {
@@ -54,8 +55,59 @@ public class User implements Serializable {
                 ", userType='" + userType + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userDeleteState='" + userDeleteState + '\'' +
+                ", userWxOpenid='" + userWxOpenid + '\'' +
+                ", userWxNameReal='" + userWxNameReal + '\'' +
+                ", userMobile='" + userMobile + '\'' +
                 ", accountList=" + accountList +
                 '}';
+    }
+
+    public String getUserWxOpenid() {
+        return userWxOpenid;
+    }
+
+    public void setUserWxOpenid(String userWxOpenid) {
+        this.userWxOpenid = userWxOpenid;
+    }
+
+    private String userWxNameReal;
+
+    private String userMobile;
+
+    public String getUserWxNameReal() {
+        return userWxNameReal;
+    }
+
+    public void setUserWxNameReal(String userWxNameReal) {
+        this.userWxNameReal = userWxNameReal;
+    }
+
+    public String getUserMobile() {
+        return userMobile;
+    }
+
+    public void setUserMobile(String userMobile) {
+        this.userMobile = userMobile;
+    }
+
+    private List<Account> accountList;
+
+    public User(Integer userId, String userName, String userWxImg, String userWxName, BigDecimal userTotalScore, BigDecimal userCurrentScore, BigDecimal userConsumeScore, Integer userPid, Integer userVipId, Date userDate, String userType, String userPassword, String userDeleteState, String userWxOppenid, List<Account> accountList) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userWxImg = userWxImg;
+        this.userWxName = userWxName;
+        this.userTotalScore = userTotalScore;
+        this.userCurrentScore = userCurrentScore;
+        this.userConsumeScore = userConsumeScore;
+        this.userPid = userPid;
+        this.userVipId = userVipId;
+        this.userDate = userDate;
+        this.userType = userType;
+        this.userPassword = userPassword;
+        this.userDeleteState = userDeleteState;
+        this.userWxOpenid = userWxOppenid;
+        this.accountList = accountList;
     }
 
     public List<Account> getAccountList() {

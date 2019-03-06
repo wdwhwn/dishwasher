@@ -21,7 +21,7 @@
 			<property name="suppressAllComments" value="true"/>
 		</commentGenerator>
 		<!-- 	 连接数据库 -->
-	 <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/dishwasher" userId="root" password="root"/>
+	 <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://140.143.200.89:3306/dishwasher?characterEncoding=utf8" userId="root" password="root"/>
 	<!--  指定entity的生成路径 easyui为项目名，不同项目需要更改 -->
 	 
 	 <javaModelGenerator targetPackage="com.jingzhun.entity" targetProject="src/main/java"/>
@@ -35,6 +35,6 @@
 	 
 	 <javaClientGenerator targetPackage="com.jingzhun.dao" type="XMLMAPPER" targetProject="src/main/java"/>
 		<!-- tableNAme 表名 domainObjectName= 指定生成后的实体名字 -->
-		<table tableName="t_dishwasher_user" domainObjectName="User"></table>
+		<table tableName="t_dishwasher_stock_detail" domainObjectName="StockDetail"></table>
 	 </context>
 </generatorConfiguration>

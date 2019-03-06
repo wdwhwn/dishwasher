@@ -1,6 +1,7 @@
 package com.jingzhun;
 
 import com.jingzhun.common.msg.Msg;
+import com.jingzhun.service.DeviceServiceImpl;
 import com.jingzhun.utils.idrandom.RandomNumber;
 import com.jingzhun.utils.jedisUtil.JedisUtil;
 import com.jingzhun.utils.jsonutil.JsonUtil;
@@ -9,6 +10,9 @@ import com.jingzhun.utils.token.JwtUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.junit.Test;
 
 import javax.servlet.ServletException;
@@ -18,7 +22,8 @@ import java.util.Date;
 /**
  * Created by Administrator on 2019/3/1 0001.
  */
-public class TestB {
+@Slf4j
+public class TestB extends TestA{
     @Test
     public void test(){
 
@@ -45,8 +50,14 @@ public class TestB {
     }
     @Test
     public void test3() throws FileNotFoundException {
-        String urlName = PropertiesUtil.readValue("main.properties", "urlName");
-        System.out.println(urlName);
+       /* String urlName = PropertiesUtil.readValue("main.properties", "urlName");
+        System.out.println(urlName);*/
+//        Log log = LogFactory.getLog(TestB.class);
 
+    }
+    @Test
+    public void test4()  {
+        int i=(23)/(12);
+        System.out.println(i+"A12");
     }
 }

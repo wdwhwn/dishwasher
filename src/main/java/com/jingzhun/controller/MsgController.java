@@ -7,9 +7,11 @@ import com.jingzhun.utils.idrandom.RandomNumber;
 import com.jingzhun.utils.jedisUtil.JedisUtil;
 import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.token.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +25,7 @@ import java.util.Map;
  */
 @Controller
 @CrossOrigin(origins="*",maxAge = 3600)
+@Slf4j
 public class MsgController {
     @Autowired
     private UserService userService;
@@ -39,22 +42,26 @@ public class MsgController {
 //    通过验证码  验证用户合法性
     @RequestMapping("/msgCheck")
     @ResponseBody
-    public String msgCheck(String  mobile,String card,String userWxImg,String userWxName){
+    public String msgCheck(User user, String  mobile, String card){
+        System.out.println(user);
         HashMap<String, Object> stringObjectHashMap = new HashMap<String, Object>();
         String s = JedisUtil.getJedis().get(mobile);
+        System.out.println("LLL");
         Date date = new Date();
-        User user=new User();
-        user.setUserWxImg(userWxImg);
-        user.setUserWxName(userWxName);
+//        User user=new User();
+        /*user.setUserWxImg(userWxImg);
+        user.setUserWxName(userWxName);*/
         user.setUserDate(date);
-        String tokenOrigin=userWxImg+userWxName;
-        System.out.println(card+" "+s);
+        user.setUserMobile(mobile);
+        String tokenOrigin=user.getUserName();
         if(card!=null && card.equals(s)){
             String token= JwtUtil.getToken(tokenOrigin);
-            userService.insert(user);
-            stringObjectHashMap.put("message","验证成功");
-            stringObjectHashMap.put("code","0");
-            stringObjectHashMap.put("token",token);
+            boolean judge = userService.insert(user);
+                log.debug("添加用户",judge);
+                stringObjectHashMap.put("message", "验证成功");
+                stringObjectHashMap.put("code", "0");
+                stringObjectHashMap.put("token", token);
+
         }else {
             stringObjectHashMap.put("message", "验证失败");
             stringObjectHashMap.put("code", "1");

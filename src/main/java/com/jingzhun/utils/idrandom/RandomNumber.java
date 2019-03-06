@@ -23,8 +23,8 @@ public class RandomNumber {
     public static String getCard() {
         Random rand = new Random();//生成随机数
         String cardNnumer = "";
-        for (int a = 0; a < 4; a++) {
-            cardNnumer += rand.nextInt(10);//生成4位数字
+        for (int a = 0; a < 8; a++) {
+            cardNnumer += rand.nextInt(10);
         }
       /*  if(new Double(cardNnumer).doubleValue()<10000000d){
             getCard();

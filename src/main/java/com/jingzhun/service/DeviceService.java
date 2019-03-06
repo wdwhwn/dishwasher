@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface DeviceService {
     public List<Device> selectToDevice(Integer userId);
+    public void pinTurn(Integer userId,Integer deviceStyleId,Integer pid);
 }

@@ -7,7 +7,7 @@
     <result column="vip_score" property="vipScore" jdbcType="DECIMAL" />
     <result column="vip_term" property="vipTerm" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_vip
     where vip_id = #{vipId,jdbcType=INTEGER}
   </delete>
@@ -28,9 +28,17 @@
     select vip_id, vip_type, vip_score, vip_term
     from t_dishwasher_vip
     where vip_id = #{vipId,jdbcType=INTEGER}
-  </select>
+  </select>-->
+  <!--设备续费-->
   <select id="selectAll" resultMap="BaseResultMap" >
     select vip_id, vip_type, vip_score, vip_term
     from t_dishwasher_vip
   </select>
+<!--积分兑换 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select vip_id, vip_type, vip_score, vip_term
+    from t_dishwasher_vip
+    where vip_id = #{vipId,jdbcType=INTEGER}
+  </select>
+
 </mapper>

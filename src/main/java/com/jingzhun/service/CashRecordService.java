@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface CashRecordService {
     public List<Cash> selectByCashRecord(Integer userId);
+    void insert(Cash cash);
 }

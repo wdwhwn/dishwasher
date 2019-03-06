@@ -9,7 +9,7 @@
     <result column="cash_account_id" property="cashAccountId" jdbcType="INTEGER" />
     <result column="cash_user_id" property="cashUserId" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_cash
     where cash_id = #{cashId,jdbcType=INTEGER}
   </delete>
@@ -38,12 +38,22 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select cash_id, cash_date, cash_score, cash_state, cash_account_id, cash_user_id
     from t_dishwasher_cash
-  </select>
+  </select>-->
 
-<!--提现记录-->
+<!--提现记录详情-->
   <select id="selectByCashRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select cash_id, cash_date, cash_score, cash_state, cash_account_id
     from t_dishwasher_cash
     where cash_user_id = #{userId,jdbcType=INTEGER} order by cash_date desc
    </select>
+
+<!--添加提现记录-->
+  <insert id="insert" parameterType="com.jingzhun.entity.Cash" >
+    insert into t_dishwasher_cash (cash_id, cash_date, cash_score,
+    cash_state, cash_account_id, cash_user_id
+    )
+    values (0, #{cashDate,jdbcType=TIMESTAMP}, #{cashScore,jdbcType=DECIMAL},
+    0, #{cashAccountId,jdbcType=INTEGER}, #{cashUserId,jdbcType=INTEGER}
+    )
+  </insert>
 </mapper>

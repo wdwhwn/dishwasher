@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2019/2/27 0027.
+ * 提现记录
  */
 @Controller
 @CrossOrigin(origins = "*",maxAge = 3600)

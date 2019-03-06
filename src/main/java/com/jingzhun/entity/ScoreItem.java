@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class ScoreItem implements Serializable {
@@ -14,13 +15,25 @@ public class ScoreItem implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date scoreItemDate;
 
-    private String scoreItemScore;
+    private BigDecimal scoreItemScore;
 
     private String scoreItemState;
 
     private Integer scoreItemUserId;
 
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public String toString() {
+        return "ScoreItem{" +
+                "scoreItemId=" + scoreItemId +
+                ", scoreItemType='" + scoreItemType + '\'' +
+                ", scoreItemDate=" + scoreItemDate +
+                ", scoreItemScore=" + scoreItemScore +
+                ", scoreItemState='" + scoreItemState + '\'' +
+                ", scoreItemUserId=" + scoreItemUserId +
+                '}';
+    }
 
     public Integer getScoreItemId() {
         return scoreItemId;
@@ -46,11 +59,11 @@ public class ScoreItem implements Serializable {
         this.scoreItemDate = scoreItemDate;
     }
 
-    public String getScoreItemScore() {
+    public BigDecimal getScoreItemScore() {
         return scoreItemScore;
     }
 
-    public void setScoreItemScore(String scoreItemScore) {
+    public void setScoreItemScore(BigDecimal scoreItemScore) {
         this.scoreItemScore = scoreItemScore;
     }
 
@@ -70,19 +83,7 @@ public class ScoreItem implements Serializable {
         this.scoreItemUserId = scoreItemUserId;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", scoreItemId=").append(scoreItemId);
-        sb.append(", scoreItemType=").append(scoreItemType);
-        sb.append(", scoreItemDate=").append(scoreItemDate);
-        sb.append(", scoreItemScore=").append(scoreItemScore);
-        sb.append(", scoreItemState=").append(scoreItemState);
-        sb.append(", scoreItemUserId=").append(scoreItemUserId);
-        sb.append("]");
-        return sb.toString();
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

@@ -5,11 +5,15 @@
     <id column="device_id" property="deviceId" jdbcType="INTEGER" />
     <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
     <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
-    <result column="device_status" property="deviceStatus" jdbcType="VARCHAR" />
+    <result column="device_state" property="deviceState" jdbcType="VARCHAR" />
     <result column="device_user_id" property="deviceUserId" jdbcType="INTEGER" />
-    <result column="device_date" property="deviceDate" jdbcType="TIMESTAMP" />
-    <collection property="deviceControlList" javaType="java.util.List" ofType="com.jingzhun.entity.DeviceControl">
+    <result column="device_purchase_date" property="devicePurchaseDate" jdbcType="TIMESTAMP" />
+    <result column="device_renew_date" property="deviceRenewDate" jdbcType="TIMESTAMP" />
+    <result column="device_expire_date" property="deviceExpireDate" jdbcType="TIMESTAMP" />
+    <result column="device_end_date" property="deviceEndDate" jdbcType="TIMESTAMP" />
+    <result column="device_style_id" property="deviceStyleId" jdbcType="INTEGER" />
 
+    <collection property="deviceControlList" javaType="java.util.List" ofType="com.jingzhun.entity.DeviceControl">
       <result column="device_control_id" property="deviceControlId"/>
       <result column="device_control_device_id" property="deviceControlDeviceId" />
       <result column="device_control_date" property="deviceControlDate" />
@@ -17,10 +21,11 @@
     </collection>
 
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_device
     where device_id = #{deviceId,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.jingzhun.entity.Device" >
     insert into t_dishwasher_device (device_id, device_name, device_number, 
       device_status, device_user_id, device_date
@@ -46,18 +51,45 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select device_id, device_name, device_number, device_status, device_user_id, device_date
     from t_dishwasher_device
-  </select>
+  </select>-->
 
   <!--我的设备-->
   <select id="selectToDevice" resultMap="BaseResultMap" >
-    select device_id, device_name, device_number, device_status
+    select device_id, device_name, device_number, device_state
     from t_dishwasher_device where device_user_id=#{userId,jdbcType=INTEGER}
   </select>
 
   <!--设备记录-->
   <select id="selectToDeviceRecord" resultMap="BaseResultMap" >
-    select device_id, device_name, device_number, device_status,device_date,device_control_date,device_control_state,device_control_device_id
+    select device_id, device_name, device_number, device_state,device_renew_date,device_expire_date,device_control_date,device_control_state,device_control_device_id
     from t_dishwasher_device left join t_dishwasher_device_control on t_dishwasher_device.device_id=
     t_dishwasher_device_control.device_control_device_id where device_id=#{deviceId,jdbcType=INTEGER} order by device_control_date desc
   </select>
+<!--更新设备 激活时间-->
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.Device" >
+    update t_dishwasher_device
+    set
+    device_renew_date= #{deviceRenewDate,jdbcType=TIMESTAMP},
+    device_expire_date=#{deviceExpireDate,jdbcType=TIMESTAMP},
+    device_end_date=#{deviceEndDate,jdbcType=TIMESTAMP},
+    device_date = #{deviceDate,jdbcType=TIMESTAMP}
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+
+  <!--我的设备二维码-->
+  <select id="selectToUserStyle" resultMap="BaseResultMap" >
+    select DISTINCT (device_style_id)
+    from t_dishwasher_device where device_user_id=#{userId,jdbcType=INTEGER}
+  </select>
+
+  <!--拼团码 添加设备-->
+  <insert id="insert" parameterType="com.jingzhun.entity.Device" >
+    insert into t_dishwasher_device (device_id, device_name, device_number,
+    device_state, device_user_id, device_purchase_date,device_renew_date,device_expire_date,device_end_date
+    ,device_style_id)
+    values (0, #{deviceName,jdbcType=VARCHAR}, #{deviceNumber,jdbcType=VARCHAR},
+    0, #{deviceUserId,jdbcType=INTEGER}, #{devicePurchaseDate,jdbcType=TIMESTAMP},#{deviceRenewDate,jdbcType=TIMESTAMP},#{deviceExpireDate,jdbcType=TIMESTAMP},#{deviceEndDate,jdbcType=TIMESTAMP},
+     #{deviceStyleId,jdbcType=INTEGER}
+    )
+  </insert>
 </mapper>

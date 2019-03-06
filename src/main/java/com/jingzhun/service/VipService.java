@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface VipService {
     public List<Vip> selectAll();
+    String scoreExchange(Integer userId,Integer vipId,Integer deviceId);
 }

@@ -9,11 +9,10 @@ public interface VipDao {
 
     int insert(Vip record);
 
+    //积分兑换
     Vip selectByPrimaryKey(Integer vipId);
 
+    //设备续费列表
     List<Vip> selectAll();
-
-    int updateByPrimaryKey(Vip record);
-
 
 }

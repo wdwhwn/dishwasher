@@ -154,6 +154,11 @@
       <artifactId>commons-io</artifactId>
       <version>2.6</version>
     </dependency>
+    <!--可以使用@slf4j   不用写LogFactory-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
   </dependencies>
 
 
@@ -161,13 +166,12 @@
     <!-- 应与application.properties(或application.yml)中context-path保持一致 -->
     <finalName>dishwasher</finalName>
     <plugins>
-    <!--<plugin>
+   <!--<plugin>
         <groupId>org.mybatis.generator</groupId>
         <artifactId>mybatis-generator-maven-plugin</artifactId>
         <version>1.3.2</version>
         <configuration>
-
-          <configurationFile>src/main/resourgeneratorConfig.xml</configurationFile>
+          <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
           <verbose>true</verbose>
           <overwrite>true</overwrite>
         </configuration>
@@ -188,7 +192,7 @@
         </dependencies>
       </plugin>-->
       <!--控制台乱码-->
-      <plugin>
+      <!--<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.12.4</version>
@@ -196,7 +200,7 @@
           <forkMode>once</forkMode>
           <argLine>-Dfile.encoding=UTF-8</argLine>
         </configuration>
-      </plugin>
+      </plugin>-->
       <!--插件启动-->
       <plugin>
         <groupId>org.springframework.boot</groupId>

@@ -4,11 +4,13 @@
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Account" >
     <id column="account_id" property="accountId" jdbcType="INTEGER" />
     <result column="account_type" property="accountType" jdbcType="VARCHAR" />
-    <result column="account_number" property="accountNumber" jdbcType="VARCHAR" />
     <result column="account_user_id" property="accountUserId" jdbcType="INTEGER" />
     <result column="account_delete_state" property="accountDeleteState" jdbcType="VARCHAR" />
+    <result column="account_account_number" property="accountAccountNumber" jdbcType="VARCHAR" />
+    <result column="account_mobile" property="accountMobile" jdbcType="VARCHAR" />
+    <result column="account_name_real" property="accountNameReal" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_account
     where account_id = #{accountId,jdbcType=INTEGER}
   </delete>
@@ -34,5 +36,14 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select account_id, account_type, account_number, account_user_id, account_delete_state
     from t_dishwasher_account
-  </select>
+  </select>-->
+  <!--添加账号-->
+  <insert id="insert" parameterType="com.jingzhun.entity.Account" >
+    insert into t_dishwasher_account (account_id, account_type, account_account_number,
+   account_mobile,account_name_real, account_user_id, account_delete_state)
+    values (0, '微信', #{accountAccountNumber,jdbcType=VARCHAR},#{accountMobile,jdbcType=VARCHAR},#{accountNameReal,jdbcType=VARCHAR}
+    ,#{accountUserId,jdbcType=INTEGER}, 0)
+  </insert>
+
+
 </mapper>

@@ -21,6 +21,18 @@ public class Cash implements Serializable {
 
     private Integer cashUserId;
 
+    public Cash() {
+    }
+
+    public Cash(Integer cashId, Date cashDate, BigDecimal cashScore, String cashState, Integer cashAccountId, Integer cashUserId) {
+        this.cashId = cashId;
+        this.cashDate = cashDate;
+        this.cashScore = cashScore;
+        this.cashState = cashState;
+        this.cashAccountId = cashAccountId;
+        this.cashUserId = cashUserId;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getCashId() {

@@ -5,11 +5,7 @@ import java.util.List;
 
 public interface UserDao {
     /*int deleteByPrimaryKey(Integer userId);
-
-
-
     User selectByPrimaryKey(Integer userId);
-
     List<User> selectAll();
 
     int updateByPrimaryKey(User record);*/
@@ -27,4 +23,8 @@ public interface UserDao {
 
 //    短信验证通过   即添加用户信息
     void insert(User record);
+//    查询所有用户
+    List<User> selectAll();
+//     提现  更新积分
+    void updateByPrimaryKey(User record);
 }

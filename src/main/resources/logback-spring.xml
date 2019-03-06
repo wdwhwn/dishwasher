@@ -109,7 +109,7 @@
 
     <!-- 生产环境. -->
     <springProfile name="prod">
-        <root level="debug">
+        <root level="error">
             <appender-ref ref="stdout"/>
         </root>
 
