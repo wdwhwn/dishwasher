@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -18,13 +19,12 @@ import java.util.List;
 /**
  * Created by Administrator on 2019/2/27 0027.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class UserTeamController {
     @Autowired
     private UserTeamService userTeamService;
     @RequestMapping("/selectByUserTeam")
-    @ResponseBody
     public String selectByUserTeam(Integer userId,Integer pageNum,Integer pageSize) throws FileNotFoundException {
         PageHelper.startPage(pageNum, pageSize);
         List<User> userList = userTeamService.selectByUserTeam(userId);

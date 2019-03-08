@@ -12,15 +12,13 @@ import java.util.Map;
 /**
  * Created by Administrator on 2019/2/27 0027.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class FirstPageController {
 
     @Autowired
     private FirstPageService firstPageService;
     @RequestMapping("/firstPageSelectAll")
-    @ResponseBody
-
     public String firstPageSelectAll(Integer userId,Integer pageNum,Integer pageSize) throws Exception {
         Map<String, Object> fistPageMap = firstPageService.selectByFistPage(userId,pageNum,pageSize);
         fistPageMap.put("message","执行成功");

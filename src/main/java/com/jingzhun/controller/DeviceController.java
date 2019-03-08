@@ -10,19 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2019/2/27 0027.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class DeviceController {
     @Autowired
     private DeviceService deviceService;
     @RequestMapping("/selectToDevice")
-    @ResponseBody
     public String selectToDevice(Integer userId,Integer pageNum,Integer pageSize,String token){
         System.out.println("设备");
         PageHelper.startPage(pageNum,pageSize);
@@ -33,7 +33,6 @@ public class DeviceController {
 
 //    通过拼团码 添加设备（后续完善购买） 返还积分
     @RequestMapping("/pintuan")
-    @ResponseBody
     public String pintuan(Integer userId,Integer deviceStyleId){
 
 

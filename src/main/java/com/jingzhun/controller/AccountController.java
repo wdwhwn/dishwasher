@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 /**
  * Created by Administrator on 2019/3/4 0004.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class AccountController {
     @Autowired
@@ -26,7 +27,6 @@ public class AccountController {
     private UserService userService;
     @RequestMapping("/accountInsert")
 //    添加账号
-    @ResponseBody
     public String accountInsert(Account account){
         HashMap<String,Object> hashMap = new HashMap<>();
         accountService.insert(account);
@@ -35,7 +35,6 @@ public class AccountController {
     }
 //    提现
     @RequestMapping("/cash")
-    @ResponseBody
     public String cash(Integer accountId,Integer userId,Double money){
         HashMap<String,Object> hashMap = new HashMap<>();
             accountService.cash(accountId,userId,money);

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -15,14 +16,13 @@ import java.util.Map;
 /**
  * Created by Administrator on 2019/2/27 0027.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class CashPageController {
     @Autowired
     private CashPageService cashPageService;
 
     @RequestMapping("/selectByCashPage")
-    @ResponseBody
     public String selectByCashPage(Integer userId){
 
         Map<String, Object> stringObjectMap = cashPageService.selectByCashPage(userId);

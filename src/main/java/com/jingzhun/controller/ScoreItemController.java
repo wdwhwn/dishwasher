@@ -7,19 +7,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2019/2/27 0027.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class ScoreItemController {
     @Autowired
     private ScoreItemService scoreItemService;
     @RequestMapping("/selectByScoreItem")
-    @ResponseBody
     public List<ScoreItem> selectByScoreItem(Integer userId){
         List<ScoreItem> scoreItemList = scoreItemService.selectByScoreItem(userId);
         return scoreItemList;

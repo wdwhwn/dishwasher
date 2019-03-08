@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,21 +16,19 @@ import java.util.List;
 /**
  * Created by Administrator on 2019/2/27 0027.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class VipController {
     @Autowired
     private VipService vipService;
 //    设备续费
     @RequestMapping("/vipSelectAll")
-    @ResponseBody
     public List<Vip> selectAll(){
         List<Vip> vipList = vipService.selectAll();
         return vipList;
     }
 //    积分兑换
     @RequestMapping("/scoreExchange")
-    @ResponseBody
     public String scoreExchange(Integer userId,Integer vipId,Integer deviceId){
         HashMap<String, Object> objectObjectHashMap = new HashMap<>();
         String s = vipService.scoreExchange(userId, vipId, deviceId);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,13 +19,12 @@ import java.util.List;
  * Created by Administrator on 2019/2/27 0027.
  * 提现记录
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class CashRecordController {
     @Autowired
     private CashRecordService cashRecordService;
     @RequestMapping("/selectByCashRecord")
-    @ResponseBody
     public String selectByCashRecord(Integer userId,Integer pageNum,Integer pageSize){
 
         PageHelper.startPage(pageNum,pageSize);

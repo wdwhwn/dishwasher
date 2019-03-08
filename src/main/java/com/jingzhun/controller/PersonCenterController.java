@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
@@ -18,14 +19,13 @@ import java.util.HashMap;
 /**
  * Created by Administrator on 2019/2/27 0027.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 @Slf4j
 public class PersonCenterController {
     @Autowired
     private UserDao userDao;
     @RequestMapping("/selectByScore")
-    @ResponseBody
     public String selectByScore(Integer userId) throws FileNotFoundException {
         HashMap<String,Object> map=new HashMap<String, Object>();
         User user = userDao.selectByPrimaryKey(userId);

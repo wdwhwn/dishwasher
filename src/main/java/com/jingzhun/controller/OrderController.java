@@ -5,11 +5,13 @@ import com.jingzhun.entity.Goods;
 import com.jingzhun.entity.Order;
 import com.jingzhun.service.OrderService;
 import com.jingzhun.utils.jsonutil.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -17,21 +19,20 @@ import java.util.HashMap;
 /**
  * Created by Administrator on 2019/3/5 0005.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
+@Slf4j
 public class OrderController {
     @Autowired
     private OrderService orderService;
 //    确认商品
     @RequestMapping("/orderGoodsCheck")
-    @ResponseBody
     public String orderGoodsCheck(Integer goodsId) throws FileNotFoundException {
         Goods goods = orderService.selectByGoodsId(goodsId);
         return JsonUtil.toJson(goods);
     }
 //   确认收货地址1--默认收货地址
     @RequestMapping("/orderAddressCheck1")
-    @ResponseBody
     public String orderAddressCheck1(Integer userId){
         HashMap<String, Object> objectObjectHashMap = new HashMap<>();
         Address address = orderService.addressCheck1(userId);
@@ -42,7 +43,6 @@ public class OrderController {
     }
     //   确认收货地址2
     @RequestMapping("/orderAddressCheck2")
-    @ResponseBody
     public String orderAddressCheck2(Integer userId,Integer addressId){
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
         Address address = orderService.addressCheck2(userId,addressId);
@@ -52,7 +52,6 @@ public class OrderController {
     }
 //   提交订单
     @RequestMapping("/orderInsert")
-    @ResponseBody
     public String orderInsert(Order order){
         HashMap<String,Object> hashMap = new HashMap<>();
         String s = orderService.insertOrder(order);

@@ -8,11 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Administrator on 2019/2/27 0027.
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class CashSummaryController {
     @Autowired
@@ -22,7 +23,6 @@ public class CashSummaryController {
      * @return
      */
     @RequestMapping("/selectByCashSummary")
-    @ResponseBody
     public String selectByCashSummaryService(Integer userId){
         User user = cashSummaryService.selectByCashSummary(userId);
         return JsonUtil.toJson(user);

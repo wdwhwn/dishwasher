@@ -10,10 +10,7 @@ import com.jingzhun.utils.token.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.util.Date;
@@ -23,7 +20,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2019/3/1 0001.
  */
-@Controller
+@RestController
 @CrossOrigin(origins="*",maxAge = 3600)
 @Slf4j
 public class MsgController {
@@ -31,7 +28,6 @@ public class MsgController {
     private UserService userService;
 //    发送验证码
     @RequestMapping("/msgAuthentication")
-    @ResponseBody
     public String msgAuthentication(String mobile) throws FileNotFoundException {
         String card = RandomNumber.getCard();
         System.out.println(mobile+" "+card);
@@ -41,7 +37,6 @@ public class MsgController {
     }
 //    通过验证码  验证用户合法性
     @RequestMapping("/msgCheck")
-    @ResponseBody
     public String msgCheck(User user, String  mobile, String card){
         System.out.println(user);
         HashMap<String, Object> stringObjectHashMap = new HashMap<String, Object>();
