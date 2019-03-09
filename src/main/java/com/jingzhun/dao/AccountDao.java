@@ -13,7 +13,6 @@ public interface AccountDao {
     List<Account> selectAll();
 
     int updateByPrimaryKey(Account record);*/
-//  添加用户账号
 
     /**
      * 添加用户账号
