@@ -5,6 +5,7 @@ import com.jingzhun.dao.DeviceStyleDao;
 import com.jingzhun.entity.Device;
 import com.jingzhun.entity.DeviceStyle;
 import com.jingzhun.entity.DeviceTwoDimensionalDTO;
+import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.twodimensional.QrCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,11 +67,15 @@ public class TwoDimensionalServiceImpl implements TwoDimensionalService {
         for(int i=0;i<devices.size();i++){
             /*String pre="https://cli.im/api/qrcode/code?text=";
             String behind="&mhid=sELPDFnok80gPHovKdI";*/
-            String url="http://140.143.200.89:8080/dishwasher/pinTurnMiddle?";
+//            String url="http://140.143.200.89:8080/dishwasher/pinTurnMiddle?";
             Integer deviceStyleId = devices.get(i).getDeviceStyleId();
-            url=url+"pid="+userId+"&deviceStyleId="+ deviceStyleId;
+//            url=url+"pid="+userId+"&deviceStyleId="+ deviceStyleId;
 //            url=pre+url+behind;
-            String binary = QrCodeUtils.creatRrCode(url, 200, 200);
+            HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+            objectObjectHashMap.put("userId",userId);
+            objectObjectHashMap.put("deviceStyleId",deviceStyleId);
+            String binary = QrCodeUtils.creatRrCode(JsonUtil.toJson(objectObjectHashMap), 200, 200);
+            System.out.println(binary);
             DeviceStyle deviceStyle = deviceStyleDao.selectByStyleId(deviceStyleId);
             DeviceTwoDimensionalDTO deviceTwoDimensionalDTO = new DeviceTwoDimensionalDTO();
             deviceTwoDimensionalDTO.setName(deviceStyle.getDevieStyleName());

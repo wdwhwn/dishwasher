@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 
 /**
+ * @author 王丹
  * Created by Administrator on 2019/2/27 0027.
  */
 @RestController
@@ -37,7 +38,6 @@ public class PersonCenterController {
         String userImgUrl = PropertiesUtil.readValue("url.properties", urlName)+userImg;
 
         user.setUserWxImg(userImgUrl);
-//        BigDecimal userCurrentScore = user.getUserCurrentScore();
 
         map.put("user",user);
         return JsonUtil.toJson(map);

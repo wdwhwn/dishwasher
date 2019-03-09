@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Order" >
     <id column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="order_message" property="orderMessage" jdbcType="VARCHAR" />
-    <result column="order_freight" property="orderFreight" jdbcType="DECIMAL" />
+    <result column="order_freight" property="orderFreight" jdbcType="VARCHAR" />
     <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
     <result column="order_total_price" property="orderTotalPrice" jdbcType="DECIMAL" />
     <result column="order_address_id" property="orderAddressId" jdbcType="INTEGER" />
@@ -18,7 +18,7 @@
     insert into t_dishwasher_order (order_id, order_message, order_freight, 
       order_date, order_total_price, order_address_id, 
       order_user_id)
-    values (#{orderId,jdbcType=INTEGER}, #{orderMessage,jdbcType=VARCHAR}, #{orderFreight,jdbcType=DECIMAL}, 
+    values (#{orderId,jdbcType=INTEGER}, #{orderMessage,jdbcType=VARCHAR}, '包邮',
       #{orderDate,jdbcType=TIMESTAMP}, #{orderTotalPrice,jdbcType=DECIMAL}, #{orderAddressId,jdbcType=INTEGER}, 
       #{orderUserId,jdbcType=INTEGER})
   </insert>

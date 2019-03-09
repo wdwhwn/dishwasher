@@ -72,6 +72,11 @@
           <element id="library" level="project" name="Maven: com.google.zxing:javase:3.2.1" />
           <element id="library" level="project" name="Maven: com.beust:jcommander:1.48" />
           <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
+          <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.2.71" />
+          <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.2.71" />
+          <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.71" />
+          <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
+          <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.71" />
         </element>
       </element>
       <element id="directory" name="META-INF">

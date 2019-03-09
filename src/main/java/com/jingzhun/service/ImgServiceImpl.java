@@ -4,6 +4,7 @@ import com.jingzhun.dao.ImgDao;
 import com.jingzhun.entity.Img;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * 查询条件为deleteState为0
  */
 @Service
+@Transactional
 public class ImgServiceImpl implements ImgService {
     @Autowired
     private ImgDao imgDao;

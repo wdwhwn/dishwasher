@@ -1,11 +1,16 @@
 package com.jingzhun.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DeviceControl implements Serializable {
     private Integer deviceControlId;
 
@@ -16,51 +21,5 @@ public class DeviceControl implements Serializable {
 
     private String deviceControlState;
 
-    private static final long serialVersionUID = 1L;
 
-    public Integer getDeviceControlId() {
-        return deviceControlId;
-    }
-
-    public void setDeviceControlId(Integer deviceControlId) {
-        this.deviceControlId = deviceControlId;
-    }
-
-    public Integer getDeviceControlDeviceId() {
-        return deviceControlDeviceId;
-    }
-
-    public void setDeviceControlDeviceId(Integer deviceControlDeviceId) {
-        this.deviceControlDeviceId = deviceControlDeviceId;
-    }
-
-    public Date getDeviceControlDate() {
-        return deviceControlDate;
-    }
-
-    public void setDeviceControlDate(Date deviceControlDate) {
-        this.deviceControlDate = deviceControlDate;
-    }
-
-    public String getDeviceControlState() {
-        return deviceControlState;
-    }
-
-    public void setDeviceControlState(String deviceControlState) {
-        this.deviceControlState = deviceControlState;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", deviceControlId=").append(deviceControlId);
-        sb.append(", deviceControlDeviceId=").append(deviceControlDeviceId);
-        sb.append(", deviceControlDate=").append(deviceControlDate);
-        sb.append(", deviceControlState=").append(deviceControlState);
-        sb.append("]");
-        return sb.toString();
-    }
 }

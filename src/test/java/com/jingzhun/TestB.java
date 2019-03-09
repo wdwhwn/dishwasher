@@ -2,6 +2,7 @@ package com.jingzhun;
 
 import com.jingzhun.common.msg.Msg;
 import com.jingzhun.dao.StockDetailDao;
+import com.jingzhun.entity.ConstantFile;
 import com.jingzhun.entity.StockDetail;
 import com.jingzhun.service.DeviceServiceImpl;
 import com.jingzhun.utils.idrandom.RandomNumber;
@@ -88,5 +89,6 @@ public class TestB extends Test1 {
     String absolutePath = file.getAbsolutePath();
     System.out.println(absolutePath+"SSSSSSSSSSSSSSS");
 }
+
 
 }

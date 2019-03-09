@@ -1,5 +1,6 @@
 package com.jingzhun.controller;
 
+import com.jingzhun.common.enumpackage.OrderEnum;
 import com.jingzhun.entity.Address;
 import com.jingzhun.entity.Goods;
 import com.jingzhun.entity.Order;
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 /**
+ * @author  王丹
  * Created by Administrator on 2019/3/5 0005.
  */
 @RestController
@@ -55,9 +57,9 @@ public class OrderController {
     public String orderInsert(Order order){
         HashMap<String,Object> hashMap = new HashMap<>();
         String s = orderService.insertOrder(order);
-        if("订单提交成功".equals(s)){
+        if(OrderEnum.Success.getName().equals(s)){
             hashMap.put("message","订单提交成功");
-        }else if("积分余额不足".equals(s)){
+        }else if(OrderEnum.Fail.getName().equals(s)){
             hashMap.put("message","积分余额不足");
         }
         return JsonUtil.toJson(hashMap);

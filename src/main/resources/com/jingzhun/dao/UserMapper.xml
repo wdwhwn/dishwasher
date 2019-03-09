@@ -107,8 +107,8 @@
     insert into t_dishwasher_user (user_id,  user_wx_img,
     user_wx_name, user_date, user_type, user_delete_state,user_wx_openid,user_mobile)
     values (0,  #{userWxImg,jdbcType=VARCHAR},
-    #{userWxName,jdbcType=VARCHAR},#{userDate,jdbcType=TIMESTAMP}, #{userType,jdbcType=VARCHAR},
-    #{userDeleteState,jdbcType=VARCHAR}, #{userWxOpenid,jdbcType=VARCHAR},#{userMobile,jdbcType=VARCHAR})
+    #{userWxName,jdbcType=VARCHAR},#{userDate,jdbcType=TIMESTAMP}, 0,
+    0, #{userWxOpenid,jdbcType=VARCHAR},#{userMobile,jdbcType=VARCHAR})
   </insert>
 <!--  提现  更新积分-->
   <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.User" >

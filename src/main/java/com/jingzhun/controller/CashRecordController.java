@@ -5,28 +5,32 @@ import com.github.pagehelper.PageInfo;
 import com.jingzhun.entity.Cash;
 import com.jingzhun.service.CashRecordService;
 import com.jingzhun.utils.jsonutil.JsonUtil;
-import com.sun.prism.impl.Disposer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**
+ * @author 王丹
+ * @description 提现记录
  * Created by Administrator on 2019/2/27 0027.
- * 提现记录
- */
+ * */
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class CashRecordController {
     @Autowired
     private CashRecordService cashRecordService;
+
+    /**
+     *
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping("/selectByCashRecord")
     public String selectByCashRecord(Integer userId,Integer pageNum,Integer pageSize){
-
         PageHelper.startPage(pageNum,pageSize);
         List<Cash> cashList = cashRecordService.selectByCashRecord(userId);
         PageInfo<Cash> cashPageInfo = new PageInfo<Cash>(cashList);

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author  王丹
  * Created by Administrator on 2019/3/1 0001.
  */
 @RestController
@@ -43,9 +44,6 @@ public class MsgController {
         String s = JedisUtil.getJedis().get(mobile);
         System.out.println("LLL");
         Date date = new Date();
-//        User user=new User();
-        /*user.setUserWxImg(userWxImg);
-        user.setUserWxName(userWxName);*/
         user.setUserDate(date);
         user.setUserMobile(mobile);
         String tokenOrigin=user.getUserName();

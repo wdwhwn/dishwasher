@@ -6,6 +6,7 @@ import com.jingzhun.entity.GoodsImg;
 import com.jingzhun.utils.properties.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ import java.util.Map;
  * 商品详情页
  */
 @Service
+@Transactional
 public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private GoodsDao goodsDao;
