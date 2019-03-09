@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * @author 王丹
+ * @Description 商品展示
  * Created by Administrator on 2019/3/4 0004.
  */
 @RestController
@@ -21,7 +22,12 @@ import java.util.Map;
 public class GoodDetailController {
     @Autowired
     private GoodsService goodsService;
-//    商品详情展示
+    /**
+     * 商品详情展示
+     * @param goodsImgGoodsId  商品id
+     * @return  状态信息：商品展示成功
+     * @throws FileNotFoundException  使用propertiesUtil工具类   文件找不到异常
+     */
     @RequestMapping("/selectToGoodsDetail")
     public String selectToGoodsDetail(Integer goodsImgGoodsId) throws FileNotFoundException {
         Map<String, Object> stringObjectMap = goodsService.selectAllById(goodsImgGoodsId);

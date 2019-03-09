@@ -193,6 +193,14 @@
           <version>${kotlin.version}</version>
           <scope>test</scope>
       </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.webjars.npm/simple-sha1 -->
+      <dependency>
+          <groupId>org.webjars.npm</groupId>
+          <artifactId>simple-sha1</artifactId>
+          <version>2.1.1</version>
+      </dependency>
+
   </dependencies>
 
 

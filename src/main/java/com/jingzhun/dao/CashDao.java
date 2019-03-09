@@ -2,7 +2,9 @@ package com.jingzhun.dao;
 
 import com.jingzhun.entity.Cash;
 import java.util.List;
-
+/**
+ * @author wd
+ */
 public interface CashDao {
     /*int deleteByPrimaryKey(Integer cashId);
 
@@ -14,8 +16,17 @@ public interface CashDao {
 
     int updateByPrimaryKey(Cash record);*/
 
-//    提现记录详情
+    /**
+     *查询当前用户的提现记录
+     * @param userId  用户id
+     * @return  L<list>
+     */
     List<Cash> selectByCashRecord(Integer userId);
-//   添加提现记录
-    int insert(Cash record);
+
+    /**
+     * 添加提现记录
+     * @param record  记录对象
+     *
+     */
+    void insert(Cash record);
 }

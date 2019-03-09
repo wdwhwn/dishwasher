@@ -28,7 +28,7 @@ public class PersonCenterController {
     private UserDao userDao;
     @RequestMapping("/selectByScore")
     public String selectByScore(Integer userId) throws FileNotFoundException {
-        HashMap<String,Object> map=new HashMap<String, Object>();
+        HashMap<String,Object> map=new HashMap<String, Object>(3);
         User user = userDao.selectByPrimaryKey(userId);
         log.error("对象",user);
 //        拼接路径

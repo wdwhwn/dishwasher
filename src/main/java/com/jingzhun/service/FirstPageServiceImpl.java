@@ -10,6 +10,7 @@ import com.jingzhun.entity.GoodsImg;
 import com.jingzhun.entity.Img;
 import com.jingzhun.entity.User;
 import com.jingzhun.utils.properties.PropertiesUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ import java.util.Map;
  */
 @Service
 @Transactional
+@Slf4j
 public class FirstPageServiceImpl implements FirstPageService  {
 
     @Autowired
@@ -50,6 +52,7 @@ public class FirstPageServiceImpl implements FirstPageService  {
                 String urlName = PropertiesUtil.readValue("main.properties", "urlName");
                 String url = PropertiesUtil.readValue("url.properties", urlName);
                 String imgUrl=url+goodsImg.getGoodsImgImg();
+                log.debug(imgUrl);
                 goodsImg.setGoodsImgImg(imgUrl);
             }
         }

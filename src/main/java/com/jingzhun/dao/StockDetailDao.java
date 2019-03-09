@@ -4,7 +4,9 @@ import com.jingzhun.entity.StockDetail;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+/**
+ * @author wd
+ */
 public interface StockDetailDao {
    /* int deleteByPrimaryKey(Integer stockDetailId);
 

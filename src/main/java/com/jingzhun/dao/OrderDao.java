@@ -2,7 +2,9 @@ package com.jingzhun.dao;
 
 import com.jingzhun.entity.Order;
 import java.util.List;
-
+/**
+ * @author wd
+ */
 public interface OrderDao {
     /*int deleteByPrimaryKey(Integer orderId);
 
@@ -12,5 +14,10 @@ public interface OrderDao {
 
     int updateByPrimaryKey(Order record);*/
 
-    int insertOrder(Order record);
+    /**
+     * 提交订单
+     * @param record  订单对象
+     *
+     */
+    void insertOrder(Order record);
 }

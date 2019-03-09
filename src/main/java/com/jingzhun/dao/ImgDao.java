@@ -2,15 +2,22 @@ package com.jingzhun.dao;
 
 import com.jingzhun.entity.Img;
 import java.util.List;
-
+/**
+ * @author wd
+ */
 public interface ImgDao {
-    int deleteByPrimaryKey(Integer imgId);
+    /*int deleteByPrimaryKey(Integer imgId);
 
     int insert(Img record);
 
     Img selectByPrimaryKey(Integer imgId);
 
-    List<Img> selectAll();
 
-    int updateByPrimaryKey(Img record);
+    int updateByPrimaryKey(Img record);*/
+
+    /**
+     *  首页轮播图
+     * @return List<Img>
+     */
+    List<Img> selectAll();
 }

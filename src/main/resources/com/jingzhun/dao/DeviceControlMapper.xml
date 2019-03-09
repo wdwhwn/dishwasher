@@ -7,7 +7,7 @@
     <result column="device_control_date" property="deviceControlDate" jdbcType="TIMESTAMP" />
     <result column="device_control_state" property="deviceControlState" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_device_control
     where device_control_id = #{deviceControlId,jdbcType=INTEGER}
   </delete>
@@ -34,7 +34,7 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select device_control_id, device_control_device_id, device_control_date, device_control_state
     from t_dishwasher_device_control
-  </select>
+  </select>-->
 
 
 </mapper>

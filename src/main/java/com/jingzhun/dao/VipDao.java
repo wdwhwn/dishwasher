@@ -3,7 +3,9 @@ package com.jingzhun.dao;
 import com.jingzhun.entity.Ratio;
 import com.jingzhun.entity.Vip;
 import java.util.List;
-
+/**
+ * @author wd
+ */
 public interface VipDao {
     int deleteByPrimaryKey(Integer vipId);
 

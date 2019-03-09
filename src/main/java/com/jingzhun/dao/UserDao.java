@@ -2,7 +2,9 @@ package com.jingzhun.dao;
 
 import com.jingzhun.entity.User;
 import java.util.List;
-
+/**
+ * @author wd
+ */
 public interface UserDao {
     /*int deleteByPrimaryKey(Integer userId);
     User selectByPrimaryKey(Integer userId);
@@ -17,7 +19,7 @@ public interface UserDao {
     List<User> selectByCashPage(Integer userId);
 
     //积分页面
-    User selectByCashSummary(Integer UserId);
+    User selectByCashSummary(Integer userId);
     //    我的团友列表
     List<User> selectByPid(Integer userId);
 

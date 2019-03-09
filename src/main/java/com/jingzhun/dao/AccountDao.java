@@ -1,8 +1,10 @@
 package com.jingzhun.dao;
 
 import com.jingzhun.entity.Account;
-import java.util.List;
 
+/**
+ * @author wd
+ */
 public interface AccountDao {
    /* int deleteByPrimaryKey(Integer accountId);
 
@@ -12,5 +14,11 @@ public interface AccountDao {
 
     int updateByPrimaryKey(Account record);*/
 //  添加用户账号
-    int insert(Account record);
+
+    /**
+     * 添加用户账号
+     * @param record  账户对象
+     *
+     */
+    void insert(Account record);
 }

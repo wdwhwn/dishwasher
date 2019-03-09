@@ -27,35 +27,54 @@ import java.util.HashMap;
 public class OrderController {
     @Autowired
     private OrderService orderService;
-//    确认商品
+    /**
+     * 确认商品
+     * @param goodsId  商品id
+     * @return  返回商品信息
+     * @throws FileNotFoundException  文件未找到异常
+     */
     @RequestMapping("/orderGoodsCheck")
     public String orderGoodsCheck(Integer goodsId) throws FileNotFoundException {
         Goods goods = orderService.selectByGoodsId(goodsId);
         return JsonUtil.toJson(goods);
     }
-//   确认收货地址1--默认收货地址
+    /**
+     * @title 确认收货地址1--默认收货地址
+     * @description  从商品详情进入，显示默认收货地址
+     * @param userId  用户id
+     * @return  返回地址信息
+     */
     @RequestMapping("/orderAddressCheck1")
     public String orderAddressCheck1(Integer userId){
-        HashMap<String, Object> objectObjectHashMap = new HashMap<>();
+        HashMap<String, Object> objectObjectHashMap = new HashMap<>(5);
         Address address = orderService.addressCheck1(userId);
         objectObjectHashMap.put("address",address);
         objectObjectHashMap.put("code",1);
-        objectObjectHashMap.get("address");
         return JsonUtil.toJson(objectObjectHashMap);
     }
-    //   确认收货地址2
+    /**
+     *@title 确认收货地址2
+     *@description  返回收货地址信息
+     * @param userId  用户id
+     * @param addressId  收货地址id
+     * @return  返回收货地址  code=2 表明从收货地址跳转
+     */
     @RequestMapping("/orderAddressCheck2")
     public String orderAddressCheck2(Integer userId,Integer addressId){
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(4);
         Address address = orderService.addressCheck2(userId,addressId);
         objectObjectHashMap.put("address",address);
         objectObjectHashMap.put("code",2);
         return JsonUtil.toJson(objectObjectHashMap);
     }
-//   提交订单
+    /**
+     *@title 提交订单
+     * @param order  订单对象
+     * @return  状态信息：成功 or 余额不足
+     */
     @RequestMapping("/orderInsert")
     public String orderInsert(Order order){
-        HashMap<String,Object> hashMap = new HashMap<>();
+        HashMap<String,Object> hashMap = new HashMap<>(3);
         String s = orderService.insertOrder(order);
         if(OrderEnum.Success.getName().equals(s)){
             hashMap.put("message","订单提交成功");

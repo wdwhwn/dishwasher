@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class VipController {
+    private static final String SUCCESS="续费成功";
     @Autowired
     private VipService vipService;
     @RequestMapping("/vipSelectAll")
@@ -29,9 +30,9 @@ public class VipController {
 
     @RequestMapping("/scoreExchange")
     public String scoreExchange(Integer userId,Integer vipId,Integer deviceId){
-        HashMap<String, Object> objectObjectHashMap = new HashMap<>();
+        HashMap<String, Object> objectObjectHashMap = new HashMap<>(3);
         String s = vipService.scoreExchange(userId, vipId, deviceId);
-        if(!"续费成功".equals(s)){
+        if(!SUCCESS.equals(s)){
             objectObjectHashMap.put("message","请选择低版本卡片");
         }else{
             objectObjectHashMap.put("message","续费成功");

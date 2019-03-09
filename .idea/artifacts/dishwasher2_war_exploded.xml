@@ -77,6 +77,8 @@
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.71" />
           <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.71" />
+          <element id="library" level="project" name="Maven: org.webjars.npm:simple-sha1:2.1.1" />
+          <element id="library" level="project" name="Maven: org.webjars.npm:rusha:0.8.13" />
         </element>
       </element>
       <element id="directory" name="META-INF">

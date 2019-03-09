@@ -32,11 +32,4 @@ public class DeviceController {
         return JsonUtil.toJson(devicePageInfo);
     }
 
-//    通过拼团码 添加设备（后续完善购买） 返还积分
-    @RequestMapping("/pintuan")
-    public String pintuan(Integer userId,Integer deviceStyleId){
-
-
-        return null;
-    }
 }
