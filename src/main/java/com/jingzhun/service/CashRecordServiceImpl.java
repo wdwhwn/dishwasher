@@ -25,7 +25,7 @@ public class CashRecordServiceImpl implements CashRecordService {
     @Override
     public List<Cash> selectByCashRecord(Integer userId) {
         List<Cash> cashList = cashDao.selectByCashRecord(userId);
-
+        System.out.println(cashList);
         Ratio ratio = ratioDao.selectOne();
         String ratioRatio = ratio.getRatioRatio();
         BigDecimal bigDecimal = new BigDecimal(ratioRatio);

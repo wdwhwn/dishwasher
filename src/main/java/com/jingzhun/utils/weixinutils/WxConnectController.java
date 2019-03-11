@@ -1,4 +1,4 @@
-package com.jingzhun.controller;
+package com.jingzhun.utils.weixinutils;
 
 import com.jingzhun.common.exception.zdy.AesException;
 import lombok.extern.slf4j.Slf4j;
@@ -7,18 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * @author wd
+ * 用途：将域名绑定在公众号上
  * Created by Administrator on 2019/3/9 0009.
  */
 @Controller
 @Slf4j
-public class TestController {
+public class WxConnectController {
     /**
      * 微信公众号验证
      * @return
      */
     @RequestMapping(value = "/wechatAuth")
     @ResponseBody
-    public String wechatAuth(String signature, String timestamp, String nonce, String echostr) {
+    public String wechatAuth(String  signature, String timestamp, String nonce, String echostr) {
         //获取微信服务器配置的自定义token
         String token = "jingzhun";
         String sig = null;

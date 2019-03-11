@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class DeviceTwoDimensionalDTO {
     private String name;
     private String url;

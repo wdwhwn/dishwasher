@@ -12,11 +12,29 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class Cash implements Serializable {
     private Integer cashId;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cashDate;
+
+    public Date getCashDate() {
+        if(cashDate==null){
+            return null;
+        }
+        return (Date) cashDate.clone();
+    }
+
+    public void setCashDate(Date cashDate) {
+        if(cashDate==null){
+            this.cashDate=null;
+        }else{
+            this.cashDate=(Date)cashDate.clone();
+        }
+    }
 
     private BigDecimal cashScore;
 

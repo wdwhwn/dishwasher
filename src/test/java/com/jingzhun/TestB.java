@@ -1,30 +1,19 @@
 package com.jingzhun;
 
-import com.jingzhun.common.msg.Msg;
 import com.jingzhun.dao.StockDetailDao;
-import com.jingzhun.entity.ConstantFile;
 import com.jingzhun.entity.StockDetail;
-import com.jingzhun.service.DeviceServiceImpl;
 import com.jingzhun.utils.idrandom.RandomNumber;
 import com.jingzhun.utils.jedisUtil.JedisUtil;
-import com.jingzhun.utils.jsonutil.JsonUtil;
-import com.jingzhun.utils.properties.PropertiesUtil;
 import com.jingzhun.utils.token.JwtUtil;
 import com.jingzhun.utils.twodimensional.QrCodeUtils;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.annotation.Annotation;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -8,6 +8,9 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class Img implements Serializable {
     private Integer imgId;
 

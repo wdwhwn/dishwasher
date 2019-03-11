@@ -23,7 +23,7 @@ public class RandomNumber {
     public static String getCard() {
         Random rand = new Random();//生成随机数
         String cardNnumer = "";
-        for (int a = 0; a < 8; a++) {
+        for (int a = 0; a < 4; a++) {
             cardNnumer += rand.nextInt(10);
         }
       /*  if(new Double(cardNnumer).doubleValue()<10000000d){
@@ -31,6 +31,7 @@ public class RandomNumber {
         }*/
         return cardNnumer;
     }
+
 
     //生成随机数
     public static int getRandomNum(int min,int max) {

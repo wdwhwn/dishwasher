@@ -8,15 +8,15 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class Account implements Serializable {
     private Integer accountId;
 
     private String accountType;
-//1
     private String accountAccountNumber;
-//  1
     private String accountMobile;
-//1
     private String accountNameReal;
 
     private Integer accountUserId;

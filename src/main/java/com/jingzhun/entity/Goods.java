@@ -12,6 +12,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class Goods implements Serializable {
     private Integer goodsId;
 

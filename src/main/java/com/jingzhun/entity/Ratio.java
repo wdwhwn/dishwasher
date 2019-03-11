@@ -8,6 +8,9 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class Ratio implements Serializable {
     private Integer ratioId;
 

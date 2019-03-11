@@ -8,6 +8,9 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class Address implements Serializable {
     private Integer addressId;
 

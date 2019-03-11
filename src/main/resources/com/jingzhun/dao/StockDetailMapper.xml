@@ -64,7 +64,7 @@
     where stock_detail_id = #{stockDetailId,jdbcType=INTEGER}
   </update>
   <!--根据id 查询设备-->
-  <select id="selectByStockDetailId" resultType="int" parameterType="java.lang.Integer" >
+  <select id="selectByStockDetailId" resultMap="BaseResultMap"  >
     select stock_detail_id, stock_detail_device_style_id, stock_detail_device_number,device_style_id,devie_style_name,devie_style_month_supply,device_style_number
      from t_dishwasher_stock_detail left join t_dishwasher_device_style on stock_detail_device_style_id =device_style_id
     WHERE stock_detail_id = #{stockDetailId,jdbcType=INTEGER} and stock_detail_device_number = #{stockDetailDeviceNumber,jdbcType=INTEGER}

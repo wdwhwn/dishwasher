@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class Vip implements Serializable {
     private Integer vipId;
 

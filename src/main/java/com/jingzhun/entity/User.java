@@ -14,6 +14,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * @author wd
+ */
 public class User implements Serializable {
     private Integer userId;
 
@@ -35,6 +38,25 @@ public class User implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date userDate;
+
+    public Date getUserDate() {
+
+        if (userDate==null) {
+            return  null;
+        } else {
+            return (Date) userDate.clone();
+        }
+    }
+
+    public void setUserDate(Date userDate) {
+
+        if (userDate==null) {
+            this.userDate=null;
+        } else {
+            this.userDate = (Date) userDate.clone();
+
+        }
+    }
 
     private String userType;
 

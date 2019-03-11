@@ -46,6 +46,13 @@
       <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
+      <!-- 本地调试集成tomcat -->
+     <!-- <dependency>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-servlet-api</artifactId>
+          <version>8.0.36</version>
+          <scope>provided</scope>
+      </dependency>-->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -182,24 +189,39 @@
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
     </dependency>
+
+
+
+      <!--支持微信工具类  发送请求-->
+      <!--<dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpcore</artifactId>
+          <version>4.4.4</version>
+      </dependency>-->
+
       <dependency>
-          <groupId>org.jetbrains.kotlin</groupId>
-          <artifactId>kotlin-stdlib-jre8</artifactId>
-          <version>${kotlin.version}</version>
-      </dependency>
-      <dependency>
-          <groupId>org.jetbrains.kotlin</groupId>
-          <artifactId>kotlin-test</artifactId>
-          <version>${kotlin.version}</version>
-          <scope>test</scope>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpmime</artifactId>
+          <version>4.5.2</version>
+          <!--<exclusions>
+              <exclusion>
+                  <artifactId>commons-codec</artifactId>
+                  <groupId>commons-codec</groupId>
+              </exclusion>
+              <exclusion>
+                  <artifactId>httpcore</artifactId>
+                  <groupId>org.apache.httpcomponents</groupId>
+              </exclusion>
+          </exclusions>-->
       </dependency>
 
-      <!-- https://mvnrepository.com/artifact/org.webjars.npm/simple-sha1 -->
       <dependency>
-          <groupId>org.webjars.npm</groupId>
-          <artifactId>simple-sha1</artifactId>
-          <version>2.1.1</version>
+          <groupId>commons-httpclient</groupId>
+          <artifactId>commons-httpclient</artifactId>
+          <version>3.1</version>
       </dependency>
+
+
 
   </dependencies>
 

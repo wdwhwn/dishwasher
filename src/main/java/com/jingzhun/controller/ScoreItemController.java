@@ -2,11 +2,10 @@ package com.jingzhun.controller;
 
 import com.jingzhun.entity.ScoreItem;
 import com.jingzhun.service.ScoreItemService;
+import com.jingzhun.utils.jsonutil.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,8 +20,8 @@ public class ScoreItemController {
     @Autowired
     private ScoreItemService scoreItemService;
     @RequestMapping("/selectByScoreItem")
-    public List<ScoreItem> selectByScoreItem(Integer userId){
+    public String selectByScoreItem(Integer userId){
         List<ScoreItem> scoreItemList = scoreItemService.selectByScoreItem(userId);
-        return scoreItemList;
+        return JsonUtil.toJson(scoreItemList);
     }
 }

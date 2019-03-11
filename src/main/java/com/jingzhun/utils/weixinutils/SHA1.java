@@ -1,4 +1,4 @@
-package com.jingzhun.controller;
+package com.jingzhun.utils.weixinutils;
 
 import com.jingzhun.common.exception.zdy.AesException;
 

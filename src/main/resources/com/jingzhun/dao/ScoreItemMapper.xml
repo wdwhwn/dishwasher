@@ -8,6 +8,19 @@
     <result column="score__item_score" property="scoreItemScore"  />
     <result column="score_item_state" property="scoreItemState" jdbcType="VARCHAR" />
     <result column="score_item_user_id" property="scoreItemUserId" jdbcType="INTEGER" />
+    <result column="score_item_device_id" property="scoreItemDeviceId" jdbcType="INTEGER" />
+    <association property="device" javaType="com.jingzhun.entity.Device">
+      <result column="device_id" property="deviceId" jdbcType="INTEGER" />
+      <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+      <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+      <result column="device_state" property="deviceState" jdbcType="VARCHAR" />
+      <result column="device_user_id" property="deviceUserId" jdbcType="INTEGER" />
+      <result column="device_purchase_date" property="devicePurchaseDate" jdbcType="TIMESTAMP" />
+      <result column="device_renew_date" property="deviceRenewDate" jdbcType="TIMESTAMP" />
+      <result column="device_expire_date" property="deviceExpireDate" jdbcType="TIMESTAMP" />
+      <result column="device_end_date" property="deviceEndDate" jdbcType="TIMESTAMP" />
+      <result column="device_style_id" property="deviceStyleId" jdbcType="INTEGER" />
+    </association>
   </resultMap>
  <!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_score_item
@@ -43,15 +56,15 @@
   </select>-->
   <!--查询当前用户的积分明细-->
   <select id="selectByScoreItem" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-
-    select score_item_id, score__item_type, score__item_date, score__item_score, score_item_state,
-    score_item_user_id
-    from t_dishwasher_score_item
+select score_item_id, score__item_type, score__item_date, score__item_score, score_item_state,
+    score_item_user_id,device_id,device_name,device_number
+    from t_dishwasher_score_item left join t_dishwasher_device on score_item_device_id=device_id
     where score_item_user_id = #{userId,jdbcType=INTEGER} order by score__item_date desc
   </select>
 <!-- 添加积分明细  0 收益 1 支出-->
   <!--拼团码添加积分明细-->
   <insert id="insert" parameterType="com.jingzhun.entity.ScoreItem" >
+
     insert into t_dishwasher_score_item (score_item_id, score__item_type, score__item_date,
     score__item_score, score_item_state, score_item_user_id
     )values (0, #{scoreItemType,jdbcType=VARCHAR}, #{scoreItemDate,jdbcType=TIMESTAMP},
