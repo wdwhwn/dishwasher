@@ -102,7 +102,7 @@
     <logger name="com.baizhi.dao" level="DEBUG"/>-->
     <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
     <springProfile name="test,dev">
-        <root level="debug">
+        <root level="error">
             <appender-ref ref="stdout"/>
         </root>
     </springProfile>
