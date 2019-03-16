@@ -6,9 +6,16 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import static com.jingzhun.utils.weixinutils.AuthUtil.APPSECRET;
+import static com.jingzhun.utils.weixinutils.ProjectConst.APPID;
+
 
 /**
  * @author scw
@@ -40,13 +47,14 @@ public class WeiXinUtils {
         }
         return jsonObject;
     }
+
     /**
      * 获取access_token
      * @return
      */
     public static AccessToken getAccessToken(){
         AccessToken accessToken = new AccessToken();
-        String url = ProjectConst.ACCESS_TOKEN_URL.replace("APPID" ,ProjectConst.PROJECT_APPID).replace("APPSECRET",ProjectConst.PROJECT_APPSECRET);
+        String url = ProjectConst.ACCESS_TOKEN_URL.replace("APPID" ,APPID).replace("APPSECRET",APPSECRET);
         JSONObject jsonObject = doGetStr(url);
         if(jsonObject !=null){
             accessToken.setToken(jsonObject.getString("access_token"));

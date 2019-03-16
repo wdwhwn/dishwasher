@@ -29,6 +29,6 @@ public class ProjectConst {
     public static final String ACCESS_TOKEN_URL= "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
     //上面那五个，不用改。把下边的appid和appsecret改了就行
-    public final static String PROJECT_APPID="wx778f313eff0f980b";
-    public final static String PROJECT_APPSECRET="910415b15c96d7268cc1ee899f5fc8cd";
+    public final static String APPID="wx778f313eff0f980b";
+    public final static String APPSECRET="910415b15c96d7268cc1ee899f5fc8cd";
 }

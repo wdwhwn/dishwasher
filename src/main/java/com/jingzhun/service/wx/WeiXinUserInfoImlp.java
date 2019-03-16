@@ -69,9 +69,9 @@ public class WeiXinUserInfoImlp implements WeiXinUserInfoService {
     @Override
     public Map<String, String> oauth2GetOpenid(String code) {
         //自己的配置appid（公众号进行查阅）
-        String appid = ProjectConst.PROJECT_APPID;
+        String appid = ProjectConst.APPID;
         //自己的配置APPSECRET;（公众号进行查阅）
-        String appsecret = ProjectConst.PROJECT_APPSECRET;
+        String appsecret = ProjectConst.APPSECRET;
         //拼接用户授权接口信息
         String requestUrl = ProjectConst.GET_WEBAUTH_URL.replace("APPID", appid).replace("SECRET", appsecret).replace("CODE", code);
         //存储获取到的授权字段信息

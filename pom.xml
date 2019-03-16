@@ -193,17 +193,17 @@
 
 
       <!--支持微信工具类  发送请求-->
-      <!--<dependency>
+      <dependency>
           <groupId>org.apache.httpcomponents</groupId>
           <artifactId>httpcore</artifactId>
           <version>4.4.4</version>
-      </dependency>-->
+      </dependency>
 
       <dependency>
           <groupId>org.apache.httpcomponents</groupId>
           <artifactId>httpmime</artifactId>
           <version>4.5.2</version>
-          <!--<exclusions>
+          <exclusions>
               <exclusion>
                   <artifactId>commons-codec</artifactId>
                   <groupId>commons-codec</groupId>
@@ -212,7 +212,7 @@
                   <artifactId>httpcore</artifactId>
                   <groupId>org.apache.httpcomponents</groupId>
               </exclusion>
-          </exclusions>-->
+          </exclusions>
       </dependency>
 
       <dependency>
@@ -230,6 +230,7 @@
     <!-- 应与application.properties(或application.yml)中context-path保持一致 -->
     <finalName>dishwasher</finalName>
     <plugins>
+        <!--mybatis generator-->
    <!--<plugin>
         <groupId>org.mybatis.generator</groupId>
         <artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -270,7 +271,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-
+<!--指定jdk1.8-->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>

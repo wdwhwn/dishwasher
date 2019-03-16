@@ -1,4 +1,4 @@
-package com.sm.common.util;
+package com.jingzhun.common;
 
 public class Page {
 	/**

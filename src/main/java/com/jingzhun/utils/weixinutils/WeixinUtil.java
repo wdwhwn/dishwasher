@@ -17,7 +17,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import com.jingzhun.utils.https.MyX509TrustManager;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 
@@ -88,8 +87,9 @@ public class WeixinUtil {
                 // 设置请求方式（GET/POST）
                 httpUrlConn.setRequestMethod(requestMethod);
 
-                if ("GET".equalsIgnoreCase(requestMethod))
+                if ("GET".equalsIgnoreCase(requestMethod)) {
                     httpUrlConn.connect();
+                }
 
                 // 当有数据需要提交时
                 if (null != outputStr) {

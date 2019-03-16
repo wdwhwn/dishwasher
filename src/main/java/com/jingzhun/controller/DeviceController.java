@@ -18,17 +18,18 @@ import java.util.List;
  * @author  王丹
  * Created by Administrator on 2019/2/27 0027.
  */
-@RestController
+@Controller
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class DeviceController {
     @Autowired
     private DeviceService deviceService;
     @RequestMapping("/selectToDevice")
     public String selectToDevice(Integer userId,Integer pageNum,Integer pageSize,String token){
-        System.out.println("设备");
+
         PageHelper.startPage(pageNum,pageSize);
         List<Device> deviceList = deviceService.selectToDevice(userId);
         PageInfo<Device> devicePageInfo = new PageInfo<Device>(deviceList);
+
         return JsonUtil.toJson(devicePageInfo);
     }
 

@@ -1,4 +1,4 @@
-package com.jingzhun.utils.https;
+package com.jingzhun.utils.weixinutils;
 
 import java.security.cert.X509Certificate;
 import java.security.cert.CertificateException;

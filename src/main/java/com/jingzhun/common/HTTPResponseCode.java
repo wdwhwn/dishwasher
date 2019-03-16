@@ -1,4 +1,4 @@
-package com.sm.common.response;
+package com.jingzhun.common;
 
 /**
  * Created by zhaishixi on 2017/3/10 0010.

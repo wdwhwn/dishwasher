@@ -4,10 +4,13 @@ import com.jingzhun.entity.Vip;
 import com.jingzhun.service.VipService;
 import com.jingzhun.utils.jsonutil.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,9 +26,12 @@ public class VipController {
     @Autowired
     private VipService vipService;
     @RequestMapping("/vipSelectAll")
-    public List<Vip> selectAll(){
+    public String selectAll(HttpServletResponse response) throws IOException {
+        System.out.println("设备PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+        System.out.println("设备PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
         List<Vip> vipList = vipService.selectAll();
-        return vipList;
+
+        return JsonUtil.toJson(vipList);
     }
 
     @RequestMapping("/scoreExchange")

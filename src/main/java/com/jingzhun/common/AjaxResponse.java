@@ -1,4 +1,4 @@
-package com.sm.common.response;
+package com.jingzhun.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
