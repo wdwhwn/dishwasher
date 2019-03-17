@@ -56,4 +56,5 @@ public interface UserDao {
      * @param record 用户对象
      */
     void updateByPrimaryKey(User record);
+
 }

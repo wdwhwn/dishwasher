@@ -13,7 +13,7 @@ public interface WeiXinUserInfoService {
      * @param openId
      * @return
      */
-   WeiXinUser getUserInfo(String accessToken, String openId);
+    WeiXinUser getUserInfo(String accessToken, String openId);
 
     /**
      *用于获取网页授权后的信息字段，其中主要是获取openId

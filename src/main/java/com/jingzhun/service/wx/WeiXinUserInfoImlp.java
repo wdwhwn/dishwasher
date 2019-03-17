@@ -1,10 +1,16 @@
 package com.jingzhun.service.wx;
 
+import com.jingzhun.entity.User;
 import com.jingzhun.entity.weixin.WeiXinUser;
+import com.jingzhun.service.UserService;
 import com.jingzhun.utils.weixinutils.ProjectConst;
 import com.jingzhun.utils.weixinutils.WeiXinUtils;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -13,7 +19,11 @@ import java.util.Map;
  * @desc 用于获取微信用户的信息
  **/
 @Service
+@Transactional
+@Slf4j
 public class WeiXinUserInfoImlp implements WeiXinUserInfoService {
+    @Autowired
+    private UserService userService;
     /**
      * 获取微信用户的信息
      * @param accessToken
@@ -57,6 +67,7 @@ public class WeiXinUserInfoImlp implements WeiXinUserInfoService {
                 }
             }
         }
+
         return weixinUserInfo;
     }
 

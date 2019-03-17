@@ -1,8 +1,11 @@
 package com.jingzhun.controller.wx;
 
+import com.jingzhun.entity.User;
 import com.jingzhun.entity.weixin.WeiXinUser;
+import com.jingzhun.service.UserService;
 import com.jingzhun.service.wx.WeiXinUserInfoService;
 import com.jingzhun.utils.weixinutils.WeiXinUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,10 +21,13 @@ import java.util.Map;
  **/
 @Controller
 @CrossOrigin(origins = "*",maxAge = 3600)
+@Slf4j
 public class WeiXinUserInfoController {
 
     @Autowired
-    private WeiXinUserInfoService userService;
+    private WeiXinUserInfoService weiXinUserInfoService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 进行网页授权，便于获取到用户的绑定的内容
@@ -67,15 +73,21 @@ public class WeiXinUserInfoController {
         if (code != null)
         {
             // 调用根据用户的code得到需要的授权信息
-            authInfo= userService.getAuthInfo(code);
+            authInfo= weiXinUserInfoService.getAuthInfo(code);
             //获取到openId
             openId = authInfo.get("Openid");
         }
         // 获取基础刷新的接口访问凭证（目前还没明白为什么用authInfo.get("AccessToken");这里面的access_token就不行）
         String accessToken = WeiXinUtils.getAccessToken().getToken();
         //获取到微信用户的信息
-        WeiXinUser userinfo = userService.getUserInfo(accessToken ,openId);
-        System.out.println(userinfo);
-        return userinfo;
+        WeiXinUser weixinUserInfo = weiXinUserInfoService.getUserInfo(accessToken, openId);
+        User user = new User();
+        user.setUserWxName(weixinUserInfo.getNickname());
+        user.setUserWxImg(weixinUserInfo.getHeadImgUrl());
+        user.setUserWxOpenid(weixinUserInfo.getOpenId());
+        log.debug(weixinUserInfo.toString());
+        boolean insert = userService.insert(user);
+        System.out.println(weixinUserInfo);
+        return weixinUserInfo;
     }
 }
