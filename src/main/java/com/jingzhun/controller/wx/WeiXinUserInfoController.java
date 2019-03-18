@@ -87,7 +87,6 @@ public class WeiXinUserInfoController {
         user.setUserWxOpenid(weixinUserInfo.getOpenId());
         log.debug(weixinUserInfo.toString());
         boolean insert = userService.insert(user);
-        log.debug(weixinUserInfo.toString());
         return weixinUserInfo;
     }
 }
