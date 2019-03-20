@@ -32,6 +32,7 @@ public class AccountController {
         HashMap<String,Object> hashMap = new HashMap<>(3);
         accountService.insert(account);
         hashMap.put("message","添加成功");
+
         return JsonUtil.toJson(hashMap);
     }
     /**
