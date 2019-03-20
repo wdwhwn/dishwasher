@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class TwoDimensionalController {
      * @return  返回设备类型名称和对应的二维码
      */
     @RequestMapping("/selectToUserDeviceStyle")
-    public String selectToUserDeviceStyle(Integer userId){
+    public String selectToUserDeviceStyle(Integer userId) throws FileNotFoundException {
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>(3);
         List<Object> objects = twoDimensionalService.selectToUserDeviceStyle(userId);
         objectObjectHashMap.put("DTO",objects);

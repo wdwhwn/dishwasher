@@ -6,10 +6,14 @@ import com.jingzhun.entity.Device;
 import com.jingzhun.entity.DeviceStyle;
 import com.jingzhun.entity.DeviceTwoDimensionalDTO;
 import com.jingzhun.utils.jsonutil.JsonUtil;
+import com.jingzhun.utils.properties.PropertiesUtil;
 import com.jingzhun.utils.twodimensional.QrCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +22,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2019/3/5 0005.
  */
-@Controller
+@Service
 @Transactional
 public class TwoDimensionalServiceImpl implements TwoDimensionalService {
     @Autowired
@@ -60,7 +64,8 @@ public class TwoDimensionalServiceImpl implements TwoDimensionalService {
     }
 
     //    展示当前用户拥有所有类型设备
-    public List<Object> selectToUserDeviceStyle(Integer userId){
+    @Override
+    public List<Object> selectToUserDeviceStyle(Integer userId) throws FileNotFoundException {
 //        https://cli.im/api/qrcode/code?text=a&mhid=sELPDFnok80gPHovKdI
         ArrayList<Object> objects = new ArrayList<>();
         List<Device> devices = deviceDao.selectToUserStyle(userId);
@@ -71,12 +76,16 @@ public class TwoDimensionalServiceImpl implements TwoDimensionalService {
             Integer deviceStyleId = devices.get(i).getDeviceStyleId();
 //            url=url+"pid="+userId+"&deviceStyleId="+ deviceStyleId;
 //            url=pre+url+behind;
-            HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
-            objectObjectHashMap.put("userId",userId);
-            objectObjectHashMap.put("deviceStyleId",deviceStyleId);
-            String binary = QrCodeUtils.creatRrCode(JsonUtil.toJson(objectObjectHashMap), 200, 200);
-            System.out.println(binary);
             DeviceStyle deviceStyle = deviceStyleDao.selectByStyleId(deviceStyleId);
+            String urlName = PropertiesUtil.readValue("main.properties", "urlName");
+            String url = PropertiesUtil.readValue("url.properties", urlName);
+            url=url+"/center/devDetail?deviceStyleId="+deviceStyle.getDeviceStyleId()+"&devieStyleName="+deviceStyle.getDevieStyleName()+"&devieStyleMonthSupply="+deviceStyle.getDevieStyleMonthSupply()+"&deviceStyleNumber="+deviceStyle.getDeviceStyleNumber();
+           /* HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+            objectObjectHashMap.put("userId",userId);
+            objectObjectHashMap.put("deviceStyleId",deviceStyleId);*/
+//           String url1="http://www.baidu.com";
+           String url1="http://www.baidu.com";
+            String binary = QrCodeUtils.creatRrCode(url1, 200, 200);
             DeviceTwoDimensionalDTO deviceTwoDimensionalDTO = new DeviceTwoDimensionalDTO();
             deviceTwoDimensionalDTO.setName(deviceStyle.getDevieStyleName());
             deviceTwoDimensionalDTO.setUrl(binary);

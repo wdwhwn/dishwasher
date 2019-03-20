@@ -2,6 +2,7 @@ package com.jingzhun;
 
 import com.jingzhun.dao.StockDetailDao;
 import com.jingzhun.entity.StockDetail;
+import com.jingzhun.service.TwoDimensionalService;
 import com.jingzhun.utils.idrandom.RandomNumber;
 import com.jingzhun.utils.jedisUtil.JedisUtil;
 import com.jingzhun.utils.token.JwtUtil;
@@ -23,6 +24,8 @@ import java.util.List;
 public class TestB extends Test1 {
     @Autowired
     private StockDetailDao stockDetailDao;
+    @Autowired
+    private TwoDimensionalService twoDimensionalService;
     @Test
     public void test(){
 
@@ -78,6 +81,10 @@ public class TestB extends Test1 {
     String absolutePath = file.getAbsolutePath();
     System.out.println(absolutePath+"SSSSSSSSSSSSSSS");
 }
-
+@Test
+    public void testD() throws FileNotFoundException {
+    List<Object> objects = twoDimensionalService.selectToUserDeviceStyle(1);
+    log.error(objects.toString());
+}
 
 }

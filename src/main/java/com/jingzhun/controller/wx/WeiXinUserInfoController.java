@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -85,6 +86,8 @@ public class WeiXinUserInfoController {
         user.setUserWxName(weixinUserInfo.getNickname());
         user.setUserWxImg(weixinUserInfo.getHeadImgUrl());
         user.setUserWxOpenid(weixinUserInfo.getOpenId());
+        Date date = new Date();
+        user.setUserDate(date);
         log.debug(weixinUserInfo.toString());
         boolean insert = userService.insert(user);
         return weixinUserInfo;

@@ -1,5 +1,6 @@
 package com.jingzhun.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -9,5 +10,5 @@ import java.util.List;
 public interface TwoDimensionalService {
     //    扫描二维码 添加设备号  insertDervieByTwoDimensional1
     void insertDervieByTwoDimensional1(Integer userId, Integer deviceStyleId,Integer stockDetailDeviceNumber);
-    public List<Object> selectToUserDeviceStyle(Integer userId);
+    public List<Object> selectToUserDeviceStyle(Integer userId) throws FileNotFoundException;
 }
