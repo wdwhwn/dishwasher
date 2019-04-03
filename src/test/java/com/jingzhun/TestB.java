@@ -9,12 +9,14 @@ import com.jingzhun.utils.token.JwtUtil;
 import com.jingzhun.utils.twodimensional.QrCodeUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
