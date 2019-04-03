@@ -33,6 +33,7 @@ public class AccountController {
         accountService.insert(account);
         hashMap.put("message","添加成功");
         hashMap.put("message","添加成功");
+        hashMap.put("message","添加成功");
         return JsonUtil.toJson(hashMap);
     }
     /**
