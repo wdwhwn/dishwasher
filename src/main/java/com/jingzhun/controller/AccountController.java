@@ -48,6 +48,7 @@ public class AccountController {
         HashMap<String,Object> hashMap = new HashMap<>(3);
             accountService.cash(accountId,userId,money);
             hashMap.put("message","提现成功");
+            hashMap.put("message","提现成功");
             return JsonUtil.toJson(hashMap);
     }
 }
