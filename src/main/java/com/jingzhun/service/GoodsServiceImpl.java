@@ -5,6 +5,7 @@ import com.jingzhun.entity.Goods;
 import com.jingzhun.entity.GoodsImg;
 import com.jingzhun.utils.properties.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +25,11 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private GoodsDao goodsDao;
     @Override
+//    @Cacheable(value="list<Goods>",key="selectAllGoods")
     public List<Goods> selectAll() {
         List<Goods> goodsList = goodsDao.selectAll();
-
         return goodsList;
     }
-
     @Override
     public Map<String, Object> selectAllById(Integer goodsImgGoodsId) throws FileNotFoundException {
         HashMap<String,Object> hashMap = new HashMap<>();

@@ -17,7 +17,6 @@ public class JedisUtil {
 			/*poolConfig.setMaxTotal(100);*/
 //			pool=new JedisPool(poolConfig, "127.0.0.1");
 			pool=new JedisPool(poolConfig, "211.149.140.247");
-
 		}
 	public static Jedis getJedis(){
 			if(pool!=null){

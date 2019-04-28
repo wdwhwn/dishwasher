@@ -8,6 +8,7 @@ import com.jingzhun.entity.ScoreItem;
 import com.jingzhun.entity.User;
 import com.jingzhun.utils.bigdecimal.Arith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private ScoreItemDao scoreItemDao;
     @Override
+    @CachePut(value="account",key="#account.getAccountAccountNumber()")
     public void insert(Account account) {
         accountDao.insert(account);
     }

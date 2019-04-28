@@ -56,7 +56,7 @@ public class MsgController {
         user.setUserMobile(mobile);
         String tokenOrigin=user.getUserName();
         if(card!=null && card.equals(s)){
-            String token= JwtUtil.getToken(tokenOrigin);
+//            String token= JwtUtil.getToken(tokenOrigin);
             boolean judge = userService.insert(user);
             if(judge) {
                 stringObjectHashMap.put("message", "注册成功");
@@ -64,8 +64,7 @@ public class MsgController {
                 stringObjectHashMap.put("message", "验证成功");
             }
                 stringObjectHashMap.put("code", "0");
-                stringObjectHashMap.put("token", token);
-
+//                stringObjectHashMap.put("token", token);
         }else {
             stringObjectHashMap.put("message", "验证失败");
             stringObjectHashMap.put("code", "1");

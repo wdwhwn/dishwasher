@@ -23,12 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import com.alibaba.fastjson.JSONObject;
-
-
-
 /**
- *  
- *
  * @author  lbh 
  * @version 1.0 
  * @date 创建时间：2018年1月18日 下午12:35:11 
@@ -36,15 +31,12 @@ import com.alibaba.fastjson.JSONObject;
  * @return  
  * @since  
  */
-
-
 @Controller
 @RequestMapping("/wx")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class WXLoginController {
 
     private static final Logger logger = Logger.getLogger(WXLoginController.class);
-
     /**
      *  * 公众号微信登录授权
      *  * @param request
@@ -54,9 +46,7 @@ public class WXLoginController {
      *  * @author  lbh 
      *  * @date 创建时间：2018年1月18日 下午7:33:59  
      *  * @parameter
-     *  
      */
-
     @RequestMapping(value = "/wxLogin", method = RequestMethod.GET)
 
 
@@ -71,7 +61,7 @@ public class WXLoginController {
                 + "&scope=snsapi_userinfo" +
                 "&state=STATE#wechat_redirect";
         https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx778f313eff0f980b&redirect_uri=http://xiwanji.91xiaokong.com/wx/wxLogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
-        logger.info("forward重定向地址{" + url + "}");
+        logger.error("forward重定向地址{" + url + "}");
 //            response.sendRedirect( url);
         return "redirect:"+url;//必须重定向，否则不能成功 //必须重定向，否则不能成功
     }
@@ -98,7 +88,6 @@ public class WXLoginController {
                 + "&secret="+AuthUtil.APPSECRET
                 + "&code="+code
                 + "&grant_type=authorization_code";
-
         System.out.println("url:"+url);
         JSONObject jsonObject = AuthUtil.doGetJson(url);
         /*
@@ -114,7 +103,6 @@ public class WXLoginController {
          String refresh_token = jsonObject.getString("refresh_token");
         //第五步验证access_token是否失效；展示都不需要
          String chickUrl="https://api.weixin.qq.com/sns/auth?access_token="+access_token+"&openid="+openid;
-
         JSONObject chickuserInfo = AuthUtil.doGetJson(chickUrl);
         System.out.println(chickuserInfo.toString());
          if(!"0".equals(chickuserInfo.getString("errcode"))){

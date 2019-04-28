@@ -5,6 +5,7 @@ import com.jingzhun.entity.Address;
 import com.sun.media.jfxmedia.logging.Logger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ public class AddressServiceImpl implements AddressService {
     }
 //  添加收货地址
     @Override
+    @CachePut(value="address",key="#address.getAddressId()")
     public void insert(Address address) {
         String addressDefaultState = address.getAddressDefaultState();
         if("1".equals(addressDefaultState)){

@@ -31,7 +31,6 @@ public class AuthUtil {
             String result =EntityUtils.toString(entity, "UTF-8");
             jsonObject =JSON.parseObject(result);
         }
-
         return jsonObject;
     }
 }
