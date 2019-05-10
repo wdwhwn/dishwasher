@@ -64,7 +64,6 @@ public class PasswordUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return secretKey;
 	}
 
@@ -175,6 +174,4 @@ public class PasswordUtil {
 	private static byte charToByte(char c) {
 		return (byte) "0123456789ABCDEF".indexOf(c);
 	}
-
-
 }

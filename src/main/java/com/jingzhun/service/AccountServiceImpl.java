@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2019/3/4 0004.
@@ -30,7 +31,6 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private ScoreItemDao scoreItemDao;
     @Override
-    @CachePut(value="account",key="#account.getAccountAccountNumber()")
     public void insert(Account account) {
         accountDao.insert(account);
     }
@@ -73,5 +73,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void update(Account account) {
         accountDao.update(account);
+    }
+
+    @Override
+    public List<Account> selectAll(Integer accountUserId) {
+        List<Account> accountList = accountDao.selectAll(accountUserId);
+        return accountList;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author 王丹
@@ -21,7 +22,20 @@ public class AccountController {
     private AccountService accountService;
     @Autowired
     private UserService userService;
-
+    /**
+     *    账户列表
+     * @param account  账户对象
+     * @return 添加成功
+     */
+    @RequestMapping("/accountList")
+    public String accountList(Account account){
+        HashMap<String,Object> hashMap = new HashMap<>(3);
+        accountService.insert(account);
+        List<Account> accountList=accountService.selectAll(account.getAccountUserId());
+        hashMap.put("message","查询成功");
+        hashMap.put("data",accountList);
+        return JsonUtil.toJson(hashMap);
+    }
     /**
      *    添加账户
      * @param account  账户对象

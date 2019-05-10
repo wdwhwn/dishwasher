@@ -2,6 +2,8 @@ package com.jingzhun.dao;
 
 import com.jingzhun.entity.Account;
 
+import java.util.List;
+
 /**
  * @author wd
  */
@@ -10,7 +12,7 @@ public interface AccountDao {
 
     Account selectByPrimaryKey(Integer accountId);
 
-    List<Account> selectAll();
+
 
     int updateByPrimaryKey(Account record);*/
 
@@ -32,5 +34,9 @@ public interface AccountDao {
      */
     void update(Account account);
 
-    
+    /**
+     * 查询所有账号
+     * @return
+     */
+    List<Account> selectAll(Integer accountUserId);
 }

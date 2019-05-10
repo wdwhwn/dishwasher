@@ -22,7 +22,7 @@ import java.util.Map;
  * @create 2018-01-18 17:47
  * @desc 获取微信用户的所有信息，这个主要是为了不要用户自己填写个人信息
  **/
-@RestController
+@Controller
 @CrossOrigin(origins = "*",maxAge = 3600)
 @Slf4j
 public class WeiXinUserInfoController {
@@ -33,6 +33,7 @@ public class WeiXinUserInfoController {
     private UserService userService;
 
     /**
+     * 洗碗机使用的授权
      * 进行网页授权，便于获取到用户的绑定的内容
      * @param request
      * @param session

@@ -1,7 +1,6 @@
 package com.jingzhun.controller.wx;
 
 import com.jingzhun.utils.jsonutil.JsonUtil;
-import net.sf.json.JSON;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -9,7 +8,6 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,14 +25,14 @@ import java.util.*;
  */
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
-public class WeiXinSaoYiSao1 {
+public class WeiXinSaoYiSao {
     // 微信appid 1
     String appid = "wx778f313eff0f980b";
     // 微信secret
     String secret = "910415b15c96d7268cc1ee899f5fc8cd";
     // 初始化access_token
     String access_token = "jingzhun";
-    private static final Logger logger = LoggerFactory.getLogger(WeiXinSaoYiSao1.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeiXinSaoYiSao.class);
     /**
      * 得到jsApi-ticket
      * @return

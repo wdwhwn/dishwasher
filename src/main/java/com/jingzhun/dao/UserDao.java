@@ -1,6 +1,8 @@
 package com.jingzhun.dao;
 
 import com.jingzhun.entity.User;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 /**
  * @author wd
@@ -9,9 +11,7 @@ public interface UserDao {
     /*int deleteByPrimaryKey(Integer userId);
     User selectByPrimaryKey(Integer userId);
     List<User> selectAll();
-
     int updateByPrimaryKey(User record);*/
-
     /**
      *个人中心页面：总积分、当前积分、消费积分、微信昵称、微信头像
      * @param userId  用户id

@@ -97,6 +97,7 @@
     select user_id,user_wx_name,user_date,user_wx_img from t_dishwasher_user
     where user_pid = #{userId,jdbcType=INTEGER} and    user_delete_state=0  and user_type=0 order by user_date desc
   </select>
+
 <!--查询所有用户oppenid 判断是否注册过-->
   <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select user_id,user_wx_openid from t_dishwasher_user
@@ -110,6 +111,7 @@
     #{userWxName,jdbcType=VARCHAR},#{userDate,jdbcType=TIMESTAMP}, 0,
     0, #{userWxOpenid,jdbcType=VARCHAR},#{userMobile,jdbcType=VARCHAR})
   </insert>
+
 <!--  提现  更新积分-->
   <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.User" >
     update t_dishwasher_user

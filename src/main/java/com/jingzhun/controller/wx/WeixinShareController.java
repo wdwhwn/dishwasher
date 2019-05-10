@@ -13,7 +13,7 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.UUID;
 
-@RestController
+@Controller
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class WeixinShareController {
     @RequestMapping("weiXinShare")

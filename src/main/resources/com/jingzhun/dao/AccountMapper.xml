@@ -57,4 +57,9 @@
         account_name_real=#{accountNameReal}
        where account_id = #{accountId,jdbcType=INTEGER}
     </update>
+<!--查询账号列表-->
+    <select id="selectAll" resultMap="BaseResultMap" >
+        select *
+        from t_dishwasher_account where account_delete_state=0 and account_user_id=#{accountUserId}
+    </select>
 </mapper>
