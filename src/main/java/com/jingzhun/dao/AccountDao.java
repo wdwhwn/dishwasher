@@ -20,4 +20,17 @@ public interface AccountDao {
      *
      */
     void insert(Account record);
+
+    /**
+     *删除用户账号
+     * @param accountId
+     */
+    void delete(Integer accountId);
+
+    /**
+     * 更新用户账号
+     */
+    void update(Account account);
+
+    
 }

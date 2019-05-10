@@ -2,6 +2,7 @@ package com.jingzhun.service;
 
 import com.jingzhun.dao.DeviceDao;
 import com.jingzhun.dao.DeviceStyleDao;
+import com.jingzhun.dao.StockDetailDao;
 import com.jingzhun.entity.Device;
 import com.jingzhun.entity.DeviceStyle;
 import com.jingzhun.entity.DeviceTwoDimensionalDTO;
@@ -29,9 +30,10 @@ public class TwoDimensionalServiceImpl implements TwoDimensionalService {
     private DeviceDao deviceDao;
     @Autowired
     private DeviceStyleDao deviceStyleDao;
-
+    @Autowired
+    private StockDetailDao stockDetailDao;
     @Override
-    public void insertDervieByTwoDimensional1(Integer userId, Integer deviceStyleId,Integer stockDetailDeviceNumber ) {
+    public void insertDervieByTwoDimensional1(Integer userId, Integer stockDetailId,Integer deviceStyleId,Integer stockDetailDeviceNumber ) {
         Device device = new Device();
         Date date = new Date();
         device.setDeviceRenewDate(date);
@@ -61,6 +63,8 @@ public class TwoDimensionalServiceImpl implements TwoDimensionalService {
         device.setDeviceEndDate(date1);
         //      添加设备
         deviceDao.insert(device);
+//        从库存表更改设备编号
+        stockDetailDao.updateState(stockDetailId);
     }
 
     //    展示当前用户拥有所有类型设备

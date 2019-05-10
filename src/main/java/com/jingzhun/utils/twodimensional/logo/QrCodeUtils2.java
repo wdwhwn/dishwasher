@@ -70,7 +70,7 @@ public class QrCodeUtils2 {
         System.out.println("123456"+logoPath);
         File file = new File(logoPath);
         System.out.println(file);
-        if (file.exists()) {
+        if (!file.exists()) {
             throw new Exception("logo file not found.");
         }
         Image src = ImageIO.read(new File(logoPath));
@@ -274,16 +274,17 @@ public class QrCodeUtils2 {
 
     public static void main(String[] args) throws Exception {
         String text = "123";
-        String urlName = PropertiesUtil.readValue("main.properties", "urlName");
+       /* String urlName = PropertiesUtil.readValue("main.properties", "urlName");
         String url = PropertiesUtil.readValue("url.properties", urlName);
         String logoImgUrl=url+"/images/logo.jpg";
-        System.out.println(logoImgUrl);
+        System.out.println(logoImgUrl);*/
         //不含Logo
         //QrCodeUtils2.encode(text, null, "/Users/ianly/Documents/picture", true);
         //含Logo，不指定二维码图片名
         //QrCodeUtils2.encode(text, "/Users/ianly/Documents/picture/google-icon.jpg", "/Users/ianly/Documents/picture/", true);
         //含Logo，指定二维码图片名
-        String qrcode = QrCodeUtils2.encode(text, logoImgUrl, url+"/images", "qrcode", true);
+//        String qrcode = QrCodeUtils2.encode(text, logoImgUrl, url+"/images", "qrcode", true);
+        String qrcode = QrCodeUtils2.encode(text, "H://公司代码/王丹/业务代码/dishwasher2/src/main/webapp/images/logo.jpg", "H://公司代码/王丹/业务代码/dishwasher2/src/main/webapp/images/", "qrcode", true);
         System.out.println(qrcode);
     }
 }

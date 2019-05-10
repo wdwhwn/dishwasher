@@ -27,7 +27,6 @@ public class AddressServiceImpl implements AddressService {
     }
 //  添加收货地址
     @Override
-    @CachePut(value="address",key="#address.getAddressId()")
     public void insert(Address address) {
         String addressDefaultState = address.getAddressDefaultState();
         if("1".equals(addressDefaultState)){
@@ -51,9 +50,6 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     public void updateToDefault(Integer userId, Integer addressId) {
-        log.debug(userId.toString()+"++++++++++++++++");
-        log.debug(addressId.toString()+"++++++++++++++++");
-
         addressDao.update(userId);
         addressDao.updateToDefault(addressId);
     }

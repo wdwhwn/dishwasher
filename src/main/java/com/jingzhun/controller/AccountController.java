@@ -35,6 +35,30 @@ public class AccountController {
         return JsonUtil.toJson(hashMap);
     }
     /**
+     *    删除账户
+     * @param account  账户对象
+     * @return 添加成功
+     */
+    @RequestMapping("/accountDelete")
+    public String accountDelete(Account account){
+        HashMap<String,Object> hashMap = new HashMap<>(3);
+        accountService.delete(account);
+        hashMap.put("message","添加成功");
+        return JsonUtil.toJson(hashMap);
+    }
+    /**
+     *    修改账户
+     * @param account  账户对象
+     * @return 添加成功
+     */
+    @RequestMapping("/accountUpdate")
+    public String accountUpdate(Account account){
+        HashMap<String,Object> hashMap = new HashMap<>(3);
+        accountService.update(account);
+        hashMap.put("message","添加成功");
+        return JsonUtil.toJson(hashMap);
+    }
+    /**
      *    提现
      * @param accountId   账户id
      * @param userId      用户id

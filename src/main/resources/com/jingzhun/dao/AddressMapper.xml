@@ -65,7 +65,7 @@
   <select id="selectByDefault" resultMap="BaseResultMap" >
     select address_id, address_name, address_phone, address_default_state, address_address,
     address_delete_state, address_user_id
-    from t_dishwasher_address where address_user_id=#{userId} and address_default_state=0 and address_default_state = 0
+    from t_dishwasher_address where address_user_id=#{userId} and address_default_state=1 and address_delete_state = 0
   </select>
   <!--根据地址id查询-->
   <select id="selectByAddressId" resultMap="BaseResultMap" >

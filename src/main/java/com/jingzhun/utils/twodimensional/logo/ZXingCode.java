@@ -49,11 +49,12 @@ public class ZXingCode {
 //        String resourceLocation="images/logo.jpg";
 //        File logoFile = ResourceUtils.getFile(resourceLocation);
 
-       File logoFile = new File("G:/公司代码/王丹/业务代码/dishwasher2/src/main/webapp/images/logo.jpg");
-        File QrCodeFile=new File("G:/公司代码/王丹/业务代码/dishwasher2/src/main/webapp/images/logo.jpg");
+       File logoFile = new File("H://公司代码/王丹/业务代码/dishwasher2/src/main/webapp/images/logo.jpg");
+        File QrCodeFile=new File("H://公司代码/王丹/业务代码/dishwasher2/src/main/webapp/images/23446612.jpg");
 //        File QrCodeFile=new File("D://1A.jpg");
 //        File QrCodeFile =ResourceUtils.getFile("images/1.jpg");
-        String url = "https://www.baidu.com/";
+        String url = "http://xiwanji.91xiaokong.com/devideCode";
+        url=url+"?stockDetailId=3&stockDetailDeviceNumber=23446612";
         String note = "设备A型";
         drawLogoQRCode(logoFile, QrCodeFile, url, note);
     }

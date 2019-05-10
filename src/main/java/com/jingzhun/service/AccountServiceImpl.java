@@ -64,4 +64,14 @@ public class AccountServiceImpl implements AccountService {
         scoreItem.setScoreItemUserId(userId);
         scoreItemDao.insert(scoreItem);
     }
+
+    @Override
+    public void delete(Account account) {
+        accountDao.delete(account.getAccountId());
+    }
+
+    @Override
+    public void update(Account account) {
+        accountDao.update(account);
+    }
 }

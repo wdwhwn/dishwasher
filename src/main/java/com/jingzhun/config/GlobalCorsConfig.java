@@ -12,9 +12,9 @@ import org.springframework.web.filter.CorsFilter;
  * 解决跨域
  */
 
-@Configuration
+//@Configuration
 public class GlobalCorsConfig {
-    @Bean
+//    @Bean
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();

@@ -36,6 +36,7 @@ public class TwoDimensionalController {
      * @param userId  用户id
      * @return  返回设备类型名称和对应的二维码
      */
+
     @RequestMapping("/selectToUserDeviceStyle")
     public String selectToUserDeviceStyle(Integer userId) throws FileNotFoundException {
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>(3);
@@ -85,7 +86,6 @@ public class TwoDimensionalController {
     private String insertDervieByTwoDimensional(Integer stockDetailDeviceNumber,Integer stockDetailId) {
         StockDetail stockDetail = stockDetailService.selectByStockDetailId(stockDetailId,stockDetailDeviceNumber);
         return JsonUtil.toJson(stockDetail);
-
     }
      /**
      * @title 设备码
@@ -96,10 +96,11 @@ public class TwoDimensionalController {
      * @return 状态信息
      */
     @RequestMapping("/insertDervieByTwoDimensional1")
-    private String insertDervieByTwoDimensional1(Integer userId,Integer deviceStyleId,Integer stockDetailDeviceNumber) {
+    private String insertDervieByTwoDimensional1(Integer userId,Integer stockDetailId,Integer deviceStyleId,Integer stockDetailDeviceNumber) {
         HashMap<String,Object> hashMap = new HashMap<>(3);
-        twoDimensionalService.insertDervieByTwoDimensional1(userId,deviceStyleId,stockDetailDeviceNumber);
+        twoDimensionalService.insertDervieByTwoDimensional1(userId,stockDetailId,deviceStyleId,stockDetailDeviceNumber);
             hashMap.put("message","添加成功");
         return JsonUtil.toJson(hashMap);
     }
+
 }

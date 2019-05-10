@@ -8,9 +8,9 @@ import java.util.List;
  * @author wd
  */
 public interface StockDetailDao {
-   /* int deleteByPrimaryKey(Integer stockDetailId);
 
-    StockDetail selectByPrimaryKey(Integer stockDetailId);
+
+    /* StockDetail selectByPrimaryKey(Integer stockDetailId);
 
     List<StockDetail> selectAll();
 
@@ -43,6 +43,12 @@ public interface StockDetailDao {
      */
     StockDetail selectByStockDetailId(@Param("stockDetailId") Integer stockDetailId,@Param("stockDetailDeviceNumber") Integer stockDetailDeviceNumber);
 
+    /**
+     *  确定购买之后，更改库存设备状态
+     * @param record
+     * @return
+     */
+    int updateState(Integer stockDetailId);
     /**
      *  更新 二维码
      * @param stockDetail 洗碗机对象

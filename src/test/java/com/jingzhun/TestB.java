@@ -68,13 +68,14 @@ public class TestB extends Test1 {
             Integer stockDetailId = stockDetail.getStockDetailId();
            /* String pre="https://cli.im/api/qrcode/code?text=";
             String behind="&mhid=sELPDFnok80gPHovKdI";*/
-            String url="http://140.143.200.89:8080/dishwasher/insertDervieByTwoDimensional?";
+            String url="http://xiwanji.91xiaokong.com/devideCode?";
             url=url+"stockDetailDeviceNumber="+stockDetailDeviceNumber+"&stockDetailId="+ stockDetailId;
             /*url=pre+url+behind;*/
             String binary = QrCodeUtils.creatRrCode("123", 200,200);
+
 //            System.out.println(binary);`
 //           stockDetail.setStockDetailTwoDimensional(url);
-            stockDetailDao.updateByPrimaryKey(stockDetail);
+//            stockDetailDao.updateByPrimaryKey(stockDetail);
         }
     }
 @Test

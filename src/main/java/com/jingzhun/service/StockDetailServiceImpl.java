@@ -22,6 +22,7 @@ public class StockDetailServiceImpl implements  StockDetailService{
     @Override
     public StockDetail selectByStockDetailId(Integer stockDetailId, Integer stockDetailDeviceNumber) {
         StockDetail stockDetail = stockDetailDao.selectByStockDetailId(stockDetailId, stockDetailDeviceNumber);
+
        return stockDetail;
     }
 

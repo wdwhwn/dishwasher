@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * @author  lbh 
  * @version 1.0 
@@ -31,7 +33,7 @@ import com.alibaba.fastjson.JSONObject;
  * @return  
  * @since  
  */
-@Controller
+@RestController
 @RequestMapping("/wx")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class WXLoginController {
@@ -48,8 +50,6 @@ public class WXLoginController {
      *  * @parameter
      */
     @RequestMapping(value = "/wxLogin", method = RequestMethod.GET)
-
-
     public String wxLogin(HttpServletRequest request, HttpServletResponse response) throws ParseException, IOException {
         //这个url的域名必须要进行再公众号中进行注册验证，这个地址是成功后的回调地址
         String backUrl = "http://xiwanji.91xiaokong.com/wx/callBack";

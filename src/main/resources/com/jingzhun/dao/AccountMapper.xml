@@ -44,6 +44,17 @@
     values (0, '微信', #{accountAccountNumber,jdbcType=VARCHAR},#{accountMobile,jdbcType=VARCHAR},#{accountNameReal,jdbcType=VARCHAR}
     ,#{accountUserId,jdbcType=INTEGER}, 0)
   </insert>
-
-
+    <!--删除账号-->
+    <delete id="delete" parameterType="java.lang.Integer" >
+        delete from t_dishwasher_account
+    where account_id = #{accountId,jdbcType=INTEGER}
+    </delete>
+    <!--修改账号-->
+    <update id="update" parameterType="com.jingzhun.entity.Account" >
+        update t_dishwasher_account
+        set
+        account_mobile=#{accountMobile},
+        account_name_real=#{accountNameReal}
+       where account_id = #{accountId,jdbcType=INTEGER}
+    </update>
 </mapper>

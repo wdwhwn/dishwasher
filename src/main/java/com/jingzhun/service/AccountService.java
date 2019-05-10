@@ -10,4 +10,8 @@ public interface AccountService {
 
     void insert(Account account);
     void cash(Integer accountId,Integer userId,Double money );
+
+    void delete(Account account);
+
+    void update(Account account);
 }
