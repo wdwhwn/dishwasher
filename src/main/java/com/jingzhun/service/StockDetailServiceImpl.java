@@ -1,6 +1,7 @@
 package com.jingzhun.service;
 import com.jingzhun.dao.StockDetailDao;
 import com.jingzhun.entity.StockDetail;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class StockDetailServiceImpl implements  StockDetailService{
     @Autowired
     private StockDetailDao stockDetailDao;

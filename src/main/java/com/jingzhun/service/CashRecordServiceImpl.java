@@ -4,6 +4,7 @@ import com.jingzhun.dao.CashDao;
 import com.jingzhun.dao.RatioDao;
 import com.jingzhun.entity.Cash;
 import com.jingzhun.entity.Ratio;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,8 @@ import java.util.List;
  * Created by Administrator on 2019/2/27 0027.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class CashRecordServiceImpl implements CashRecordService {
     @Autowired
     private CashDao cashDao;

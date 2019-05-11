@@ -4,6 +4,8 @@ import com.jingzhun.entity.Account;
 import com.jingzhun.service.AccountService;
 import com.jingzhun.service.UserService;
 import com.jingzhun.utils.jsonutil.JsonUtil;
+import com.sun.media.jfxmedia.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
+@Slf4j
 public class AccountController {
     @Autowired
     private AccountService accountService;
@@ -29,7 +32,7 @@ public class AccountController {
      */
     @RequestMapping("/accountList")
     public String accountList(Account account){
-        HashMap<String,Object> hashMap = new HashMap<>(3);
+        HashMap<String,Object> hashMap = new HashMap<String,Object>(3);
         accountService.insert(account);
         List<Account> accountList=accountService.selectAll(account.getAccountUserId());
         hashMap.put("message","查询成功");
@@ -43,7 +46,7 @@ public class AccountController {
      */
     @RequestMapping("/accountInsert")
     public String accountInsert(Account account){
-        HashMap<String,Object> hashMap = new HashMap<>(3);
+        HashMap<String,Object> hashMap = new HashMap<String,Object>(3);
         accountService.insert(account);
         hashMap.put("message","添加成功");
         return JsonUtil.toJson(hashMap);
@@ -55,7 +58,7 @@ public class AccountController {
      */
     @RequestMapping("/accountDelete")
     public String accountDelete(Account account){
-        HashMap<String,Object> hashMap = new HashMap<>(3);
+        HashMap<String,Object> hashMap = new HashMap<String,Object>(3);
         accountService.delete(account);
         hashMap.put("message","添加成功");
         return JsonUtil.toJson(hashMap);
@@ -67,7 +70,7 @@ public class AccountController {
      */
     @RequestMapping("/accountUpdate")
     public String accountUpdate(Account account){
-        HashMap<String,Object> hashMap = new HashMap<>(3);
+        HashMap<String,Object> hashMap = new HashMap<String,Object>(3);
         accountService.update(account);
         hashMap.put("message","添加成功");
         return JsonUtil.toJson(hashMap);
@@ -81,7 +84,7 @@ public class AccountController {
      */
     @RequestMapping("/cash")
     public String cash(Integer accountId,Integer userId,Double money){
-        HashMap<String,Object> hashMap = new HashMap<>(3);
+        HashMap<String,Object> hashMap = new HashMap<String,Object>(3);
             accountService.cash(accountId,userId,money);
             hashMap.put("message","提现成功");
             hashMap.put("message","提现成功");

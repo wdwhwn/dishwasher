@@ -33,11 +33,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @return  
  * @since  
  */
-@RestController
+@Controller
 @RequestMapping("/wx")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class WXLoginController {
-
     private static final Logger logger = Logger.getLogger(WXLoginController.class);
     /**
      *  * 公众号微信登录授权

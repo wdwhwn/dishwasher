@@ -5,6 +5,7 @@ import com.jingzhun.dao.OrderDao;
 import com.jingzhun.dao.UserDao;
 import com.jingzhun.entity.*;
 import com.jingzhun.utils.properties.PropertiesUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,8 @@ import java.math.BigDecimal;
  * Created by Administrator on 2019/3/5 0005.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class OrderServiceImpl implements  OrderService {
     @Autowired
     private GoodsDao goodsDao;

@@ -27,8 +27,6 @@ public class VipController {
     private VipService vipService;
     @RequestMapping("/vipSelectAll")
     public String selectAll(HttpServletResponse response) throws IOException {
-        System.out.println("设备PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-        System.out.println("设备PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
         List<Vip> vipList = vipService.selectAll();
 
         return JsonUtil.toJson(vipList);
@@ -36,7 +34,7 @@ public class VipController {
 
     @RequestMapping("/scoreExchange")
     public String scoreExchange(Integer userId,Integer vipId,Integer deviceId){
-        HashMap<String, Object> objectObjectHashMap = new HashMap<>(3);
+        HashMap<String, Object> objectObjectHashMap = new HashMap<String,Object>(3);
         String s = vipService.scoreExchange(userId, vipId, deviceId);
         if(!SUCCESS.equals(s)){
             objectObjectHashMap.put("message","请选择低版本卡片");

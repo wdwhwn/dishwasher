@@ -24,7 +24,7 @@ public class User implements Serializable {
 
     private String userWxImg;
 
-    private String userWxName;
+    private String userWxNameReal;
 
     private BigDecimal userTotalScore;
 
@@ -68,5 +68,6 @@ public class User implements Serializable {
 
     private String userMobile;
     private List<Account> accountList;
+
 
 }

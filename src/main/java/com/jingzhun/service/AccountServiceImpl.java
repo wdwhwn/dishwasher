@@ -7,6 +7,7 @@ import com.jingzhun.entity.Cash;
 import com.jingzhun.entity.ScoreItem;
 import com.jingzhun.entity.User;
 import com.jingzhun.utils.bigdecimal.Arith;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ import java.util.List;
  * Created by Administrator on 2019/3/4 0004.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDao accountDao;

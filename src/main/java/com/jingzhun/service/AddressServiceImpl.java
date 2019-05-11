@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Administrator on 2019/3/4 0004.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @Slf4j
 public class AddressServiceImpl implements AddressService {
     @Autowired

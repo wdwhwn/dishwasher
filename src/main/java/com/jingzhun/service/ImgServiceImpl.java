@@ -2,6 +2,7 @@ package com.jingzhun.service;
 
 import com.jingzhun.dao.ImgDao;
 import com.jingzhun.entity.Img;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,8 @@ import java.util.List;
  * 查询条件为deleteState为0
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class ImgServiceImpl implements ImgService {
     @Autowired
     private ImgDao imgDao;

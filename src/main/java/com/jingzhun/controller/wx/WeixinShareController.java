@@ -18,7 +18,7 @@ import java.util.UUID;
 public class WeixinShareController {
     @RequestMapping("weiXinShare")
     public String index(String url){
-        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+        HashMap<String, Object> stringObjectHashMap = new HashMap<String,Object>();
         // 微信appid 1
         String appid = "wx778f313eff0f980b";
         // 微信secret

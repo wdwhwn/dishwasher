@@ -4,6 +4,7 @@ import com.jingzhun.dao.GoodsDao;
 import com.jingzhun.entity.Goods;
 import com.jingzhun.entity.GoodsImg;
 import com.jingzhun.utils.properties.PropertiesUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ import java.util.Map;
  * 商品详情页
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private GoodsDao goodsDao;
@@ -32,7 +34,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
     @Override
     public Map<String, Object> selectAllById(Integer goodsImgGoodsId) throws FileNotFoundException {
-        HashMap<String,Object> hashMap = new HashMap<>();
+        HashMap<String,Object> hashMap = new HashMap<String,Object>();
         Goods goods = goodsDao.selectById(goodsImgGoodsId);
         BigDecimal goodsCurrnetScore = goods.getGoodsCurrnetScore();
         BigDecimal bigDecimal = new BigDecimal("10");

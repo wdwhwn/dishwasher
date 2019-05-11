@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,12 +25,10 @@ import java.util.Map;
 @CrossOrigin(origins = "*",maxAge = 3600)
 @Slf4j
 public class WeiXinUserInfoController {
-
     @Autowired
     private WeiXinUserInfoService weiXinUserInfoService;
     @Autowired
     private UserService userService;
-
     /**
      * 洗碗机使用的授权
      * 进行网页授权，便于获取到用户的绑定的内容
@@ -43,7 +40,7 @@ public class WeiXinUserInfoController {
     @RequestMapping("/tologin/userinfo")
     public String check(HttpServletRequest request , HttpSession session, Map<String, Object> map) {
         //首先判断一下session中，是否有保存着的当前用户的信息，有的话，就不需要进行重复请求信息
-        WeiXinUser weiXinUser = null ;
+        WeiXinUser weiXinUser = null;
         if(session.getAttribute("currentUser") != null){
             weiXinUser = (WeiXinUser) session.getAttribute("currentUser");
         }else {
@@ -72,7 +69,7 @@ public class WeiXinUserInfoController {
      * @return 返回封装的微信用户的对象
      */
     private WeiXinUser getTheCode(HttpSession session, String code) {
-        Map<String , String>  authInfo = new HashMap<>();
+        Map<String , String>  authInfo = new HashMap<String,String>();
         String openId = "";
         if (code != null)
         {
@@ -86,7 +83,7 @@ public class WeiXinUserInfoController {
         //获取到微信用户的信息
         WeiXinUser weixinUserInfo = weiXinUserInfoService.getUserInfo(accessToken, openId);
         User user = new User();
-        user.setUserWxName(weixinUserInfo.getNickname());
+        user.setUserWxNameReal(weixinUserInfo.getNickname());
         user.setUserWxImg(weixinUserInfo.getHeadImgUrl());
         user.setUserWxOpenid(weixinUserInfo.getOpenId());
         Date date = new Date();

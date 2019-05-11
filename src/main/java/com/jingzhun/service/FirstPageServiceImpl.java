@@ -27,7 +27,7 @@ import java.util.Map;
  * Created by Administrator on 2019/2/27 0027.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @Slf4j
 public class FirstPageServiceImpl implements FirstPageService  {
 

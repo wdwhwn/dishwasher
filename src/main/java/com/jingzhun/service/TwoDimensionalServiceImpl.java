@@ -9,6 +9,7 @@ import com.jingzhun.entity.DeviceTwoDimensionalDTO;
 import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.properties.PropertiesUtil;
 import com.jingzhun.utils.twodimensional.QrCodeUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,8 @@ import java.util.List;
  * Created by Administrator on 2019/3/5 0005.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class TwoDimensionalServiceImpl implements TwoDimensionalService {
     @Autowired
     private DeviceDao deviceDao;
@@ -71,7 +73,7 @@ public class TwoDimensionalServiceImpl implements TwoDimensionalService {
     @Override
     public List<Object> selectToUserDeviceStyle(Integer userId) throws FileNotFoundException {
 //        https://cli.im/api/qrcode/code?text=a&mhid=sELPDFnok80gPHovKdI
-        ArrayList<Object> objects = new ArrayList<>();
+        ArrayList<Object> objects = new ArrayList<Object>();
         List<Device> devices = deviceDao.selectToUserStyle(userId);
         for(int i=0;i<devices.size();i++){
             /*String pre="https://cli.im/api/qrcode/code?text=";

@@ -39,7 +39,7 @@ public class AddressController {
      */
     @RequestMapping("/insertAddress")
     public String insertAddress(Address address){
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(3);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<Object,Object>(3);
         addressService.insert(address);
         objectObjectHashMap.put("message","添加地址成功");
         return JsonUtil.toJson(objectObjectHashMap);
@@ -53,7 +53,7 @@ public class AddressController {
      */
     @RequestMapping("/updateToDefault")
     public String updateToDefault(Integer userId,Integer addressId){
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(3);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<Object,Object>(3);
         addressService.updateToDefault(userId,addressId);
         objectObjectHashMap.put("message","执行成功");
            return JsonUtil.toJson(objectObjectHashMap);
@@ -66,7 +66,7 @@ public class AddressController {
      */
     @RequestMapping("/updateToAddress")
     public String udateToAddress(Address address){
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(3);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<Object,Object>(3);
         addressService.updateToAddress(address);
         objectObjectHashMap.put("message","执行成功");
         return JsonUtil.toJson(objectObjectHashMap);
@@ -80,7 +80,7 @@ public class AddressController {
      */
     @RequestMapping("/deleteToAddress")
     public String deleteToAddress(Integer addressId){
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(3);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<Object,Object>(3);
         addressService.deleteToAddress(addressId);
         objectObjectHashMap.put("message","执行成功");
         return JsonUtil.toJson(objectObjectHashMap);
