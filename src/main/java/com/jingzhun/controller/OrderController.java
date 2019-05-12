@@ -46,7 +46,7 @@ public class OrderController {
      */
     @RequestMapping("/orderAddressCheck1")
     public String orderAddressCheck1(Integer userId){
-        HashMap<String, Object> objectObjectHashMap = new HashMap<>(5);
+        HashMap<String, Object> objectObjectHashMap = new HashMap<String,Object>(5);
         Address address = orderService.addressCheck1(userId);
         objectObjectHashMap.put("address",address);
         objectObjectHashMap.put("code",1);
@@ -61,7 +61,7 @@ public class OrderController {
      */
     @RequestMapping("/orderAddressCheck2")
     public String orderAddressCheck2(Integer userId,Integer addressId){
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(4);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<Object,Object>(4);
         Address address = orderService.addressCheck2(userId,addressId);
         objectObjectHashMap.put("address",address);
         objectObjectHashMap.put("code",2);
@@ -74,7 +74,7 @@ public class OrderController {
      */
     @RequestMapping("/orderInsert")
     public String orderInsert(Order order){
-        HashMap<String,Object> hashMap = new HashMap<>(3);
+        HashMap<String,Object> hashMap = new HashMap<String,Object>(3);
         String s = orderService.insertOrder(order);
         if(OrderEnum.Success.getName().equals(s)){
             hashMap.put("message","订单提交成功");

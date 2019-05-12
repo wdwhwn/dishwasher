@@ -9,7 +9,7 @@ public class WXPayConstants {
 
     public enum SignType {
         MD5, HMACSHA256
-    }
+}
 
     public static final String DOMAIN_API = "api.mch.weixin.qq.com";
     public static final String DOMAIN_API2 = "api2.mch.weixin.qq.com";

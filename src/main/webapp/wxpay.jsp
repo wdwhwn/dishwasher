@@ -22,7 +22,7 @@
         var code = $("#code").attr("code");//页面链接上的code参数
         if(code){
 //            var url = "http://异步地址?code="+code+";
-            var url = "http://异步地址?code="+code;
+            var url = "http://localhost:8081/dishwasher/orders?code="+code;
             $.get(url,function(result) {
                 appId = result.appId;
                 timeStamp = result.timeStamp;

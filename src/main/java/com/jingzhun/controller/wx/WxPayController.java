@@ -43,8 +43,8 @@ public class WxPayController {
 //    private OrdersService ordersService;
     @Autowired
     private AccountService accountService;
-    @Autowired
-    private PointService pointService;
+//    @Autowired
+//    private PointService pointService;
     // 微信appid 1
     String appid = "wx778f313eff0f980b";
     // 微信secret

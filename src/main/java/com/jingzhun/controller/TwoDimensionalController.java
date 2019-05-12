@@ -39,7 +39,7 @@ public class TwoDimensionalController {
 
     @RequestMapping("/selectToUserDeviceStyle")
     public String selectToUserDeviceStyle(Integer userId) throws FileNotFoundException {
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(3);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<Object,Object>(3);
         List<Object> objects = twoDimensionalService.selectToUserDeviceStyle(userId);
         objectObjectHashMap.put("DTO",objects);
         return JsonUtil.toJson(objects);
@@ -53,7 +53,7 @@ public class TwoDimensionalController {
      */
     @RequestMapping("/pinTurnMiddle")
     private String pinTurnMiddle(Integer pid,Integer deviceStyleId ){
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(4);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<Object,Object>(4);
         DeviceStyle deviceStyle = deviceStyleDao.selectByStyleId(deviceStyleId);
         objectObjectHashMap.put("deviceStyle",deviceStyle);
         objectObjectHashMap.put("pid",pid);
@@ -70,7 +70,7 @@ public class TwoDimensionalController {
      */
     @RequestMapping("/pinTurn")
     private String pinTurn(Integer userId,Integer deviceStyleId,Integer pid ){
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(3);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<Object,Object>(3);
         deviceService.pinTurn(userId,deviceStyleId,pid);
         objectObjectHashMap.put("message", "拼团成功");
         return JsonUtil.toJson(objectObjectHashMap);
@@ -97,7 +97,7 @@ public class TwoDimensionalController {
      */
     @RequestMapping("/insertDervieByTwoDimensional1")
     private String insertDervieByTwoDimensional1(Integer userId,Integer stockDetailId,Integer deviceStyleId,Integer stockDetailDeviceNumber) {
-        HashMap<String,Object> hashMap = new HashMap<>(3);
+        HashMap<String,Object> hashMap = new HashMap<String,Object>(3);
         twoDimensionalService.insertDervieByTwoDimensional1(userId,stockDetailId,deviceStyleId,stockDetailDeviceNumber);
             hashMap.put("message","添加成功");
         return JsonUtil.toJson(hashMap);
