@@ -140,7 +140,8 @@ public class WxPayController {
                 ip = ips[0].trim();
             }
             paraMap.put("appid", appid);
-            paraMap.put("body", "莱田洗碗机-订单结算");
+//            paraMap.put("body", "莱田洗碗机-订单结算");
+            paraMap.put("body", "laitian");
 //            paraMap.put("mch_id", 你mchId);
             paraMap.put("mch_id", mchId);
             paraMap.put("nonce_str", WXPayUtil.generateNonceStr());
