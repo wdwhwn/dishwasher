@@ -1,4 +1,5 @@
 package com.jingzhun.utils.wxpay;
+import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.wxpay.WXPayConstants.SignType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import java.util.*;
 
 
 public class WXPayUtil {
+    private static final Logger logger = LoggerFactory.getLogger(WXPayUtil.class);
 
     private static final String SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -199,8 +201,12 @@ public class WXPayUtil {
             if (k.equals(WXPayConstants.FIELD_SIGN)) {
                 continue;
             }
-            if (data.get(k).trim().length() > 0) // 参数值为空，则不参与签名
+            // 参数值为空，则不参与签名
+            logger.error(JsonUtil.toJson(data));
+            logger.error(k+"   "+JsonUtil.toJson(data.get(k)));
+            if (data.get(k).trim().length() > 0) {
                 sb.append(k).append("=").append(data.get(k).trim()).append("&");
+            }
         }
         sb.append("key=").append(key);
         if (SignType.MD5.equals(signType)) {

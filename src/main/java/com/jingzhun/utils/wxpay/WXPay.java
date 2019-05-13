@@ -75,6 +75,9 @@ public class WXPay {
 
     }
 
+    public WXPay() {
+    }
+
     /**
      * 向 Map 中添加 appid、mch_id、nonce_str、sign_type、sign <br>
      * 该函数适用于商户适用于统一下单等接口，不适用于红包、代金券接口

@@ -9,23 +9,19 @@ import java.security.Key;
 import java.security.SecureRandom;
 
 public class PasswordUtil {
-
 	/**
 	 * JAVA6支持以下任意一种算法 PBEWITHMD5ANDDES PBEWITHMD5ANDTRIPLEDES
 	 * PBEWITHSHAANDDESEDE PBEWITHSHA1ANDRC2_40 PBKDF2WITHHMACSHA1
 	 * */
-
 	/**
 	 * 定义使用的算法为:PBEWITHMD5andDES算法
 	 */
 	public static final String ALGORITHM = "PBEWithMD5AndDES";//加密算法
 	public static final String Salt = "63293188";//密钥
-
 	/**
 	 * 定义迭代次数为1000次
 	 */
 	private static final int ITERATIONCOUNT = 1000;
-
 	/**
 	 * 获取加密算法中使用的盐值,解密中使用的盐值必须与加密中使用的相同才能完成操作. 盐长度必须为8字节
 	 * 
@@ -37,12 +33,10 @@ public class PasswordUtil {
 		// 产出盐
 		return random.generateSeed(8);
 	}
-
 	public static byte[] getStaticSalt() {
 		// 产出盐
 		return Salt.getBytes();
 	}
-
 	/**
 	 * 根据PBE密码生成一把密钥
 	 * 
@@ -66,7 +60,6 @@ public class PasswordUtil {
 		}
 		return secretKey;
 	}
-
 	/**
 	 * 加密明文字符串
 	 * 
@@ -114,18 +107,14 @@ public class PasswordUtil {
 		PBEParameterSpec parameterSpec = new PBEParameterSpec(salt.getBytes(), ITERATIONCOUNT);
 		try {
 			Cipher cipher = Cipher.getInstance(ALGORITHM);
-
 			cipher.init(Cipher.DECRYPT_MODE, key, parameterSpec);
-
 			passDec = cipher.doFinal(hexStringToBytes(ciphertext));
 		}
-
 		catch (Exception e) {
 			// TODO: handle exception
 		}
 		return new String(passDec);
 	}
-
 	/**
 	 * 将字节数组转换为十六进制字符串
 	 * 
@@ -148,7 +137,6 @@ public class PasswordUtil {
 		}
 		return stringBuilder.toString();
 	}
-
 	/**
 	 * 将十六进制字符串转换为字节数组
 	 * 
@@ -170,7 +158,6 @@ public class PasswordUtil {
 		}
 		return d;
 	}
-
 	private static byte charToByte(char c) {
 		return (byte) "0123456789ABCDEF".indexOf(c);
 	}

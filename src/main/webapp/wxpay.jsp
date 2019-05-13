@@ -5,24 +5,25 @@
   Time: 14:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
     <title>Title</title>
+    <script src="jquery/jquery-3.4.1.js"></script>
 </head>
 <body>
 <%--<!—pay.jsp中点击”微信支付”按钮执行pay()方法>--%>
-
-<input id="code"type="button" value="微信支付"onclick="pay()" code="${param.code }"/>
+<input id="code"type="button" value="微信支付"onclick="pay()" code="${param.code}"/>
 
 </body>
 <script type="text/javascript">
     var appId,timeStamp,nonceStr,package,signType,paySign;
     function pay(){
         var code = $("#code").attr("code");//页面链接上的code参数
+        alert(code);
         if(code){
 //            var url = "http://异步地址?code="+code+";
-            var url = "http://localhost:8081/dishwasher/orders?code="+code;
+            var url = "http://xiwanji.91xiaokong.com/pay/orders?code="+code;
             $.get(url,function(result) {
                 appId = result.appId;
                 timeStamp = result.timeStamp;

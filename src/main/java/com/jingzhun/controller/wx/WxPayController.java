@@ -2,31 +2,26 @@ package com.jingzhun.controller.wx;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jingzhun.service.AccountService;
-import com.jingzhun.service.PointService;
+import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.weixinutils.AuthUtil;
-import com.jingzhun.utils.weixinutils.WeixinUtil;
-import com.jingzhun.utils.wxpay.CommonUtil;
+import com.jingzhun.utils.wxpay.HttpRequest;
+import com.jingzhun.utils.wxpay.WXPay;
 import com.jingzhun.utils.wxpay.WXPayUtil;
 
-import org.apache.http.HttpRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.misc.MessageUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.Member;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -38,6 +33,7 @@ import java.util.Map;
 //回调路径是自己在之前已经填写过的
 @RequestMapping("/pay/")
 @Controller
+@Slf4j
 public class WxPayController {
     //    @Autowired
 //    private OrdersService ordersService;
@@ -112,10 +108,12 @@ public class WxPayController {
      */
     @RequestMapping(value = "orders", method = RequestMethod.GET)
     @ResponseBody
+
     public Map orders(HttpServletRequest request, String code) {
         try {
             //页面获取openId接口
             String getopenid_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+            log.error(getopenid_url);
             String param = "appid=" + appid + "&secret=" + secret + "&code=" + code + "&grant_type=authorization_code";
             String url = getopenid_url + "?" + param;
             //向微信服务器发送get请求获取openIdStr
@@ -147,6 +145,7 @@ public class WxPayController {
             paraMap.put("mch_id", mchId);
             paraMap.put("nonce_str", WXPayUtil.generateNonceStr());
             paraMap.put("openid", openId);
+//            paraMap.put("openid", "ogiDYs13i0uirzjket3XBIUMhRbc");
 //            paraMap.put("out_trade_no", 你的订单号);//订单号
             paraMap.put("out_trade_no", "201901120456");//订单号
             paraMap.put("spbill_create_ip", ip);
@@ -154,20 +153,24 @@ public class WxPayController {
             paraMap.put("trade_type", "JSAPI");
             paraMap.put("notify_url", "www.*******.com/***/**");// 此路径是微信服务器调用支付结果通知路径随意写
 //            String sign = WXPayUtil.generateSignature(paraMap, paternerKey);
+            log.error(JsonUtil.toJson(paraMap));
+            log.error(paternerKey);
+            log.error(ip);
             String sign = WXPayUtil.generateSignature(paraMap, paternerKey);
             paraMap.put("sign", sign);
             String xml = WXPayUtil.mapToXml(paraMap);//将所有参数(map)转xml格式
+            log.error("发送的xml  "+xml);
             // 统一下单 https://api.mch.weixin.qq.com/pay/unifiedorder
             String unifiedorder_url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-//            String xmlStr = HttpRequest.sendPost(unifiedorder_url, xml);//发送post请求"统一下单接口"返回预支付id:prepay_id
-            String xmlStr = httpRequest(unifiedorder_url, "post", xml);
+            String xmlStr = HttpRequest.sendPost(unifiedorder_url, xml);//发送post请求"统一下单接口"返回预支付id:prepay_id
             //以下内容是返回前端页面的json数据
-
+            log.error("接收的xml"+xmlStr);
             String prepay_id = "";//预支付id
             if (xmlStr.indexOf("SUCCESS") != -1) {
                 Map<String, String> map = WXPayUtil.xmlToMap(xmlStr);
-                prepay_id = (String) map.get("prepay_id");
+                prepay_id = map.get("prepay_id");
             }
+            log.error("AAAA  "+prepay_id);
             Map<String, String> payMap = new HashMap<String, String>();
             payMap.put("appId", appid);
             payMap.put("timeStamp", WXPayUtil.getCurrentTimestamp() + "");
@@ -184,35 +187,5 @@ public class WxPayController {
         return null;
     }
 
-    public static String httpRequest(String requestUrl, String requestMethod, String outputStr) {
-// 创建SSLContext
-        StringBuffer buffer = null;
-        try {
-            URL url = new URL(requestUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod(requestMethod);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.connect();
-            //往服务器端写内容
-            if (null != outputStr) {
-                OutputStream os = conn.getOutputStream();
-                os.write(outputStr.getBytes("utf-8"));
-                os.close();
-            }
-            // 读取服务器端返回的内容
-            InputStream is = conn.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is, "utf-8");
-            BufferedReader br = new BufferedReader(isr);
-            buffer = new StringBuffer();
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                buffer.append(line);
-            }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return buffer.toString();
-    }
+
 }
