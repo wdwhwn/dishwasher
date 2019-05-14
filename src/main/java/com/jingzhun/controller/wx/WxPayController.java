@@ -5,12 +5,14 @@ import com.jingzhun.service.AccountService;
 import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.weixinutils.AuthUtil;
 import com.jingzhun.utils.wxpay.HttpRequest;
-import com.jingzhun.utils.wxpay.WXPay;
 import com.jingzhun.utils.wxpay.WXPayUtil;
 
+import com.jingzhun.utils.wxpay.wxrollback.WechatRefundApiResult;
+import com.jingzhun.utils.wxpay.wxrollback.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,11 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * @ClassName WxPayController
  * @Description 微信支付成功后回调次接口
@@ -32,6 +33,7 @@ import java.util.Map;
  */
 //回调路径是自己在之前已经填写过的
 @RequestMapping("/pay/")
+@CrossOrigin(origins="*",maxAge = 3600)
 @Controller
 @Slf4j
 public class WxPayController {
@@ -50,7 +52,7 @@ public class WxPayController {
     //    商户id
     String mchId = "1512803161";
     //    商户key
-    String paternerKey = "jingzhunkejiyouxiangongsi1234567";
+    String paternerKey = "jingzhunruanjiankejiyouxiangong0";
 
     @RequestMapping("callback")
     public String callBack(HttpServletRequest request, HttpServletResponse response) {
@@ -91,6 +93,7 @@ public class WxPayController {
                 }
             }
 //            }
+            log.error("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             //告诉微信服务器收到信息了，不要在调用回调action了========这里很重要回复微信服务器信息用流发送一个xml即可
             response.getWriter().write("<xml><return_code><![CDATA[SUCCESS]]></return_code></xml>");
             is.close();
@@ -108,7 +111,6 @@ public class WxPayController {
      */
     @RequestMapping(value = "orders", method = RequestMethod.GET)
     @ResponseBody
-
     public Map orders(HttpServletRequest request, String code) {
         try {
             //页面获取openId接口
@@ -121,7 +123,7 @@ public class WxPayController {
 //            JSONObject json = JSONObject.parseObject(openIdStr);//转成Json格式
 //            String openId = json.getString("openid");//获取openId
             JSONObject jsonObject = AuthUtil.doGetJson(url);
-            String openId = jsonObject.getString("openid");
+            String openid = jsonObject.getString("openid");
             //拼接统一下单地址参数
             Map<String, String> paraMap = new HashMap<String, String>();
             //获取请求ip地址
@@ -145,14 +147,14 @@ public class WxPayController {
 //            paraMap.put("mch_id", 你mchId);
             paraMap.put("mch_id", mchId);
             paraMap.put("nonce_str", WXPayUtil.generateNonceStr());
-            paraMap.put("openid", openId);
-//            paraMap.put("openid", "ogiDYs13i0uirzjket3XBIUMhRbc");
+//            paraMap.put("openid", openId);
+            paraMap.put("openid", "ogiDYs13i0uirzjket3XBIUMhRbc");
 //            paraMap.put("out_trade_no", 你的订单号);//订单号
             paraMap.put("out_trade_no", "201901120456");//订单号
             paraMap.put("spbill_create_ip", ip);
             paraMap.put("total_fee", "1");
             paraMap.put("trade_type", "JSAPI");
-            paraMap.put("notify_url", "www.*******.com/***/**");// 此路径是微信服务器调用支付结果通知路径随意写
+            paraMap.put("notify_url", "http://xiwnaji.91xiaokong.com/pay/callback");// 此路径是微信服务器调用支付结果通知路径随意写
 //            String sign = WXPayUtil.generateSignature(paraMap, paternerKey);
             log.error(JsonUtil.toJson(paraMap));
             log.error(paternerKey);
@@ -179,13 +181,94 @@ public class WxPayController {
             payMap.put("signType", "MD5");
             payMap.put("package", "prepay_id=" + prepay_id);
 //            String paySign = WXPayUtil.generateSignature(payMap, paternerKey);
-            String paySign = WXPayUtil.generateSignature(payMap, "paternerKey");
+            String paySign = WXPayUtil.generateSignature(payMap,paternerKey);
             payMap.put("paySign", paySign);
+            log.error("支付使用的xml"+WXPayUtil.mapToXml(payMap));
             return payMap;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+    /**
+     *  查询订单
+     * @return
+     */
+    @RequestMapping(value = "selectOrder", method = RequestMethod.GET)
+    @ResponseBody
+    public Map selectOrder(){
+//        appid mch_id transaction_id out_trade_no nonce_str sign sign_type
+//        https://api.mch.weixin.qq.com/pay/orderquery
+        try {
+            Map<String, String> paraMap = new TreeMap<String, String>();
+            paraMap.put("appid",appid);
+            paraMap.put("mch_id",mchId);
+            paraMap.put("nonce_str",WXPayUtil.generateNonceStr());
+            paraMap.put("out_trade_no","201901120456");
+            String  sign = WXPayUtil.generateSignature(paraMap, paternerKey);
+            paraMap.put("sign",sign);
+            String xml = WXPayUtil.mapToXml(paraMap);//将所有参数(map)转xml格式
+            log.error("查询订单参数"+xml);
+            String orderquery_url = "https://api.mch.weixin.qq.com/pay/orderquery";
+            String xmlStr = HttpRequest.sendPost(orderquery_url, xml);//发送post请求"查询订单"
+            log.error("查询订单结果"+xmlStr);
+            Map<String, String> stringStringMap = WXPayUtil.xmlToMap(xmlStr);
+            return stringStringMap;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     *  申请退款
+     *  1、交易时间超过一年的订单无法提交退款
+
+     2、微信支付退款支持单笔交易分多次退款，多次退款需要提交原支付订单的商户订单号和设置不同的退款单号。申请退款总金额不能超过订单金额。 一笔退款失败后重新提交，请不要更换退款单号，请使用原商户退款单号
+
+     3、请求频率限制：150qps，即每秒钟正常的申请退款请求次数不超过150次
+
+     错误或无效请求频率限制：6qps，即每秒钟异常或错误的退款申请请求不超过6次
+
+     4、每个支付订单的部分退款次数不能超过50次
+     * @return
+     */
+    @RequestMapping(value = "refund", method = RequestMethod.GET)
+    @ResponseBody
+    public Map refund(){
+//        appid mch_id nonce_str   out_trade_no out_refund_no  total_fee refund_fee sign
+//        https://api.mch.weixin.qq.com/secapi/pay/refund
+        /*try {
+            Map<String, String> paraMap = new TreeMap<String, String>();
+            paraMap.put("appid",appid);
+            paraMap.put("mch_id",mchId);
+            paraMap.put("nonce_str",WXPayUtil.generateNonceStr());
+            paraMap.put("out_trade_no","201901120456");
+            paraMap.put("out_refund_no","201901120456");
+            paraMap.put("total_fee","1");
+            paraMap.put("refund_fee","1");
+            String  sign = WXPayUtil.generateSignature(paraMap, paternerKey);
+            paraMap.put("sign",sign);
+            String xml = WXPayUtil.mapToXml(paraMap);//将所有参数(map)转xml格式
+            log.error("查询订单参数"+xml);
+            String orderquery_url = "https://api.mch.weixin.qq.com/pay/orderquery";
+            String xmlStr = HttpRequest.sendPost(orderquery_url, xml);//发送post请求"查询订单"
+            log.error("查询订单结果"+xmlStr);
+            Map<String, String> stringStringMap = WXPayUtil.xmlToMap(xmlStr);
+            return stringStringMap;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;*/
+        Map<String,String> map=new HashMap<String,String>();
+        WechatRefundApiResult result = WechatUtil.wxRefund("201901120456",
+                1.00, 1.00);
+        if (result.getResult_code().equals("SUCCESS")) {
+            map.put("msg","success");
+        } else {
+            map.put("msg","fail");
+        }
+        return map;
+
     }
 
 

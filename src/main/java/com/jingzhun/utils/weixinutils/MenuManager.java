@@ -46,7 +46,8 @@ public class MenuManager {
         viewButton.setType("view");
         viewButton.setUrl("http://xiwanji.91xiaokong.com");
         ViewButton viewButton1 = new ViewButton();
-        viewButton1.setName("授权");
+//        viewButton1.setName("授权");
+        viewButton1.setName("积分商城");
         viewButton1.setType("view");
         //viewButton.setUrl("http://myjava.ngrok.xiaomiqiu.cn/tomainpage");
 //        viewButton1.setUrl("http://xiwanji.91xiaokong.com/wx/wxLogin");
@@ -54,7 +55,8 @@ public class MenuManager {
         viewButton1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx778f313eff0f980b&redirect_uri=http://xiwanji.91xiaokong.com/tologin/userinfo&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect");
         Button button = new Button();
         button.setName("莱田洗碗机");
-        button.setSub_button(new Button[]{viewButton,viewButton1});
+//        button.setSub_button(new Button[]{viewButton,viewButton1});
+        button.setSub_button(new Button[]{viewButton1});
         menu.setButton(new Button[]{button});
         return menu;
     }

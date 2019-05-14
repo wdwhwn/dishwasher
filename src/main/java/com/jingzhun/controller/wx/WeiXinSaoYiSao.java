@@ -21,10 +21,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
+ * 不能用   和官方的测试签名不一致
  * Created by Administrator on 2019/5/10 0010.
  */
-@RestController
-@CrossOrigin(origins = "*",maxAge = 3600)
+
 public class WeiXinSaoYiSao {
     // 微信appid 1
     String appid = "wx778f313eff0f980b";
@@ -62,7 +62,7 @@ public class WeiXinSaoYiSao {
      * 获取sign签名
      * @return
      */
-    @RequestMapping("/sign")
+
     public String sign() {
 //        HttpServletRequest request = ServletActionContext.getRequest();
         Map ret = new HashMap();
@@ -127,6 +127,7 @@ public class WeiXinSaoYiSao {
     private static String create_timestamp() {
         return Long.toString(System.currentTimeMillis() / 1000);
     }
+
     /**
      * 发送get请求
      * @param url    路径
