@@ -23,13 +23,13 @@ public class WechatConfig {
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
             Thread.currentThread().getContextClassLoader();
-            InputStream instream = new WechatRefundApiResult().getClass().getResourceAsStream(ResourceUtil.getConfigByName("wx.certName"));
+            InputStream instream = new WechatRefundApiResult().getClass().getResourceAsStream("https://api.mch.weixin.qq.com/secapi/pay/refund");
             try {
-                keyStore.load(instream, ResourceUtil.getConfigByName("wx.mchId").toCharArray());
+                keyStore.load(instream, "1512803161".toCharArray());
             } finally {
                 instream.close();
             }
-            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, ResourceUtil.getConfigByName("wx.mchId").toCharArray()).build();
+            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, "1512803161".toCharArray()).build();
             sslcsf = new SSLConnectionSocketFactory(sslcontext, new String[]{"TLSv1"}, null, SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
         } catch (Exception e) {
             e.printStackTrace();
