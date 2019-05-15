@@ -260,7 +260,7 @@ public class WxPayController {
         }
         return null;*/
         Map<String,String> map=new HashMap<String,String>();
-        WechatRefundApiResult result = WechatUtil.wxRefund("201901120456",
+        WechatRefundApiResult result = WechatUtil.wxRefund("201901120457",
                 1.00, 1.00);
         if (result.getResult_code().equals("SUCCESS")) {
             map.put("msg","success");
