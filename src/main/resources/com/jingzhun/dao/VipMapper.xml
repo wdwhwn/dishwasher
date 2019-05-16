@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.VipDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Vip" >
-    <id column="vip_id" property="vipId" jdbcType="INTEGER" />
+    <id column="id" property="vipId" jdbcType="INTEGER" />
     <result column="vip_type" property="vipType" jdbcType="VARCHAR" />
     <result column="vip_score" property="vipScore" jdbcType="DECIMAL" />
     <result column="vip_term" property="vipTerm" jdbcType="INTEGER" />
@@ -31,14 +31,14 @@
   </select>-->
   <!--设备续费-->
   <select id="selectAll" resultMap="BaseResultMap" >
-    select vip_id, vip_type, vip_score, vip_term
+    select id, vip_type, vip_score, vip_term
     from t_dishwasher_vip
   </select>
 <!--积分兑换 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select vip_id, vip_type, vip_score, vip_term
+    select id, vip_type, vip_score, vip_term
     from t_dishwasher_vip
-    where vip_id = #{vipId,jdbcType=INTEGER}
+    where id = #{vipId,jdbcType=INTEGER}
   </select>
 
 </mapper>

@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
             }
         }
             userDao.insert(user);
+        log.error("授权时添加用户");
             return true;
     }
 

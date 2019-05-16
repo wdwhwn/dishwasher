@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.RatioDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Ratio" >
-    <id column="ratio_id" property="ratioId" jdbcType="INTEGER" />
+    <id column="id" property="ratioId" jdbcType="INTEGER" />
     <result column="ratio_ratio" property="ratioRatio" jdbcType="VARCHAR" />
     <result column="ratio_status" property="ratioStatus" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_ratio
     where ratio_id = #{ratioId,jdbcType=INTEGER}
   </delete>
@@ -30,10 +30,10 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select ratio_id, ratio_ratio, ratio_status
     from t_dishwasher_ratio
-  </select>
+  </select>-->
 <!--查询积分和金钱的比例-->
   <select id="selectOne" resultMap="BaseResultMap"  >
-    select ratio_id, ratio_ratio
+    select id, ratio_ratio
     from t_dishwasher_ratio
     where ratio_status = 0
   </select>

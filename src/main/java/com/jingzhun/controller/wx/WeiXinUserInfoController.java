@@ -4,6 +4,7 @@ import com.jingzhun.entity.User;
 import com.jingzhun.entity.weixin.WeiXinUser;
 import com.jingzhun.service.UserService;
 import com.jingzhun.service.wx.WeiXinUserInfoService;
+import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.weixinutils.WeiXinUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * @author scw
  * @create 2018-01-18 17:47
@@ -43,15 +45,18 @@ public class WeiXinUserInfoController {
         WeiXinUser weiXinUser = null;
         if(session.getAttribute("currentUser") != null){
             weiXinUser = (WeiXinUser) session.getAttribute("currentUser");
+            log.error("从session中获取值："+ JsonUtil.toJson(weiXinUser));
         }else {
             /**
              * 进行获取openId，必须的一个参数，这个是当进行了授权页面的时候，再重定向了我们自己的一个页面的时候，
              * 会在request页面中，新增这个字段信息，要结合这个ProjectConst.Get_WEIXINPAGE_Code这个常量思考
              */
             String code = request.getParameter("code");
+            log.error("code为："+code);
             try {
                 //得到当前用户的信息(具体信息就看weixinUser这个javabean)
                 weiXinUser = getTheCode(session, code);
+                log.error("调用getThtCode："+JsonUtil.toJson(weiXinUser));
                 //将获取到的用户信息，放入到session中
                 session.setAttribute("currentUser", weiXinUser);
             } catch (Exception e) {
@@ -59,6 +64,14 @@ public class WeiXinUserInfoController {
             }
         }
         map.put("weiXinUser", weiXinUser);
+        User user = new User();
+        user.setUserWxNameReal(weiXinUser.getNickname());
+        user.setUserWxImg(weiXinUser.getHeadImgUrl());
+        user.setUserWxOpenid(weiXinUser.getOpenId());
+        Date date = new Date();
+        user.setUserDate(date);
+        log.debug(weiXinUser.toString());
+        boolean insert = userService.insert(user);
         return "redirect:"+"http://xiwanji.91xiaokong.com";
     }
 
@@ -82,14 +95,7 @@ public class WeiXinUserInfoController {
         String accessToken = WeiXinUtils.getAccessToken().getToken();
         //获取到微信用户的信息
         WeiXinUser weixinUserInfo = weiXinUserInfoService.getUserInfo(accessToken, openId);
-        User user = new User();
-        user.setUserWxNameReal(weixinUserInfo.getNickname());
-        user.setUserWxImg(weixinUserInfo.getHeadImgUrl());
-        user.setUserWxOpenid(weixinUserInfo.getOpenId());
-        Date date = new Date();
-        user.setUserDate(date);
-        log.debug(weixinUserInfo.toString());
-        boolean insert = userService.insert(user);
+
         return weixinUserInfo;
     }
 }

@@ -2,13 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.OrderDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Order" >
-    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <id column="id" property="orderId" jdbcType="INTEGER" />
     <result column="order_message" property="orderMessage" jdbcType="VARCHAR" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
     <result column="order_freight" property="orderFreight" jdbcType="VARCHAR" />
     <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
     <result column="order_total_price" property="orderTotalPrice" jdbcType="DECIMAL" />
     <result column="order_address_id" property="orderAddressId" jdbcType="INTEGER" />
     <result column="order_user_id" property="orderUserId" jdbcType="INTEGER" />
+    <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="order_shipping_status" property="orderShippingStatus" jdbcType="VARCHAR" />
+    <result column="order_pay_status" property="orderPayStatus" jdbcType="VARCHAR" />
+    <result column="order_prepay_id" property="orderPrepayId" jdbcType="VARCHAR" />
+    <association property="goods" javaType="com.jingzhun.entity.Goods">
+      <id column="id" property="goodsId" jdbcType="INTEGER" />
+      <result column="goods_sn" property="goodsSn" jdbcType="VARCHAR" />
+      <result column="goods_title" property="goodsTitle" jdbcType="VARCHAR" />
+      <result column="goods_currnet_score" property="goodsCurrnetScore" jdbcType="DECIMAL" />
+      <result column="goods_origin_score" property="goodsOriginScore" jdbcType="DECIMAL" />
+      <result column="goods_service_type" property="goodsServiceType" jdbcType="VARCHAR" />
+      <result column="goods_business" property="goodsBusiness" jdbcType="VARCHAR" />
+      <result column="goods_describe" property="goodsDescribe" jdbcType="VARCHAR" />
+      <result column="goods_delete_state" property="goodsDeleteState" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_order
@@ -46,11 +62,51 @@
 -->
   <!--提交订单-->
   <insert id="insertOrder" parameterType="com.jingzhun.entity.Order" >
-    insert into t_dishwasher_order (order_id, order_message, order_freight,
+    insert into t_dishwasher_order (id, order_message, order_freight,
     order_date, order_total_price, order_address_id,
-    order_user_id)
+    order_user_id,order_sn,order_status,orer_shipping_status,order_pay_status)
     values (0, #{orderMessage,jdbcType=VARCHAR}, '包邮',
     #{orderDate,jdbcType=TIMESTAMP}, #{orderTotalPrice,jdbcType=DECIMAL}, #{orderAddressId,jdbcType=INTEGER},
-    #{orderUserId,jdbcType=INTEGER})
+    #{orderUserId,jdbcType=INTEGER},#{orderSn,jdbcType=INTEGER},#{orderStatus},#{orerShippingStatus},#{orderPayStatus})
   </insert>
+
+  <!--查询订单为支付提供信息-->
+  <select id="selectOrderToPay" resultMap="BaseResultMap" >
+    SELECT
+	t_dishwasher_order.id,
+	order_sn,
+	order_goods_id,
+	tdg.goods_title,
+    t_dishwasher_goods.id
+FROM
+	t_dishwasher_order tdo
+LEFT JOIN t_dishwasher_goods  ON tdo.order_goods_id = t_dishwasher_goods.id
+WHERE
+	id ={ #orderId} and pay_status=0 and order_status=0 and order_status=0
+  </select>
+  <!--支付成功更新 订单状态-->
+  <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.Order" >
+    update t_dishwasher_order
+    set order_message = #{orderMessage,jdbcType=VARCHAR},
+    order_freight = #{orderFreight,jdbcType=DECIMAL},
+    order_date = #{orderDate,jdbcType=TIMESTAMP},
+    order_total_price = #{orderTotalPrice,jdbcType=DECIMAL},
+    order_address_id = #{orderAddressId,jdbcType=INTEGER},
+    order_user_id = #{orderUserId,jdbcType=INTEGER}
+    order_status = #{orderStatus}
+    order_shipping_status = #{orderShippingStatus,jdbcType=INTEGER}
+    order_pay_status = #{orderPayStatus}
+    order_prepay_id = #{orderPrepayId}
+    where id = #{orderId}
+  </update>
+
+  <!--查询订单为支付提供信息-->
+  <select id="selectOrderByOrderSn" resultMap="BaseResultMap" >
+    SELECT
+    *
+    FROM
+    t_dishwasher_order tdo
+    WHERE
+    order_sn ={ #orderSn}
+  </select>
 </mapper>

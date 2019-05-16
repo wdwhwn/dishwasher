@@ -18,6 +18,8 @@ import java.util.Date;
 public class Order implements Serializable {
     private Integer orderId;
 
+    private String orderSn;
+
     private String orderMessage;
 
     private String orderFreight;
@@ -46,5 +48,13 @@ public class Order implements Serializable {
 
     private Integer orderUserId;
 
+    private Goods goods;
 
+    private String orderStatus;
+
+    private String orderShippingStatus;
+
+    private String orderPayStatus;
+
+    private String orderPrepayId;
 }

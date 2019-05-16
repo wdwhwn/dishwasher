@@ -1,12 +1,15 @@
 package com.jingzhun.controller.wx;
 
-import com.alibaba.fastjson.JSONObject;
+import com.jingzhun.entity.Order;
+import com.jingzhun.entity.Ratio;
+import com.jingzhun.entity.User;
 import com.jingzhun.service.AccountService;
+import com.jingzhun.service.OrderService;
+import com.jingzhun.service.RatioService;
+import com.jingzhun.service.UserService;
 import com.jingzhun.utils.jsonutil.JsonUtil;
-import com.jingzhun.utils.weixinutils.AuthUtil;
 import com.jingzhun.utils.wxpay.HttpRequest;
 import com.jingzhun.utils.wxpay.WXPayUtil;
-
 import com.jingzhun.utils.wxpay.wxrollback.WechatRefundApiResult;
 import com.jingzhun.utils.wxpay.wxrollback.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -37,12 +39,13 @@ import java.util.TreeMap;
 @Controller
 @Slf4j
 public class WxPayController {
-    //    @Autowired
-//    private OrdersService ordersService;
     @Autowired
-    private AccountService accountService;
-//    @Autowired
-//    private PointService pointService;
+    private UserService userService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private RatioService ratioService;
+
     // 微信appid 1
     String appid = "wx778f313eff0f980b";
     // 微信secret
@@ -66,34 +69,15 @@ public class WxPayController {
             if (notifyMap.get("return_code").equals("SUCCESS")) {
                 if (notifyMap.get("result_code").equals("SUCCESS")) {
                     String ordersSn = notifyMap.get("out_trade_no");//商户订单号
-                    String amountpaid = notifyMap.get("total_fee");//实际支付的订单金额:单位 分
-                    BigDecimal amountPay = (new BigDecimal(amountpaid).divide(new BigDecimal("100"))).setScale(2);//将分转换成元-实际支付金额:元
-                    //String openid = notifyMap.get("openid");  //如果有需要可以获取
-                    //String trade_type = notifyMap.get("trade_type");
-	                /*以下是自己的业务处理------仅做参考
-	                 * 更新order对应字段/已支付金额/状态码
-	                 */
-//                    Orders order = ordersService.selectOrdersBySn(ordersSn);
-//                    if(order != null) {
-//                        order.setLastmodifieddate(new Date());
-//                        order.setVersion(order.getVersion().add(BigDecimal.ONE));
-//                        order.setAmountpaid(amountPay);//已支付金额
-//                        order.setStatus(2L);//修改订单状态为待发货
-//                        int num = ordersService.updateOrders(order);//更新order
-                    String amount = amountPay.setScale(0, BigDecimal.ROUND_FLOOR).toString();//实际支付金额向下取整-123.23--123
-	                	/*
-	                	 * 更新用户经验值
-	                	 */
-//                        Member member = accountService.findObjectById(order.getMemberId());
-//                        accountService.updateMemberByGrowth(amount, member);
-	                	/*
-	                	 * 添加用户积分数及添加积分记录表记录
-	                	 */
-//                        pointService.updateMemberPointAndLog(amount, member, "购买商品,订单号为:"+ordersSn);
+                    Order order = orderService.selectOrderByOrderSn(Integer.parseInt(ordersSn));
+                    if(order !=null){
+                        order.setOrderStatus("201");
+                        order.setOrderPayStatus("2");
+                    }
                 }
             }
 //            }
-            log.error("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            log.error("+++++++++++++++++++++++++++++++++支付回调：支付成功++++++++++++++++++++++++++++++++++++++++++++++++");
             //告诉微信服务器收到信息了，不要在调用回调action了========这里很重要回复微信服务器信息用流发送一个xml即可
             response.getWriter().write("<xml><return_code><![CDATA[SUCCESS]]></return_code></xml>");
             is.close();
@@ -105,25 +89,27 @@ public class WxPayController {
 
     /**
      * @param request
-     * @param code
+     * @param
      * @return Map
      * @Description 微信浏览器内微信支付/公众号支付(JSAPI)
      */
     @RequestMapping(value = "orders", method = RequestMethod.GET)
     @ResponseBody
-    public Map orders(HttpServletRequest request, String code) {
+    public Map orders(HttpServletRequest request, Integer userId,Integer orderId) {
         try {
             //页面获取openId接口
-            String getopenid_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
-            log.error(getopenid_url);
-            String param = "appid=" + appid + "&secret=" + secret + "&code=" + code + "&grant_type=authorization_code";
-            String url = getopenid_url + "?" + param;
+//            String getopenid_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+//            log.error(getopenid_url);
+//            String param = "appid=" + appid + "&secret=" + secret + "&code=" + code + "&grant_type=authorization_code";
+//            String url = getopenid_url + "?" + param;
             //向微信服务器发送get请求获取openIdStr
 //            String openIdStr = HttpRequest.sendGet(getopenid_url, param);
 //            JSONObject json = JSONObject.parseObject(openIdStr);//转成Json格式
 //            String openId = json.getString("openid");//获取openId
-            JSONObject jsonObject = AuthUtil.doGetJson(url);
-            String openid = jsonObject.getString("openid");
+//            JSONObject jsonObject = AuthUtil.doGetJson(url);
+//            String openid = jsonObject.getString("openid");
+            User user = userService.selectByPrimaryKey(userId);
+            String openId = user.getUserWxOpenid();
             //拼接统一下单地址参数
             Map<String, String> paraMap = new HashMap<String, String>();
             //获取请求ip地址
@@ -143,18 +129,33 @@ public class WxPayController {
             }
             paraMap.put("appid", appid);
 //            paraMap.put("body", "莱田洗碗机-订单结算");
-            paraMap.put("body", "laitian");
-//            paraMap.put("mch_id", 你mchId);
+            Order order = orderService.selectOrderToPay(orderId);
+            String body = order.getGoods().getGoodsTitle();
+            body  = new String(body.toString().getBytes("ISO8859-1"),"UTF-8");
+            paraMap.put("body", body);
+//            商户id
             paraMap.put("mch_id", mchId);
             paraMap.put("nonce_str", WXPayUtil.generateNonceStr());
-//            paraMap.put("openid", openId);
-            paraMap.put("openid", "ogiDYs13i0uirzjket3XBIUMhRbc");
+            paraMap.put("openid", openId);
+//            paraMap.put("openid", "ogiDYs13i0uirzjket3XBIUMhRbc");
 //            paraMap.put("out_trade_no", 你的订单号);//订单号
-            paraMap.put("out_trade_no", "201901120456");//订单号
+            String orderSn = order.getOrderSn();
+            paraMap.put("out_trade_no", orderSn);//订单号
             paraMap.put("spbill_create_ip", ip);
-            paraMap.put("total_fee", "1");
+//            价格为
+            BigDecimal orderTotalPrice = order.getOrderTotalPrice();
+//        获取比例
+            Ratio ratio = ratioService.selectOne();
+            String ratioRatio = ratio.getRatioRatio();
+            BigDecimal bigDecimal = new BigDecimal(ratioRatio);
+//          换算为金钱元
+          orderTotalPrice = orderTotalPrice.divide(bigDecimal);
+//          换算为分
+            orderTotalPrice=orderTotalPrice.multiply(new BigDecimal(100));
+          String totalFee=orderTotalPrice+"";
+            paraMap.put("total_fee", totalFee);
             paraMap.put("trade_type", "JSAPI");
-            paraMap.put("notify_url", "http://xiwnaji.91xiaokong.com/pay/callback");// 此路径是微信服务器调用支付结果通知路径随意写
+            paraMap.put("notify_url", "http://xiwanji.91xiaokong.com/pay/callback");// 此路径是微信服务器调用支付结果通知路径随意写
 //            String sign = WXPayUtil.generateSignature(paraMap, paternerKey);
             log.error(JsonUtil.toJson(paraMap));
             log.error(paternerKey);
@@ -222,13 +223,8 @@ public class WxPayController {
     /**
      *  申请退款
      *  1、交易时间超过一年的订单无法提交退款
-
      2、微信支付退款支持单笔交易分多次退款，多次退款需要提交原支付订单的商户订单号和设置不同的退款单号。申请退款总金额不能超过订单金额。 一笔退款失败后重新提交，请不要更换退款单号，请使用原商户退款单号
-
-     3、请求频率限制：150qps，即每秒钟正常的申请退款请求次数不超过150次
-
-     错误或无效请求频率限制：6qps，即每秒钟异常或错误的退款申请请求不超过6次
-
+     3、请求频率限制：150qps，即每秒钟正常的申请退款请求次数不超过150次错误或无效请求频率限制：6qps，即每秒钟异常或错误的退款申请请求不超过6次
      4、每个支付订单的部分退款次数不能超过50次
      * @return
      */
@@ -260,16 +256,14 @@ public class WxPayController {
         }
         return null;*/
         Map<String,String> map=new HashMap<String,String>();
-        WechatRefundApiResult result = WechatUtil.wxRefund("201901120457",
+        WechatRefundApiResult result = WechatUtil.wxRefund("201901120456",
                 1.00, 1.00);
+        log.error("controller中退款数据："+result);
         if (result.getResult_code().equals("SUCCESS")) {
             map.put("msg","success");
         } else {
             map.put("msg","fail");
         }
         return map;
-
     }
-
-
 }

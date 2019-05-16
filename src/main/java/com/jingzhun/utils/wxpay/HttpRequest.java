@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
  
 public class HttpRequest {
+    public static void main(String[] args) {
+
+    }
+
     /**
      * 向指定URL发送GET方法的请求
      * 

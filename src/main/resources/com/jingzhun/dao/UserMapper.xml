@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.UserDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.User" >
-    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="id" property="userId" jdbcType="INTEGER" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_wx_img" property="userWxImg" jdbcType="VARCHAR" />
     <result column="user_wx_name_real" property="userWxNameReal" jdbcType="VARCHAR" />
@@ -19,7 +19,7 @@
     <result column="user_wx_name_real" property="userWxNameReal" jdbcType="VARCHAR" />
     <result column="user_delete_state" property="userDeleteState" jdbcType="VARCHAR" />
     <collection property="accountList" javaType="java.util.List" ofType="com.jingzhun.entity.Account">
-    <result column="account_id" property="accountId"/>
+    <result column="id" property="accountId"/>
      <result column="account_type" property="accountType" jdbcType="VARCHAR" />
       <result column="account_user_id" property="accountUserId" jdbcType="INTEGER" />
       <result column="account_delete_state" property="accountDeleteState" jdbcType="VARCHAR" />
@@ -74,38 +74,38 @@
 
   <!--首页显示积分  个人中心页面-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select user_id,user_current_score,user_consume_score,user_total_score,user_wx_name,user_wx_img from t_dishwasher_user
-    where user_id = #{userId,jdbcType=INTEGER} and user_delete_state=0  and user_type=0
+    select id,user_current_score,user_consume_score,user_total_score,user_wx_name,user_wx_img from t_dishwasher_user
+    where id = #{userId,jdbcType=INTEGER} and user_delete_state=0  and user_type=0
   </select>
 
   <!--提现页面sql-->
   <select id="selectByCashPage" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select user_id,  user_current_score,
-    account_type,account_account_number,account_id
-    from t_dishwasher_user left JOIN t_dishwasher_account on t_dishwasher_user.user_id=t_dishwasher_account.account_user_id
+    select t_dishwasher_user.id,  user_current_score,
+    account_type,account_account_number,da.id id1
+    from t_dishwasher_user left JOIN t_dishwasher_account da on t_dishwasher_user.id=da.account_user_id
     where account_user_id = #{userId,jdbcType=INTEGER} and user_delete_state=0 and user_type=0 and account_type=0
   </select>
 
   <!--当前积分页面sql-->
   <select id="selectByCashSummary" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select user_id,user_current_score,user_total_score,user_consume_score from t_dishwasher_user
-    where user_id = #{userId,jdbcType=INTEGER} and user_delete_state=0 and user_type=0
+    select id,user_current_score,user_total_score,user_consume_score from t_dishwasher_user
+    where id = #{userId,jdbcType=INTEGER} and user_delete_state=0 and user_type=0
   </select>
 
   <!--我的团友sql   user_type=0  为公众号用户-->
   <select id="selectByPid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select user_id,user_wx_name,user_date,user_wx_img from t_dishwasher_user
+    select id,user_wx_name,user_date,user_wx_img from t_dishwasher_user
     where user_pid = #{userId,jdbcType=INTEGER} and    user_delete_state=0  and user_type=0 order by user_date desc
   </select>
 
 <!--查询所有用户oppenid 判断是否注册过-->
   <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select user_id,user_wx_openid from t_dishwasher_user
+    select id,user_wx_openid from t_dishwasher_user
   </select>
 
   <!--手机验证之后 添加 微信信息-->
   <insert id="insert" parameterType="com.jingzhun.entity.User" >
-    insert into t_dishwasher_user (user_id,  user_wx_img,
+    insert into t_dishwasher_user (id,  user_wx_img,
     user_wx_name, user_date, user_type, user_delete_state,user_wx_openid,user_mobile)
     values (0,  #{userWxImg,jdbcType=VARCHAR},
     #{userWxName,jdbcType=VARCHAR},#{userDate,jdbcType=TIMESTAMP}, 0,
@@ -118,17 +118,17 @@
     set
     user_current_score = #{userCurrentScore,jdbcType=DECIMAL},
     user_consume_score = #{userConsumeScore,jdbcType=DECIMAL}
-    where user_id = #{userId,jdbcType=INTEGER}
+    where id = #{userId,jdbcType=INTEGER}
   </update>
 
-  <!--拼团码  返还用户积分-->
+  <!--&lt;!&ndash;拼团码  返还用户积分&ndash;&gt;
   <update id="updateScore" parameterType="com.jingzhun.entity.User" >
     update t_dishwasher_user
     set
     user_current_score = #{userCurrentScore,jdbcType=DECIMAL},
     user_total_score = #{userTotalScore,jdbcType=DECIMAL}
     where user_id = #{userId,jdbcType=INTEGER}
-  </update>
+  </update>-->
 
 
 </mapper>

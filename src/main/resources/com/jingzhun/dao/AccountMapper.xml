@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.AccountDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Account" >
-    <id column="account_id" property="accountId" jdbcType="INTEGER" />
+    <id column="id" property="accountId" jdbcType="INTEGER" />
     <result column="account_type" property="accountType" jdbcType="VARCHAR" />
     <result column="account_user_id" property="accountUserId" jdbcType="INTEGER" />
     <result column="account_delete_state" property="accountDeleteState" jdbcType="VARCHAR" />
@@ -39,7 +39,7 @@
   </select>-->
   <!--添加账号-->
   <insert id="insert" parameterType="com.jingzhun.entity.Account" >
-    insert into t_dishwasher_account (account_id, account_type, account_account_number,
+    insert into t_dishwasher_account (id, account_type, account_account_number,
    account_mobile,account_name_real, account_user_id, account_delete_state)
     values (0, '微信', #{accountAccountNumber,jdbcType=VARCHAR},#{accountMobile,jdbcType=VARCHAR},#{accountNameReal,jdbcType=VARCHAR}
     ,#{accountUserId,jdbcType=INTEGER}, 0)
@@ -47,7 +47,7 @@
     <!--删除账号-->
     <delete id="delete" parameterType="java.lang.Integer" >
         delete from t_dishwasher_account
-    where account_id = #{accountId,jdbcType=INTEGER}
+    where id = #{accountId,jdbcType=INTEGER}
     </delete>
     <!--修改账号-->
     <update id="update" parameterType="com.jingzhun.entity.Account" >
@@ -55,7 +55,7 @@
         set
         account_mobile=#{accountMobile},
         account_name_real=#{accountNameReal}
-       where account_id = #{accountId,jdbcType=INTEGER}
+       where id = #{accountId,jdbcType=INTEGER}
     </update>
 <!--查询账号列表-->
     <select id="selectAll" resultMap="BaseResultMap" >

@@ -23,7 +23,7 @@ public class WechatConfig {
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
             Thread.currentThread().getContextClassLoader();
-            InputStream instream = new WechatRefundApiResult().getClass().getResourceAsStream("https://api.mch.weixin.qq.com/secapi/pay/refund");
+            InputStream instream = new WechatRefundApiResult().getClass().getResourceAsStream("/cert/apiclient_cert.p12");
             try {
                 keyStore.load(instream, "1512803161".toCharArray());
             } finally {

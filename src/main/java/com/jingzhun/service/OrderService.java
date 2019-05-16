@@ -15,4 +15,7 @@ public interface OrderService {
     public Address addressCheck1(Integer userId);
     public Address addressCheck2(Integer userId,Integer addressId);
     public String insertOrder(Order order);
+    public Order selectOrderToPay(Integer orderId);
+    public Order selectOrderByOrderSn(Integer orderSn);
+    public void updateOrder(Order order);
 }

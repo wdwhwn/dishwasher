@@ -60,7 +60,7 @@ public class AccountController {
     public String accountDelete(Account account){
         HashMap<String,Object> hashMap = new HashMap<String,Object>(3);
         accountService.delete(account);
-        hashMap.put("message","添加成功");
+        hashMap.put("message","删除成功");
         return JsonUtil.toJson(hashMap);
     }
     /**

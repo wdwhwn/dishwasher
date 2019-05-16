@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.DeviceDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Device" >
-    <id column="device_id" property="deviceId" jdbcType="INTEGER" />
+    <id column="id" property="deviceId" jdbcType="INTEGER" />
     <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
     <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
     <result column="device_state" property="deviceState" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
     <result column="device_style_id" property="deviceStyleId" jdbcType="INTEGER" />
 
     <collection property="deviceControlList" javaType="java.util.List" ofType="com.jingzhun.entity.DeviceControl">
-      <result column="device_control_id" property="deviceControlId"/>
+      <result column="id1" property="deviceControlId"/>
       <result column="device_control_device_id" property="deviceControlDeviceId" />
       <result column="device_control_date" property="deviceControlDate" />
       <result column="device_control_state" property="deviceControlState"  />
@@ -55,15 +55,15 @@
 
   <!--我的设备-->
   <select id="selectToDevice" resultMap="BaseResultMap" >
-    select device_id, device_name, device_number, device_state
+    select id, device_name, device_number, device_state
     from t_dishwasher_device where device_user_id=#{userId,jdbcType=INTEGER}
   </select>
 
   <!--设备记录-->
   <select id="selectToDeviceRecord" resultMap="BaseResultMap" >
-    select device_id, device_name, device_number, device_state,device_renew_date,device_expire_date,device_control_date,device_control_state,device_control_device_id
-    from t_dishwasher_device left join t_dishwasher_device_control on t_dishwasher_device.device_id=
-    t_dishwasher_device_control.device_control_device_id where device_id=#{deviceId,jdbcType=INTEGER} order by device_control_date desc
+    select t_dishwasher_device.id, device_name, device_number,t_dishwasher_device_control.id id1, device_state,device_renew_date,device_expire_date,device_control_date,device_control_state,device_control_device_id
+    from t_dishwasher_device left join t_dishwasher_device_control  on t_dishwasher_device.id=
+    t_dishwasher_device_control.device_control_device_id where t_dishwasher_device.id=#{deviceId,jdbcType=INTEGER} order by device_control_date desc
   </select>
 <!--更新设备 激活时间-->
   <update id="updateByPrimaryKey" parameterType="com.jingzhun.entity.Device" >
@@ -72,7 +72,7 @@
     device_renew_date= #{deviceRenewDate,jdbcType=TIMESTAMP},
     device_expire_date=#{deviceExpireDate,jdbcType=TIMESTAMP},
     device_end_date=#{deviceEndDate,jdbcType=TIMESTAMP}
-    where device_id = #{deviceId,jdbcType=INTEGER}
+    where id = #{deviceId,jdbcType=INTEGER}
   </update>
 
   <!--我的设备二维码-->
@@ -83,7 +83,7 @@
 
   <!--拼团码 添加设备-->
   <insert id="insert" parameterType="com.jingzhun.entity.Device" >
-    insert into t_dishwasher_device (device_id, device_name, device_number,
+    insert into t_dishwasher_device (id, device_name, device_number,
     device_state, device_user_id, device_purchase_date,device_renew_date,device_expire_date,device_end_date
     ,device_style_id)
     values (0, #{deviceName,jdbcType=VARCHAR}, #{deviceNumber,jdbcType=VARCHAR},
@@ -93,8 +93,8 @@
   </insert>
 <!--设备续费  根据设备  更新其-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select device_id, device_name, device_number, device_state, device_user_id, device_purchase_date,device_renew_date,device_expire_date,device_end_date,device_style_id
+    select id, device_name, device_number, device_state, device_user_id, device_purchase_date,device_renew_date,device_expire_date,device_end_date,device_style_id
     from t_dishwasher_device
-    where device_id = #{deviceId,jdbcType=INTEGER}
+    where id = #{deviceId,jdbcType=INTEGER}
   </select>
 </mapper>

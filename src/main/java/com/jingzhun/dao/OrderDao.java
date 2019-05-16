@@ -1,6 +1,8 @@
 package com.jingzhun.dao;
 
 import com.jingzhun.entity.Order;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 /**
  * @author wd
@@ -20,4 +22,10 @@ public interface OrderDao {
      *
      */
     void insertOrder(Order record);
+
+    Order selectOrderToPay(Integer orderId);
+
+    void updateByPrimaryKey(Order order);
+
+    Order selectOrderByOrderSn(Integer orderSn);
 }

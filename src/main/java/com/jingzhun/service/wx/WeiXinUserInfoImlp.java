@@ -3,6 +3,7 @@ package com.jingzhun.service.wx;
 import com.jingzhun.entity.User;
 import com.jingzhun.entity.weixin.WeiXinUser;
 import com.jingzhun.service.UserService;
+import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.weixinutils.ProjectConst;
 import com.jingzhun.utils.weixinutils.WeiXinUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class WeiXinUserInfoImlp implements WeiXinUserInfoService {
                 "OPENID", openId);
         // 获取用户信息(返回的是Json格式内容)
         JSONObject jsonObject = WeiXinUtils.doGetStr(requestUrl);
-
+        log.error(JsonUtil.toJson(jsonObject));
         if (null != jsonObject) {
             try {
                 //封装获取到的用户信息

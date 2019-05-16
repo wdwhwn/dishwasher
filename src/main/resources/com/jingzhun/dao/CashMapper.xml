@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.CashDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Cash" >
-    <id column="cash_id" property="cashId" jdbcType="INTEGER" />
+    <id column="id" property="cashId" jdbcType="INTEGER" />
     <result column="cash_date" property="cashDate" jdbcType="TIMESTAMP" />
     <result column="cash_score" property="cashScore" jdbcType="DECIMAL" />
     <result column="cash_state" property="cashState" jdbcType="VARCHAR" />
@@ -42,14 +42,14 @@
 
 <!--提现记录详情-->
   <select id="selectByCashRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select cash_id, cash_date, cash_score, cash_state, cash_account_id
+    select id, cash_date, cash_score, cash_state, cash_account_id
     from t_dishwasher_cash
     where cash_user_id = #{userId,jdbcType=INTEGER} order by cash_date desc
    </select>
 
 <!--添加提现记录-->
   <insert id="insert" parameterType="com.jingzhun.entity.Cash" >
-    insert into t_dishwasher_cash (cash_id, cash_date, cash_score,
+    insert into t_dishwasher_cash (id, cash_date, cash_score,
     cash_state, cash_account_id, cash_user_id
     )
     values (0, #{cashDate,jdbcType=TIMESTAMP}, #{cashScore,jdbcType=DECIMAL},

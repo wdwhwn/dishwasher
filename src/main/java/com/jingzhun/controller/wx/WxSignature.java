@@ -121,7 +121,6 @@ public class WxSignature {
         }
         return ticket;
     }
-
     public static String SHA1(String decript) {
         try {
             MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
@@ -138,7 +137,6 @@ public class WxSignature {
                 hexString.append(shaHex);
             }
             return hexString.toString();
-
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

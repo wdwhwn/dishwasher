@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.GoodsDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Goods" >
-    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <id column="id" property="goodsId" jdbcType="INTEGER" />
     <result column="goods_title" property="goodsTitle" jdbcType="VARCHAR" />
+    <result column="goods_sn" property="goodsSn" jdbcType="VARCHAR" />
     <result column="goods_currnet_score" property="goodsCurrnetScore" jdbcType="DECIMAL" />
     <result column="goods_origin_score" property="goodsOriginScore" jdbcType="DECIMAL" />
     <result column="goods_service_type" property="goodsServiceType" jdbcType="VARCHAR" />
@@ -11,7 +12,7 @@
     <result column="goods_describe" property="goodsDescribe" jdbcType="VARCHAR" />
     <result column="goods_delete_state" property="goodsDeleteState" jdbcType="VARCHAR" />
     <collection property="goodsImgList" javaType="java.util.List" ofType="com.jingzhun.entity.GoodsImg">
-      <result column="goods_img_id" property="goodsImgId"/>
+      <result column="id1" property="goodsImgId"/>
       <result column="goods_img_img" property="goodsImgImg" />
       <result column="goods_img_goods_id" property="goodsImgGoodsId" />
       <result column="goods_img_state" property="goodsImgState"  />
@@ -50,19 +51,19 @@
 
   <!--首页展示商品标题 积分和展示图片-->
   <select id="selectAll" resultMap="BaseResultMap" >
-    select goods_id, goods_title, goods_currnet_score,goods_img_img
-    from t_dishwasher_goods left join t_dishwasher_goods_img on t_dishwasher_goods.goods_id=t_dishwasher_goods_img.goods_img_goods_id where goods_delete_state=0 and goods_img_state=0 and goods_img_type=0
+    select t_dishwasher_goods.id, goods_title, goods_currnet_score,goods_img_img,t_dishwasher_goods_img.id id1
+    from t_dishwasher_goods left join t_dishwasher_goods_img  on t_dishwasher_goods.id=t_dishwasher_goods_img.goods_img_goods_id where goods_delete_state=0 and goods_img_state=0 and goods_img_type=0
   </select>
 
   <!--商品详情-->
   <select id="selectById" resultMap="BaseResultMap" >
-     select goods_id, goods_title, goods_currnet_score,goods_origin_score,goods_business,goods_img_img,goods_describe,goods_img_id
-    from t_dishwasher_goods left join t_dishwasher_goods_img on t_dishwasher_goods.goods_id=t_dishwasher_goods_img.goods_img_goods_id where goods_img_goods_id=#{goodsImgGoodsId} and goods_delete_state=0 and goods_img_state=1 and goods_img_type=0
+     select t_dishwasher_goods.id, goods_title, goods_currnet_score,goods_origin_score,goods_business,goods_img_img,goods_describe,t_dishwasher_goods_img.id id1
+    from t_dishwasher_goods left join t_dishwasher_goods_img  on t_dishwasher_goods.id=t_dishwasher_goods_img.goods_img_goods_id where goods_img_goods_id=#{goodsImgGoodsId} and goods_delete_state=0 and goods_img_state=1 and goods_img_type=0
   </select>
 
   <!--确认订单-->
   <select id="selectByGoodsId" resultMap="BaseResultMap" >
-    select goods_id, goods_title, goods_currnet_score,goods_img_img
-    from t_dishwasher_goods left join t_dishwasher_goods_img on t_dishwasher_goods.goods_id=t_dishwasher_goods_img.goods_img_goods_id where goods_id=#{goodsId} and goods_delete_state=0 and goods_img_state=0
+    select t_dishwasher_goods.id, goods_title, goods_currnet_score,goods_img_img,t_dishwasher_goods_img.id id1
+    from t_dishwasher_goods left join t_dishwasher_goods_img  on t_dishwasher_goods.id=t_dishwasher_goods_img.goods_img_goods_id where t_dishwasher_goods.id=#{goodsId} and goods_delete_state=0 and goods_img_state=0
   </select>
 </mapper>

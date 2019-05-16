@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.DeviceStyleDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.DeviceStyle" >
-      <id column="device_style_id" property="deviceStyleId" jdbcType="INTEGER" />
+      <id column="id" property="deviceStyleId" jdbcType="INTEGER" />
       <result column="devie_style_name" property="devieStyleName" jdbcType="VARCHAR" />
       <result column="devie_style_month_supply" property="devieStyleMonthSupply" jdbcType="DECIMAL" />
       <result column="device_style_number" property="deviceStyleNumber" jdbcType="INTEGER" />
@@ -10,8 +10,8 @@
 
     <!--查询设备类型-->
     <select id="selectByStyleId" resultMap="BaseResultMap" >
-        select device_style_id,devie_style_name,devie_style_month_supply,device_style_number
-        from t_dishwasher_device_style where device_style_id=#{deviceStyleId,jdbcType=INTEGER}
+        select id,devie_style_name,devie_style_month_supply,device_style_number
+        from t_dishwasher_device_style where id=#{deviceStyleId,jdbcType=INTEGER}
     </select>
 
 

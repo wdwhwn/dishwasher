@@ -24,7 +24,7 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
     @RequestMapping("/selectToDevice")
-    public String selectToDevice(Integer userId,Integer pageNum,Integer pageSize,String token){
+    public String selectToDevice(Integer userId,Integer pageNum,Integer pageSize){
         PageHelper.startPage(pageNum,pageSize);
         List<Device> deviceList = deviceService.selectToDevice(userId);
         PageInfo<Device> devicePageInfo = new PageInfo<Device>(deviceList);

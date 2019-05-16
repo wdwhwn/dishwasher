@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2019/3/5 0005.
@@ -64,6 +65,8 @@ public class OrderServiceImpl implements  OrderService {
         if(i<0){
             return "积分余额不足";
         }
+        String orderSn = UUID.randomUUID().toString().replace("-", "");
+        order.setOrderSn(orderSn);
         orderDao.insertOrder(order);
         BigDecimal orderTotalPrice = order.getOrderTotalPrice();
         BigDecimal subtract = userCurrentScore.subtract(orderTotalPrice);
@@ -73,6 +76,24 @@ public class OrderServiceImpl implements  OrderService {
         user.setUserConsumeScore(add);
         userDao.insert(user);
         return "订单提交成功";
+    }
+
+
+    @Override
+    public Order selectOrderToPay(Integer orderId) {
+        Order order = orderDao.selectOrderToPay(orderId);
+        return order;
+    }
+
+    @Override
+    public Order selectOrderByOrderSn(Integer orderSn) {
+        Order order = orderDao.selectOrderByOrderSn(orderSn);
+        return order;
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        orderDao.updateByPrimaryKey(order);
     }
 
 

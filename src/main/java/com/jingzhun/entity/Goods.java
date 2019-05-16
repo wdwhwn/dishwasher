@@ -18,6 +18,8 @@ import java.util.List;
 public class Goods implements Serializable {
     private Integer goodsId;
 
+    private String goodsSn;
+
     private String goodsTitle;
 
     private BigDecimal goodsCurrnetScore;

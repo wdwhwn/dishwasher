@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.DeviceControlDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.DeviceControl" >
-    <id column="device_control_id" property="deviceControlId" jdbcType="INTEGER" />
+    <id column="id" property="deviceControlId" jdbcType="INTEGER" />
     <result column="device_control_device_id" property="deviceControlDeviceId" jdbcType="INTEGER" />
     <result column="device_control_date" property="deviceControlDate" jdbcType="TIMESTAMP" />
     <result column="device_control_state" property="deviceControlState" jdbcType="VARCHAR" />

@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.ImgDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.Img" >
-    <id column="img_id" property="imgId" jdbcType="INTEGER" />
+    <id column="id" property="imgId" jdbcType="INTEGER" />
     <result column="img_img_url" property="imgImgUrl" jdbcType="VARCHAR" />
     <result column="img_delete_state" property="imgDeleteState" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dishwasher_img
     where img_id = #{imgId,jdbcType=INTEGER}
   </delete>
@@ -27,10 +27,10 @@
     select img_id, img_img_url, img_delete_state
     from t_dishwasher_img
     where img_id = #{imgId,jdbcType=INTEGER}
-  </select>
+  </select>-->
 
   <select id="selectAll" resultMap="BaseResultMap" >
-    select img_id, img_img_url, img_delete_state
+    select id, img_img_url, img_delete_state
     from t_dishwasher_img where img_delete_state=0
   </select>
 </mapper>

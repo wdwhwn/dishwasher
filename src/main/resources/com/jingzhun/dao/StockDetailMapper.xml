@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jingzhun.dao.StockDetailDao" >
   <resultMap id="BaseResultMap" type="com.jingzhun.entity.StockDetail" >
-    <id column="stock_detail_id" property="stockDetailId" jdbcType="INTEGER" />
+    <id column="id" property="stockDetailId" jdbcType="INTEGER" />
     <result column="stock_detail_device_style_id" property="stockDetailDeviceStyleId" jdbcType="INTEGER" />
     <result column="stock_detail_device_number" property="stockDetailDeviceNumber" jdbcType="VARCHAR" />
     <result column="stock_detail_state" property="stockDetailState" jdbcType="VARCHAR" />
     <result column="  stock_detail_two_dimensional" property="stockDetailTwoDimensional" jdbcType="VARCHAR" />
     <association property="deviceStyle" javaType="com.jingzhun.entity.DeviceStyle" >
-      <result column="device_style_id" property="deviceStyleId" jdbcType="INTEGER" />
+      <result column="id1" property="deviceStyleId" jdbcType="INTEGER" />
       <result column="devie_style_name" property="devieStyleName" jdbcType="VARCHAR" />
       <result column="devie_style_month_supply" property="devieStyleMonthSupply" jdbcType="DECIMAL" />
       <result column="device_style_number" property="deviceStyleNumber" jdbcType="INTEGER" />
@@ -42,17 +42,17 @@
   -->
   <!--添加测试数据-->
   <insert id="insert" parameterType="com.jingzhun.entity.StockDetail" >
-    insert into t_dishwasher_stock_detail (stock_detail_id, stock_detail_device_style_id,
+    insert into t_dishwasher_stock_detail (id, stock_detail_device_style_id,
     stock_detail_device_number, stock_detail_state)values (0, #{stockDetailDeviceStyleId,jdbcType=INTEGER},
     #{stockDetailDeviceNumber,jdbcType=VARCHAR},0)
   </insert>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select stock_detail_id, stock_detail_device_style_id, stock_detail_device_number,
+    select id, stock_detail_device_style_id, stock_detail_device_number,
     stock_detail_state,stock_detail_two_dimensional from t_dishwasher_stock_detail
   </select>
   <!--出货 获取某个类别下  最小的id-->
   <select id="selectOne" resultType="int" parameterType="java.lang.Integer" >
-    select min(stock_detail_id)
+    select min(id)
     from t_dishwasher_stock_detail
     where stock_detail_device_style_id = #{stockDetailId,jdbcType=INTEGER} and stock_detail_state=0
   </select>
@@ -61,18 +61,18 @@
     update t_dishwasher_stock_detail
     set
     stock_detail_two_dimensional = #{stockDetailTwoDimensional,jdbcType=VARCHAR}
-    where stock_detail_id = #{stockDetailId,jdbcType=INTEGER}
+    where id = #{stockDetailId,jdbcType=INTEGER}
   </update>
   <!--根据id 查询设备-->
   <select id="selectByStockDetailId" resultMap="BaseResultMap"  >
-    select stock_detail_id, stock_detail_device_style_id, stock_detail_device_number,device_style_id,devie_style_name,devie_style_month_supply,device_style_number
-     from t_dishwasher_stock_detail left join t_dishwasher_device_style on stock_detail_device_style_id =device_style_id
-    WHERE stock_detail_id = #{stockDetailId,jdbcType=INTEGER} and stock_detail_device_number = #{stockDetailDeviceNumber,jdbcType=INTEGER} and stock_detail_state = 0
+    select t_dishwasher_stock_detail.id, stock_detail_device_style_id, stock_detail_device_number,dds.id id1,devie_style_name,devie_style_month_supply,device_style_number
+     from t_dishwasher_stock_detail left join t_dishwasher_device_style dds on stock_detail_device_style_id =dds.id
+    WHERE t_dishwasher_stock_detail.id = #{stockDetailId,jdbcType=INTEGER} and stock_detail_device_number = #{stockDetailDeviceNumber,jdbcType=INTEGER} and stock_detail_state = 0
   </select>
   <!--确认购买之后，更改状态-->
   <update id="updateState" parameterType="com.jingzhun.entity.StockDetail" >
     update t_dishwasher_stock_detail
     set    stock_detail_state = 1
-    where stock_detail_id = #{stockDetailId,jdbcType=INTEGER}
+    where id = #{stockDetailId,jdbcType=INTEGER}
   </update>
 </mapper>
