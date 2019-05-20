@@ -85,13 +85,11 @@ public class TwoDimensionalServiceImpl implements TwoDimensionalService {
             DeviceStyle deviceStyle = deviceStyleDao.selectByStyleId(deviceStyleId);
             String urlName = PropertiesUtil.readValue("main.properties", "urlName");
             String url = PropertiesUtil.readValue("url.properties", urlName);
-            url=url+"/center/devDetail?deviceStyleId="+deviceStyle.getDeviceStyleId()+"&devieStyleName="+deviceStyle.getDevieStyleName()+"&devieStyleMonthSupply="+deviceStyle.getDevieStyleMonthSupply()+"&deviceStyleNumber="+deviceStyle.getDeviceStyleNumber();
-           /* HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
-            objectObjectHashMap.put("userId",userId);
-            objectObjectHashMap.put("deviceStyleId",deviceStyleId);*/
-//           String url1="http://www.baidu.com";
-           String url1="http://www.baidu.com";
-            String binary = QrCodeUtils.creatRrCode(url1, 200, 200);
+            url="http://"+url+"/#/numpintuan";
+            url=url+"?"+deviceStyle.getDeviceStyleId()+"&devieStyleName="+deviceStyle.getDevieStyleName()+"&devieStyleMonthSupply="+deviceStyle.getDevieStyleMonthSupply()+"&deviceStyleNumber="+deviceStyle.getDeviceStyleNumber();
+
+
+            String binary = QrCodeUtils.creatRrCode(url, 200, 200);
             DeviceTwoDimensionalDTO deviceTwoDimensionalDTO = new DeviceTwoDimensionalDTO();
             deviceTwoDimensionalDTO.setName(deviceStyle.getDevieStyleName());
             deviceTwoDimensionalDTO.setUrl(binary);

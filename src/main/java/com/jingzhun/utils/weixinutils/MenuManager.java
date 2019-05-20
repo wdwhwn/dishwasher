@@ -42,21 +42,30 @@ public class MenuManager {
     public static Menu getMenu(){
         Menu menu=new Menu();
         ViewButton viewButton = new ViewButton();
-        viewButton.setName("积分商城");
+        viewButton.setName("积分商城(测试1)");
         viewButton.setType("view");
-        viewButton.setUrl("http://xiwanji.91xiaokong.com");
+        viewButton.setUrl("http://dishwasher.ngrok.xiaomiqiu.cn/dishwasher/");
         ViewButton viewButton1 = new ViewButton();
 //        viewButton1.setName("授权");
-        viewButton1.setName("积分商城");
+        viewButton1.setName("积分商城（测试2）");
         viewButton1.setType("view");
         //viewButton.setUrl("http://myjava.ngrok.xiaomiqiu.cn/tomainpage");
 //        viewButton1.setUrl("http://xiwanji.91xiaokong.com/wx/wxLogin");
 //       viewButton.setUrl("http://xiwanji.91xiaokong.com");
-        viewButton1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx778f313eff0f980b&redirect_uri=http://xiwanji.91xiaokong.com/tologin/userinfo&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect");
+        viewButton1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx778f313eff0f980b&redirect_uri=http://dishwasher.ngrok.xiaomiqiu.cn/dishwasher/wx/callBack1&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect");
+
+        ViewButton viewButton2 = new ViewButton();
+//        viewButton1.setName("授权");
+        viewButton2.setName("积分商城");
+        viewButton2.setType("view");
+        //viewButton.setUrl("http://myjava.ngrok.xiaomiqiu.cn/tomainpage");
+//        viewButton1.setUrl("http://xiwanji.91xiaokong.com/wx/wxLogin");
+//       viewButton.setUrl("http://xiwanji.91xiaokong.com");
+        viewButton2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx778f313eff0f980b&redirect_uri=http://xiwanji.91xiaokong.com/wx/callBack1&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect");
         Button button = new Button();
         button.setName("莱田洗碗机");
-//        button.setSub_button(new Button[]{viewButton,viewButton1});
-        button.setSub_button(new Button[]{viewButton1});
+//        button.setSub_button(new Button[]{viewButton,viewButton1,viewButton2});
+        button.setSub_button(new Button[]{viewButton,viewButton1,viewButton2});
         menu.setButton(new Button[]{button});
         return menu;
     }

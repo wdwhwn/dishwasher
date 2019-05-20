@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import com.jingzhun.entity.User;
+import com.jingzhun.utils.jsonutil.JsonUtil;
 import com.jingzhun.utils.weixinutils.AuthUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.http.auth.AUTH;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -36,8 +40,43 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 @RequestMapping("/wx")
 @CrossOrigin(origins = "*",maxAge = 3600)
+@Slf4j
 public class WXLoginController {
     private static final Logger logger = Logger.getLogger(WXLoginController.class);
+
+    @RequestMapping(value = "/callBack1", method = RequestMethod.GET)
+    public String callBack1(ModelMap modelMap,HttpServletRequest req, HttpServletResponse resp) throws Exception {
+            String code=req.getParameter("code");
+         /*++++++++++++++++++第1步：通过code 获取access_token+++++++++++++++++*/
+                String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+AuthUtil.APPID
+                + "&secret="+AuthUtil.APPSECRET
+                + "&code="+code
+                + "&grant_type=authorization_code";
+        JSONObject jsonObject = AuthUtil.doGetJson(url);
+        log.error(JsonUtil.toJson(jsonObject));
+        String access_token=jsonObject.getString("access_token");
+        String openid = jsonObject.getString("openid");
+         /*+++++++++++++++++++++++++++END+++++++++++++++++++    +++++++++++++++++++++++++*/
+
+        /*++++++++++++++++++第2步：通过openid、access_token获取用户信息+++++++++++++++++*/
+            String userInfo_url="https://api.weixin.qq.com/sns/userinfo?access_token="+access_token
+                    + "&openid="+openid
+                    + "&lang=zh_CN";
+        JSONObject userInfo_jsonObject = AuthUtil.doGetJson(userInfo_url);
+        User user = new User();
+        String nickname = userInfo_jsonObject.getString("nickname");
+        String headimgurl = userInfo_jsonObject.getString("headimgurl");
+        user.setUserWxNameReal(nickname);
+        user.setUserWxOpenid(openid);
+        user.setUserWxImg(headimgurl);
+        /*+++++++++++++++++++++++++++END++++++++++++++++++++++++++++++++++++++++++++*/
+        
+        /*++++++++++++++++++第3步：业务逻辑+++++++++++++++++*/
+
+        /*+++++++++++++++++++++++++++END++++++++++++++++++++++++++++++++++++++++++++*/
+        return "login";
+    }
+
     /**
      *  * 公众号微信登录授权
      *  * @param request

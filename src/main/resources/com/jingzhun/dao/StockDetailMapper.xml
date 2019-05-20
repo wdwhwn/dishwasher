@@ -67,7 +67,7 @@
   <select id="selectByStockDetailId" resultMap="BaseResultMap"  >
     select t_dishwasher_stock_detail.id, stock_detail_device_style_id, stock_detail_device_number,dds.id id1,devie_style_name,devie_style_month_supply,device_style_number
      from t_dishwasher_stock_detail left join t_dishwasher_device_style dds on stock_detail_device_style_id =dds.id
-    WHERE t_dishwasher_stock_detail.id = #{stockDetailId,jdbcType=INTEGER} and stock_detail_device_number = #{stockDetailDeviceNumber,jdbcType=INTEGER} and stock_detail_state = 0
+    WHERE  stock_detail_device_number = #{stockDetailDeviceNumber,jdbcType=INTEGER} and stock_detail_state = 0
   </select>
   <!--确认购买之后，更改状态-->
   <update id="updateState" parameterType="com.jingzhun.entity.StockDetail" >
